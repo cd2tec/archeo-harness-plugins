@@ -1,6 +1,6 @@
 <div align="center">
 
-# Archeo Harness Plugins
+# Archeo para agentes de IA
 
 **Do banco legado ao painel executivo e às ferramentas de IA, com cada número conferido no seu banco.**
 
@@ -38,12 +38,12 @@ Um detalhe errado não dá erro. A ferramenta simplesmente **devolve zero linhas
 
 ## A solução: `add-mcp-tool`
 
-Você descreve o que quer em português. O Claude explora o banco conectado ao Archeo, escreve o SQL, roda no banco real e devolve a ficha pronta para copiar e colar na tela **Nova ferramenta**.
+Você descreve o que quer em português. O agente explora o banco conectado ao Archeo, escreve o SQL, roda no banco real e devolve a ficha pronta para copiar e colar na tela **Nova ferramenta**.
 
 ```
 Você: crie uma ferramenta no Archeo para vendas por loja e mês, com filtro de período e loja
 
-Claude: [identifica o banco conectado, procura colunas de venda, data e loja,
+Agente: [identifica o banco conectado, procura colunas de venda, data e loja,
          confere cancelamentos e nulos, escreve o SQL, roda com valores de teste]
 
         Banco: loja_demo (SQL Server 16.0)
@@ -115,7 +115,7 @@ O painel não esconde dado ruim: seção sem dado confiável sai do painel e apa
 ```
 Você: monta um dashboard da operação dos últimos 30 dias
 
-Claude: [mapeia venda, itens, cadastros, pagamento, custo e estoque no banco conectado,
+Agente: [mapeia venda, itens, cadastros, pagamento, custo e estoque no banco conectado,
          calcula e reconcilia cada seção, escreve a leitura, publica o painel]
 ```
 
@@ -124,7 +124,7 @@ Três modos de atualização:
 | Modo | Para quem | Como atualiza |
 |---|---|---|
 | **Snapshot** | Relatório de período fechado, qualquer pessoa com o link | Republicando |
-| **Ao vivo** | Quem tem o conector Archeo no Claude | A página consulta o banco ao abrir e a cada 5 minutos |
+| **Ao vivo** | Quem usa o Claude com o conector Archeo | A página consulta o banco ao abrir e a cada 5 minutos |
 | **Agendado** | Diretoria sem conector | Uma tarefa agendada roda a skill e republica, por exemplo todo dia às 6h |
 
 ## Relatórios de ERP: `analyze-mcp-*`
