@@ -161,8 +161,8 @@
   .hero-art path { fill: none; stroke: var(--hero-line); stroke-width: 2; vector-effect: non-scaling-stroke; }
   @media (max-width: 720px) { .hero-art { width: 460px; right: -220px; top: 0; } }
   .hero h1 {
-    margin: var(--space-8) 0 var(--space-6); max-width: 16ch;
-    font: 700 clamp(38px, 6.4vw, 64px)/1.06 var(--font-sans); letter-spacing: -1.5px;
+    margin: var(--space-8) 0 var(--space-6); max-width: 24ch;
+    font: 700 clamp(30px, 4.8vw, 50px)/1.1 var(--font-sans); letter-spacing: -1px;
   }
   .hero .lead { font: 400 18px/28px var(--font-sans); color: var(--ink-muted); max-width: 60ch; margin: 0 0 var(--space-4); }
   .hero .lead + .lead { margin-bottom: var(--space-8); }
@@ -380,7 +380,7 @@
     <svg class="hero-art" viewBox="114 91 332 312" aria-hidden="true"><path class="lg" d="M 242.320312 397.777344 C 174.101562 397.742188 118.683594 341.917969 119.3125 273.550781 C 119.9375 205.753906 176.226562 151.621094 244.023438 151.621094 L 316.152344 151.621094 C 316.191406 151.621094 316.21875 151.648438 316.21875 151.683594 C 316.21875 182.632812 291.132812 207.722656 260.183594 207.722656 L 243.574219 207.722656 C 206.863281 207.722656 176.082031 236.761719 175.421875 273.46875 C 174.746094 310.9375 205.011719 341.640625 242.320312 341.675781 C 242.355469 341.675781 242.386719 341.703125 242.386719 341.738281 L 242.386719 397.710938 C 242.386719 397.75 242.355469 397.777344 242.320312 397.777344 "/><path class="lg-tech" d="M 314.554688 341.699219 L 242.421875 341.699219 C 242.386719 341.699219 242.359375 341.667969 242.359375 341.632812 C 242.359375 310.683594 267.445312 285.597656 298.394531 285.597656 L 315.003906 285.597656 C 351.714844 285.597656 382.492188 256.554688 383.15625 219.851562 C 383.832031 182.378906 353.566406 151.679688 316.257812 151.644531 C 316.21875 151.644531 316.191406 151.613281 316.191406 151.578125 L 316.191406 95.605469 C 316.191406 95.570312 316.222656 95.539062 316.257812 95.539062 C 384.476562 95.578125 439.890625 151.402344 439.265625 219.769531 C 438.640625 287.5625 382.351562 341.699219 314.554688 341.699219 "/></svg>
     <div class="wrap">
       <span class="eyebrow">Plugin para Claude e ChatGPT</span>
-      <h1>Do banco legado ao relatório que fecha, com cada número <em>conferido.</em></h1>
+      <h1>Do banco legado ao dashboard e ao relatório que fecha: um agente de IA, assistente do seu ERP, com cada número <em>conferido.</em></h1>
       <p class="lead">O Archeo conecta bancos de dados legados a assistentes de IA. Com o Archeo MCP Creator, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.</p>
       <p class="lead">Este plugin tira o trabalho braçal desse processo. As mesmas skills, no Claude Code, no Claude Cowork, no Codex e no ChatGPT Work, geram os relatórios de oito módulos do ERP com prova de reconciliação, montam painéis de varejo e especificam ferramentas para o MCP Creator, sempre validando o SQL no seu banco antes de entregar.</p>
       <div class="cta">
@@ -388,7 +388,7 @@
         <a class="btn btn--secondary" href="#relatorios">Ver os relatórios</a>
       </div>
       <div class="chips">
-        <span class="chip">Claude Code</span><span class="chip">Claude Cowork</span><span class="chip">Codex</span><span class="chip">ChatGPT Work</span><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença MIT</span><span class="chip">v0.4.0</span>
+        <span class="chip">Claude Code</span><span class="chip">Claude Cowork</span><span class="chip">Codex</span><span class="chip">ChatGPT Work</span><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença Apache 2.0</span><span class="chip">v0.4.1</span>
       </div>
 
       <div class="demo" role="img" aria-label="Exemplo de conversa: o usuário pede o Kardex de um produto e o agente devolve a movimentação com a prova de que o saldo fecha">
@@ -668,11 +668,11 @@
       </div>
       <div class="grid g4">
         <div class="card db"><b>SQL Server</b><span class="tag tag--concluido"><span class="tag__dot" aria-hidden="true"></span>Validado</span></div>
-        <div class="card db"><b>PostgreSQL</b><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Suportado</span></div>
+        <div class="card db"><b>PostgreSQL</b><span class="tag tag--concluido"><span class="tag__dot" aria-hidden="true"></span>Validado</span></div>
         <div class="card db"><b>Oracle</b><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Suportado</span></div>
-        <div class="card db"><b>MySQL / MariaDB</b><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Suportado</span></div>
+        <div class="card db"><b>MySQL / MariaDB</b><span class="tag tag--concluido"><span class="tag__dot" aria-hidden="true"></span>Validado</span></div>
       </div>
-      <p class="note">Validado: testado contra banco real. Suportado: sintaxe padrão a confirmar no primeiro uso. Se algo não roda, a skill diagnostica e ajusta antes de entregar.</p>
+      <p class="note">Validado: testado contra banco real. Suportado: sintaxe padrão a confirmar no primeiro uso. SQL Server, PostgreSQL e MySQL / MariaDB estão validados; o Oracle é suportado e ainda não foi validado. Se algo não roda, a skill diagnostica e ajusta antes de entregar.</p>
     </div>
   </section>
 
@@ -814,7 +814,7 @@
     <nav aria-label="Links">
       <a href="https://github.com/cd2tec/archeo-harness-plugins">GitHub</a>
       <a href="https://github.com/cd2tec/archeo-harness-plugins/issues">Issues</a>
-      <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/LICENSE">Licença MIT</a>
+      <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/LICENSE">Licença Apache 2.0</a>
       <a href="https://cd2.com.br">cd2.com.br</a>
     </nav>
     <span class="caption">CD2 Tech · Archeo para agentes de IA</span>
