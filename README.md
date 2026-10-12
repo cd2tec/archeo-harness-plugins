@@ -156,9 +156,9 @@ O relatório que você vai pedir de novo vira ferramenta: cada skill indica os p
 | Engine | Status |
 |---|---|
 | SQL Server | Validado contra banco real |
-| PostgreSQL | Suportado, sintaxe padrão a confirmar no primeiro uso |
-| Oracle | Suportado, sintaxe padrão a confirmar no primeiro uso |
-| MySQL / MariaDB | Suportado, sintaxe padrão a confirmar no primeiro uso |
+| PostgreSQL | Validado contra banco real |
+| Oracle | Suportado, ainda não validado: sintaxe padrão a confirmar no primeiro uso |
+| MySQL / MariaDB | Validado contra banco real |
 
 Em qualquer engine, a palavra final é do teste no banco conectado: se algo não roda, a skill diagnostica e ajusta antes de entregar.
 
