@@ -1,0 +1,35 @@
+{
+  "name": "archeo-plugins",
+  "owner": {
+    "name": "CD2 Retail Tech",
+    "url": "https://github.com/cd2tec"
+  },
+  "metadata": {
+    "description": "Plugins do Claude para o Archeo: ferramentas no MCP Creator, painel de varejo e relatórios de ERP, com SQL validado no banco conectado."
+  },
+  "plugins": [
+    {
+      "name": "archeo",
+      "source": "./plugins/archeo",
+      "description": "Skills add-mcp-tool (ficha de ferramenta no MCP Creator), add-mcp-dashboard (painel executivo de varejo) e analyze-mcp-* (relatórios de estoque, vendas, compras, preços, perdas, fiscal, contábil e financeiro), sempre validadas no banco conectado.",
+      "version": "0.3.0",
+      "license": "MIT",
+      "keywords": [
+        "archeo",
+        "mcp",
+        "mcp-creator",
+        "sql",
+        "legacy-database",
+        "dashboard",
+        "varejo",
+        "retail",
+        "erp",
+        "relatorios",
+        "estoque",
+        "fiscal",
+        "contabil",
+        "financeiro"
+      ]
+    }
+  ]
+}

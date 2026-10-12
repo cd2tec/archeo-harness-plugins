@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archeo para Claude · CD2 Tech</title>
+<meta name="description" content="Plugin do Claude para o Archeo: ferramentas no MCP Creator, painel executivo de varejo e relatórios de ERP, com cada número conferido no seu banco.">
+<meta property="og:title" content="Archeo para Claude · CD2 Tech">
+<meta property="og:description" content="Do banco legado ao painel executivo e às ferramentas de IA, com cada número conferido no seu banco.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0000ff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22104%2081%20352%20332%22%3E%3Cpath%20fill%3D%22%230000ff%22%20d%3D%22M%20242.320312%20397.777344%20C%20174.101562%20397.742188%20118.683594%20341.917969%20119.3125%20273.550781%20C%20119.9375%20205.753906%20176.226562%20151.621094%20244.023438%20151.621094%20L%20316.152344%20151.621094%20C%20316.191406%20151.621094%20316.21875%20151.648438%20316.21875%20151.683594%20C%20316.21875%20182.632812%20291.132812%20207.722656%20260.183594%20207.722656%20L%20243.574219%20207.722656%20C%20206.863281%20207.722656%20176.082031%20236.761719%20175.421875%20273.46875%20C%20174.746094%20310.9375%20205.011719%20341.640625%20242.320312%20341.675781%20C%20242.355469%20341.675781%20242.386719%20341.703125%20242.386719%20341.738281%20L%20242.386719%20397.710938%20C%20242.386719%20397.75%20242.355469%20397.777344%20242.320312%20397.777344%20%22/%3E%3Cpath%20fill%3D%22%23210e9e%22%20d%3D%22M%20314.554688%20341.699219%20L%20242.421875%20341.699219%20C%20242.386719%20341.699219%20242.359375%20341.667969%20242.359375%20341.632812%20C%20242.359375%20310.683594%20267.445312%20285.597656%20298.394531%20285.597656%20L%20315.003906%20285.597656%20C%20351.714844%20285.597656%20382.492188%20256.554688%20383.15625%20219.851562%20C%20383.832031%20182.378906%20353.566406%20151.679688%20316.257812%20151.644531%20C%20316.21875%20151.644531%20316.191406%20151.613281%20316.191406%20151.578125%20L%20316.191406%2095.605469%20C%20316.191406%2095.570312%20316.222656%2095.539062%20316.257812%2095.539062%20C%20384.476562%2095.578125%20439.890625%20151.402344%20439.265625%20219.769531%20C%20438.640625%20287.5625%20382.351562%20341.699219%20314.554688%20341.699219%20%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+  /* Tokens do design system CD2 Tech (tema claro, White_HUMAN). */
+  :root {
+    --surface-100: #f2f2f2;
+    --surface-raised: #ffffff;
+    --surface-brand: #0000ff;
+    --ink: #0d1233;
+    --ink-muted: #464a53;
+    --ink-brand: #0000ff;
+    --on-brand: #ffffff;
+    --brand: #0000ff;
+    --brand-hover: #0333f7;
+    --on-primary: #ffffff;
+    --accent: #dbff2a;
+    --on-accent: #011e80;
+    --border: #a1a6ae;
+    --border-strong: #0d1233;
+    --focus: #0000ff;
+    --logo-ink: #0000ff;
+    --logo-ink-tech: #210e9e;
+    --shadow-card: 0 4px 16px rgba(13, 18, 51, 0.08);
+
+    --blue-experience: #011e80;
+    --blue-sky: #019eff;
+    --gray-solution: #a1a6ae;
+    --status-ink-escuro: #0d1233;
+
+    --font-sans: "Manrope", "Segoe UI", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+    --radius-sm: 6px; --radius-md: 12px; --radius-lg: 24px; --radius-pill: 999px;
+    --max: 1152px;
+    color-scheme: light;
+  }
+  /* Tema azul (Blue_RETAIL): hero, seções de destaque e rodapé. */
+  .theme-blue {
+    --surface-100: #0000ff;
+    --surface-raised: #011e80;
+    --surface-brand: #210e9e;
+    --ink: #ffffff;
+    --ink-muted: #f2f2f2;
+    --ink-brand: #dbff2a;
+    --brand: #dbff2a;
+    --brand-hover: #eaff6b;
+    --on-primary: #011e80;
+    --border-strong: #ffffff;
+    --focus: #dbff2a;
+    --logo-ink: #ffffff;
+    --logo-ink-tech: #ffffff;
+    --shadow-card: 0 4px 16px rgba(1, 30, 128, 0.35);
+    background: var(--surface-100);
+    color: var(--ink);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--surface-100);
+    color: var(--ink);
+    font: 400 15px/24px var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ink-brand); }
+  code, pre { font-family: var(--font-mono); }
+  :not(pre) > code {
+    background: var(--surface-100);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+  }
+  .theme-blue :not(pre) > code { background: var(--surface-raised); border-color: transparent; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--space-4); }
+  @media (min-width: 720px) { .wrap { padding: 0 var(--space-12); } }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* Logo inline: só logo-ink e logo-ink-tech. */
+  .lg { fill: var(--logo-ink); }
+  .lg-tech { fill: var(--logo-ink-tech); }
+
+  /* Barra superior */
+  header.top { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.18); }
+  .top .wrap { display: flex; align-items: center; gap: var(--space-4); height: 72px; }
+  .brand { display: flex; align-items: center; gap: var(--space-4); color: var(--ink); text-decoration: none; }
+  .brand .logo { height: 24px; width: auto; display: block; }
+  .brand .sep { width: 1px; height: 24px; background: rgba(255,255,255,.4); }
+  .brand .product { font: 700 17px/22px var(--font-sans); }
+  .brand .product span { font-weight: 500; opacity: .85; }
+  .top nav { margin-left: auto; display: flex; gap: var(--space-1); align-items: center; }
+  .top nav a { color: var(--ink); text-decoration: none; font: 500 13px/16px var(--font-sans); padding: var(--space-2) var(--space-3); border-radius: var(--radius-pill); transition: background-color .15s; }
+  .top nav a:hover { background: var(--surface-raised); }
+  .top nav .hide-sm { display: none; }
+  @media (min-width: 860px) { .top nav .hide-sm { display: inline-block; } }
+  @media (max-width: 480px) { .brand .sep, .brand .product span, .top nav .hide-xs { display: none; } .brand { gap: var(--space-3); } }
+
+  /* Botões (componente Button) */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+    height: 44px; padding: 0 var(--space-6); border-radius: var(--radius-pill); border: 2px solid transparent;
+    font: 700 13px/16px var(--font-sans); text-decoration: none; cursor: pointer;
+    transition: background-color .15s, color .15s, border-color .15s;
+  }
+  .btn--primary { background: var(--brand); color: var(--on-primary); }
+  .btn--primary:hover { background: var(--brand-hover); }
+  .btn--secondary { background: transparent; color: var(--ink); border-color: var(--border-strong); }
+  .btn--secondary:hover { background: var(--surface-raised); }
+  .btn__arrow { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid currentColor; font-size: 12px; line-height: 1; }
+
+  /* Cabeçalho de seção (componente SectionHeader) */
+  .section-head { display: flex; flex-direction: column; gap: var(--space-8); margin-bottom: var(--space-12); max-width: 760px; }
+  .eyebrow {
+    display: block; font: 500 12px/16px var(--font-sans); letter-spacing: 2.4px; text-transform: uppercase;
+    color: var(--ink-muted); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-strong);
+    width: 240px; max-width: 100%;
+  }
+  .section-head h2 { margin: 0; font: 700 32px/38px var(--font-sans); letter-spacing: -.5px; }
+  .section-head h2 em, .hero h1 em { font-style: normal; color: var(--ink-brand); }
+  .section-head .stack p { margin: 0; color: var(--ink-muted); max-width: 52ch; }
+  .section-head .stack { display: flex; flex-direction: column; gap: var(--space-4); }
+
+  section { padding: var(--space-16) 0; }
+  @media (min-width: 720px) { section { padding: 96px 0; } }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding: var(--space-16) 0 var(--space-16); }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero-art {
+    position: absolute; right: -180px; top: -40px; width: 720px; height: auto; pointer-events: none; opacity: .9;
+  }
+  .hero-art path { fill: none; stroke: #ffffff; stroke-width: 2; vector-effect: non-scaling-stroke; opacity: .35; }
+  @media (max-width: 720px) { .hero-art { width: 460px; right: -220px; top: 0; } }
+  .hero h1 {
+    margin: var(--space-8) 0 var(--space-6); max-width: 15ch;
+    font: 700 clamp(38px, 6.4vw, 64px)/1.06 var(--font-sans); letter-spacing: -1.5px;
+  }
+  .hero .lead { font: 400 18px/28px var(--font-sans); color: var(--ink-muted); max-width: 58ch; margin: 0 0 var(--space-8); }
+  .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-8); }
+  .chip { font: 500 12px/16px var(--font-sans); color: var(--ink); border: 1px solid rgba(255,255,255,.5); border-radius: var(--radius-pill); padding: 6px 12px; }
+
+  /* Exemplo de conversa (bloco de conexão em blue-experience) */
+  .demo {
+    margin-top: var(--space-12); background: var(--surface-raised); color: var(--ink);
+    border-radius: var(--radius-lg); border-top-right-radius: 0; overflow: hidden; box-shadow: var(--shadow-card);
+  }
+  .demo-bar { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-bottom: 1px solid rgba(255,255,255,.14); font: 500 12px/16px var(--font-sans); letter-spacing: 2.4px; text-transform: uppercase; color: var(--ink-muted); }
+  .demo pre { margin: 0; padding: var(--space-6); overflow-x: auto; font-size: 13px; line-height: 1.7; }
+  .demo .u { color: var(--ink-brand); font-weight: 700; }
+  .demo .c { color: #ffffff; font-weight: 700; }
+  .demo .d { color: var(--gray-solution); }
+  .demo .k { color: var(--blue-sky); }
+
+  /* Cartões e blocos de conexão */
+  .grid { display: grid; gap: var(--space-6); }
+  .grid > * { min-width: 0; }
+  @media (min-width: 720px) { .g2 { grid-template-columns: repeat(2, 1fr); } .g3 { grid-template-columns: repeat(2, 1fr); } .g4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } }
+
+  .card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-6); }
+  .card h3 { margin: 0 0 var(--space-2); font: 700 22px/28px var(--font-sans); }
+  .card p { margin: 0; color: var(--ink-muted); }
+  .icon { width: 40px; height: 40px; color: var(--ink-brand); margin-bottom: var(--space-4); }
+  .icon svg { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .block {
+    position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-2);
+    padding: var(--space-6); border-radius: var(--radius-lg); min-height: 180px;
+  }
+  .block--brand { background: var(--surface-brand); color: var(--on-brand); }
+  .block--raised { background: var(--surface-raised); color: var(--ink); border: 1px solid var(--border); }
+  .block--accent { background: var(--accent); color: var(--on-accent); }
+  .block--notch-tr { border-top-right-radius: 0; }
+  .block--notch-bl { border-bottom-left-radius: 0; }
+  .block__kicker { font: 500 12px/16px var(--font-sans); letter-spacing: 2.4px; text-transform: uppercase; opacity: .85; }
+  .block__title { margin: 0; font: 700 22px/28px var(--font-sans); }
+  .block__text { margin: 0; opacity: .9; }
+  .block__numeral { position: absolute; top: var(--space-4); right: var(--space-6); font: 800 56px/1 var(--font-sans); letter-spacing: -2px; opacity: .9; }
+  .theme-blue .block--raised { border-color: transparent; }
+
+  /* O problema */
+  .problem { display: grid; gap: var(--space-12); align-items: start; }
+  @media (min-width: 1000px) { .problem { grid-template-columns: 1fr 1fr; } .problem .section-head { margin-bottom: 0; } }
+  .problem-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+  .problem-list li { display: flex; gap: var(--space-4); align-items: baseline; background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-4) var(--space-6); }
+  .problem-list b { font: 800 22px/28px var(--font-sans); color: var(--ink-brand); min-width: 1.4em; }
+  .problem .block { margin-top: var(--space-8); min-height: 0; }
+
+  /* Abas */
+  .tabs { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-8); }
+  .tab {
+    height: 40px; padding: 0 var(--space-4); border-radius: var(--radius-pill); cursor: pointer;
+    border: 2px solid var(--border-strong); background: transparent; color: var(--ink);
+    font: 700 13px/16px var(--font-mono); transition: background-color .15s, color .15s;
+  }
+  .tab:hover { background: var(--surface-raised); }
+  .tab[aria-selected="true"] { background: var(--brand); border-color: var(--brand); color: var(--on-primary); }
+  .panel[hidden] { display: none; }
+  .panel-grid { display: grid; gap: var(--space-8); }
+  .panel-grid > * { min-width: 0; }
+  @media (min-width: 1000px) { .panel-grid { grid-template-columns: 1fr 1.15fr; align-items: start; } }
+  .panel-intro h3 { margin: 0 0 var(--space-3); font: 700 22px/28px var(--font-sans); }
+  .panel-intro p { margin: 0 0 var(--space-6); color: var(--ink-muted); }
+  .ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); }
+  .ticks li { display: flex; gap: var(--space-3); }
+  .ticks li::before {
+    content: ""; flex: none; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--brand)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5.5 10 3 3 6-6.5' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;
+  }
+  .after { margin-top: var(--space-6); }
+
+  /* Tabelas: cabeçalho h4 em surface-brand, corpo em body-sm */
+  .tbl { background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+  .tbl-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font: 400 13px/20px var(--font-sans); }
+  th { background: var(--surface-brand); color: var(--on-brand); text-align: left; font: 600 15px/22px var(--font-sans); padding: var(--space-3) var(--space-4); }
+  td { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--border); vertical-align: top; }
+  td:first-child { font-weight: 700; white-space: nowrap; }
+  td.q { color: var(--ink-muted); }
+
+  /* Como funciona (tema azul) */
+  .steps { display: grid; gap: var(--space-6); }
+  .steps > * { min-width: 0; }
+  @media (min-width: 720px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps .block { min-height: 220px; }
+  .loop-note { margin-top: var(--space-6); color: var(--ink-muted); display: flex; gap: var(--space-2); align-items: center; }
+  .loop-note svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Tags (componente StatusTag) */
+  .tag { display: inline-flex; align-items: center; gap: var(--space-1); height: 24px; padding: 0 var(--space-3); border-radius: var(--radius-sm); font: 700 13px/16px var(--font-sans); white-space: nowrap; align-self: flex-start; }
+  .tag__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
+  .tag--concluido { background: var(--blue-sky); color: var(--status-ink-escuro); }
+  .tag--backlog { background: var(--gray-solution); color: var(--status-ink-escuro); }
+  .db { display: flex; flex-direction: column; gap: var(--space-3); }
+  .db b { font: 700 17px/22px var(--font-sans); }
+  .note { margin-top: var(--space-6); color: var(--ink-muted); font-size: 13px; line-height: 20px; }
+
+  /* Instalação */
+  .install { display: grid; gap: var(--space-8); }
+  .install > * { min-width: 0; }
+  @media (min-width: 1000px) { .install { grid-template-columns: 1.1fr 1fr; } }
+  .term { background: var(--blue-experience); color: #ffffff; border-radius: var(--radius-lg); border-bottom-left-radius: 0; overflow: hidden; }
+  .term-line { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-bottom: 1px solid rgba(255,255,255,.14); }
+  .term-line:last-child { border-bottom: 0; }
+  .term-line code { background: none; border: 0; padding: 0; color: #ffffff; flex: 1; min-width: 0; font-size: 13px; overflow-x: auto; white-space: nowrap; }
+  .term-line code::before { content: "› "; color: var(--accent); }
+  .copy {
+    flex: none; height: 32px; padding: 0 var(--space-4); border-radius: var(--radius-pill); cursor: pointer;
+    border: 2px solid rgba(255,255,255,.6); background: transparent; color: #ffffff; font: 700 12px/16px var(--font-sans);
+    transition: background-color .15s;
+  }
+  .copy:hover { background: rgba(255,255,255,.12); }
+  .copy:focus-visible { outline-color: var(--accent); }
+  .prompts { display: grid; gap: var(--space-2); }
+  .prompt { background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
+  .prompts-title { margin: 0 0 var(--space-3); font: 600 17px/22px var(--font-sans); }
+
+  /* Rodapé */
+  footer { padding: var(--space-12) 0; }
+  footer .wrap { display: grid; gap: var(--space-8); }
+  @media (min-width: 860px) { footer .wrap { grid-template-columns: 1fr auto; align-items: end; } }
+  footer .logo { height: 32px; width: auto; display: block; margin-bottom: var(--space-4); }
+  footer .tagline { margin: 0; font: 700 22px/28px var(--font-sans); }
+  footer nav { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+  footer nav a { color: var(--ink); font: 500 13px/16px var(--font-sans); }
+  footer .caption { grid-column: 1 / -1; font: 500 11px/16px var(--font-sans); letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); border-top: 1px solid rgba(255,255,255,.3); padding-top: var(--space-6); }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="theme-blue">
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#" aria-label="Archeo para Claude, por CD2 Tech">
+        <svg class="logo" viewBox="114 91 1887 312" aria-label="CD2 Tech" role="img"><path class="lg" d="M 601.167969 397.566406 C 572.347656 397.566406 547.660156 391.261719 527.113281 378.652344 C 506.5625 366.042969 490.789062 348.464844 479.78125 325.914062 C 468.773438 303.367188 463.265625 277.214844 463.265625 247.457031 C 463.265625 217.707031 468.773438 191.550781 479.78125 169 C 490.789062 146.453125 506.5625 128.871094 527.113281 116.261719 C 547.660156 103.65625 572.347656 97.351562 601.167969 97.351562 C 634.390625 97.351562 662.078125 105.65625 684.226562 122.265625 C 706.375 138.878906 727.96875 172.328125 730.863281 203.113281 L 682.226562 202.824219 C 676.621094 184.011719 667.082031 169.300781 653.605469 158.695312 C 640.125 148.085938 622.648438 142.78125 601.167969 142.78125 C 581.820312 142.78125 565.707031 147.121094 552.832031 155.792969 C 539.953125 164.464844 530.28125 176.640625 523.8125 192.316406 C 517.339844 208 514.035156 226.378906 513.90625 247.457031 C 513.90625 268.542969 517.136719 286.921875 523.609375 302.597656 C 530.082031 318.277344 539.789062 330.453125 552.734375 339.125 C 565.671875 347.796875 581.820312 352.132812 601.167969 352.132812 C 622.648438 352.132812 640.125 346.796875 653.605469 336.121094 C 667.082031 325.449219 676.621094 310.773438 682.226562 292.089844 L 730.863281 292.351562 C 727.277344 324.863281 706.375 356.035156 684.226562 372.648438 C 662.078125 389.261719 634.390625 397.566406 601.167969 397.566406 "/><path class="lg" d="M 794.871094 346.128906 L 837.703125 346.128906 C 841.707031 346.128906 846.808594 345.996094 853.011719 345.730469 C 859.21875 345.464844 864.722656 344.863281 869.527344 343.925781 C 883.136719 341.394531 894.207031 335.320312 902.75 325.714844 C 911.285156 316.105469 917.589844 304.433594 921.664062 290.691406 C 925.730469 276.949219 927.765625 262.535156 927.765625 247.460938 C 927.765625 231.847656 925.699219 217.171875 921.5625 203.425781 C 917.425781 189.683594 911.054688 178.140625 902.449219 168.800781 C 893.84375 159.464844 882.867188 153.523438 869.527344 150.988281 C 864.722656 149.921875 859.21875 149.285156 853.011719 149.085938 C 846.808594 148.886719 841.707031 148.789062 837.703125 148.789062 L 794.871094 148.789062 Z M 745.835938 391.5625 L 745.835938 103.351562 L 837.703125 103.351562 C 840.105469 103.351562 844.871094 103.421875 852.011719 103.554688 C 859.148438 103.6875 866.054688 104.15625 872.730469 104.953125 C 895.542969 107.890625 914.859375 115.996094 930.667969 129.273438 C 946.480469 142.550781 958.457031 159.464844 966.59375 180.007812 C 974.734375 200.558594 978.804688 223.039062 978.804688 247.460938 C 978.804688 271.875 974.734375 294.363281 966.59375 314.90625 C 958.457031 335.457031 946.480469 352.367188 930.667969 365.644531 C 914.859375 378.921875 895.542969 387.027344 872.730469 389.960938 C 866.1875 390.761719 859.316406 391.230469 852.113281 391.363281 C 844.910156 391.496094 840.105469 391.5625 837.703125 391.5625 Z M 745.835938 391.5625 "/><path class="lg" d="M 982.253906 391.160156 L 982.253906 349.132812 L 1105.542969 239.253906 C 1115.148438 230.714844 1121.824219 222.640625 1125.558594 215.035156 C 1129.292969 207.429688 1131.160156 200.089844 1131.160156 193.019531 C 1131.160156 183.410156 1129.09375 174.839844 1124.957031 167.300781 C 1120.824219 159.761719 1115.113281 153.789062 1107.84375 149.386719 C 1100.574219 144.984375 1092.199219 142.78125 1082.730469 142.78125 C 1072.71875 142.78125 1063.878906 145.085938 1056.207031 149.6875 C 1048.53125 154.289062 1042.5625 160.394531 1038.296875 168 C 1034.019531 175.605469 1032.023438 183.8125 1032.292969 192.617188 L 982.65625 192.617188 C 982.65625 173.40625 986.957031 156.660156 995.5625 142.382812 C 1004.171875 128.105469 1016.042969 117.03125 1031.1875 109.15625 C 1046.332031 101.289062 1063.84375 97.351562 1083.730469 97.351562 C 1102.140625 97.351562 1118.683594 101.453125 1133.363281 109.65625 C 1148.039062 117.863281 1159.582031 129.207031 1167.988281 143.683594 C 1176.394531 158.164062 1180.597656 174.804688 1180.597656 193.617188 C 1180.597656 207.363281 1178.726562 218.90625 1174.992188 228.242188 C 1171.253906 237.585938 1165.6875 246.191406 1158.28125 254.0625 C 1150.875 261.9375 1141.703125 270.675781 1130.761719 280.28125 L 1043.296875 357.738281 L 1038.894531 345.730469 L 1180.597656 345.730469 L 1180.597656 391.160156 Z M 982.253906 391.160156 "/><path class="lg-tech" d="M 1387.714844 254.460938 L 1536.421875 254.460938 L 1536.421875 290.890625 L 1387.714844 290.890625 Z M 1462.167969 391.5625 C 1440.285156 391.5625 1421.070312 386.824219 1404.527344 377.351562 C 1387.980469 367.878906 1375.070312 354.734375 1365.800781 337.921875 C 1356.523438 321.109375 1351.886719 301.765625 1351.886719 279.878906 C 1351.886719 256.265625 1356.425781 235.75 1365.496094 218.335938 C 1374.570312 200.921875 1387.179688 187.414062 1403.324219 177.804688 C 1419.472656 168.199219 1438.152344 163.398438 1459.367188 163.398438 C 1481.78125 163.398438 1500.828125 168.632812 1516.507812 179.109375 C 1532.183594 189.585938 1543.828125 204.359375 1551.433594 223.441406 C 1559.039062 242.523438 1561.90625 265.003906 1560.039062 290.890625 L 1512.203125 290.890625 L 1512.203125 273.277344 C 1512.070312 249.792969 1507.933594 232.644531 1499.796875 221.839844 C 1491.65625 211.03125 1478.847656 205.625 1461.367188 205.625 C 1441.621094 205.625 1426.945312 211.730469 1417.335938 223.941406 C 1407.730469 236.148438 1402.925781 253.996094 1402.925781 277.480469 C 1402.925781 299.363281 1407.730469 316.308594 1417.335938 328.316406 C 1426.945312 340.324219 1440.953125 346.328125 1459.367188 346.328125 C 1471.242188 346.328125 1481.480469 343.695312 1490.089844 338.421875 C 1498.695312 333.152344 1505.332031 325.511719 1510 315.507812 L 1560.191406 315.566406 C 1549.882812 347.863281 1536.589844 364.542969 1519.308594 375.351562 C 1502.027344 386.160156 1482.984375 391.5625 1462.167969 391.5625 "/><path class="lg" d="M 242.320312 397.777344 C 174.101562 397.742188 118.683594 341.917969 119.3125 273.550781 C 119.9375 205.753906 176.226562 151.621094 244.023438 151.621094 L 316.152344 151.621094 C 316.191406 151.621094 316.21875 151.648438 316.21875 151.683594 C 316.21875 182.632812 291.132812 207.722656 260.183594 207.722656 L 243.574219 207.722656 C 206.863281 207.722656 176.082031 236.761719 175.421875 273.46875 C 174.746094 310.9375 205.011719 341.640625 242.320312 341.675781 C 242.355469 341.675781 242.386719 341.703125 242.386719 341.738281 L 242.386719 397.710938 C 242.386719 397.75 242.355469 397.777344 242.320312 397.777344 "/><path class="lg-tech" d="M 314.554688 341.699219 L 242.421875 341.699219 C 242.386719 341.699219 242.359375 341.667969 242.359375 341.632812 C 242.359375 310.683594 267.445312 285.597656 298.394531 285.597656 L 315.003906 285.597656 C 351.714844 285.597656 382.492188 256.554688 383.15625 219.851562 C 383.832031 182.378906 353.566406 151.679688 316.257812 151.644531 C 316.21875 151.644531 316.191406 151.613281 316.191406 151.578125 L 316.191406 95.605469 C 316.191406 95.570312 316.222656 95.539062 316.257812 95.539062 C 384.476562 95.578125 439.890625 151.402344 439.265625 219.769531 C 438.640625 287.5625 382.351562 341.699219 314.554688 341.699219 "/><path class="lg-tech" d="M 1236.042969 170.421875 L 1327 170.394531 L 1327 218.511719 L 1284.167969 218.511719 Z M 1236.042969 170.421875 "/><path class="lg" d="M 1236.046875 170.375 L 1236.019531 127.527344 L 1284.136719 127.527344 L 1284.136719 170.363281 Z M 1236.046875 170.375 "/><path class="lg-tech" d="M 1350.046875 396.464844 L 1276.976562 396.464844 C 1254.328125 396.464844 1235.902344 378.035156 1235.902344 355.390625 L 1235.902344 221.097656 L 1284.671875 221.097656 L 1284.671875 347.695312 L 1350.046875 347.695312 Z M 1350.046875 396.464844 "/><path class="lg-tech" d="M 1689.15625 394.40625 C 1666.238281 394.40625 1646.683594 389.292969 1630.492188 379.070312 C 1614.296875 368.851562 1601.917969 354.882812 1593.339844 337.183594 C 1584.761719 319.480469 1580.402344 299.445312 1580.269531 277.082031 C 1580.402344 254.304688 1584.902344 234.09375 1593.75 216.460938 C 1602.601562 198.828125 1615.191406 184.964844 1631.523438 174.882812 C 1647.851562 164.796875 1667.269531 159.75 1689.777344 159.75 C 1715.023438 159.75 1736.394531 166.101562 1753.894531 178.789062 C 1771.390625 191.488281 1780.328125 205.074219 1791.050781 243.8125 L 1738.765625 244.148438 C 1734.917969 232.207031 1728.539062 222.914062 1719.621094 216.253906 C 1710.699219 209.601562 1700.542969 206.273438 1689.15625 206.273438 C 1676.257812 206.273438 1665.621094 209.328125 1657.25 215.433594 C 1648.878906 221.539062 1642.703125 229.941406 1638.726562 240.648438 C 1634.746094 251.351562 1632.757812 263.496094 1632.757812 277.082031 C 1632.757812 298.210938 1637.492188 315.296875 1646.960938 328.332031 C 1656.429688 341.371094 1670.496094 347.886719 1689.15625 347.886719 C 1702.328125 347.886719 1712.726562 344.871094 1720.339844 338.828125 C 1727.957031 332.792969 1733.683594 324.082031 1737.53125 312.691406 L 1792.261719 312.816406 C 1787.59375 335.300781 1769.292969 364.042969 1752.144531 376.1875 C 1734.984375 388.332031 1713.992188 394.40625 1689.15625 394.40625 "/><path class="lg-tech" d="M 1856.597656 388.230469 L 1812.519531 388.230469 L 1812.519531 126.210938 L 1856.769531 126.210938 L 1856.769531 247.851562 "/><path class="lg-tech" d="M 1995.6875 388.046875 L 1950.984375 388.046875 L 1950.984375 251.984375 L 1843.105469 251.984375 L 1843.105469 207.28125 L 1943.328125 207.28125 C 1972.246094 207.28125 1995.6875 230.722656 1995.6875 259.640625 Z M 1995.6875 388.046875 "/></svg>
+        <span class="sep" aria-hidden="true"></span>
+        <span class="product">Archeo <span>para Claude</span></span>
+      </a>
+      <nav aria-label="Seções">
+        <a class="hide-sm" href="#skills">Skills</a>
+        <a class="hide-sm" href="#como-funciona">Como funciona</a>
+        <a class="hide-sm" href="#bancos">Bancos</a>
+        <a href="#instalacao">Instalação</a>
+        <a class="hide-xs" href="https://github.com/cd2tec/archeo-claude-plugins">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <svg class="hero-art" viewBox="114 91 332 312" aria-hidden="true"><path class="lg" d="M 242.320312 397.777344 C 174.101562 397.742188 118.683594 341.917969 119.3125 273.550781 C 119.9375 205.753906 176.226562 151.621094 244.023438 151.621094 L 316.152344 151.621094 C 316.191406 151.621094 316.21875 151.648438 316.21875 151.683594 C 316.21875 182.632812 291.132812 207.722656 260.183594 207.722656 L 243.574219 207.722656 C 206.863281 207.722656 176.082031 236.761719 175.421875 273.46875 C 174.746094 310.9375 205.011719 341.640625 242.320312 341.675781 C 242.355469 341.675781 242.386719 341.703125 242.386719 341.738281 L 242.386719 397.710938 C 242.386719 397.75 242.355469 397.777344 242.320312 397.777344 "/><path class="lg-tech" d="M 314.554688 341.699219 L 242.421875 341.699219 C 242.386719 341.699219 242.359375 341.667969 242.359375 341.632812 C 242.359375 310.683594 267.445312 285.597656 298.394531 285.597656 L 315.003906 285.597656 C 351.714844 285.597656 382.492188 256.554688 383.15625 219.851562 C 383.832031 182.378906 353.566406 151.679688 316.257812 151.644531 C 316.21875 151.644531 316.191406 151.613281 316.191406 151.578125 L 316.191406 95.605469 C 316.191406 95.570312 316.222656 95.539062 316.257812 95.539062 C 384.476562 95.578125 439.890625 151.402344 439.265625 219.769531 C 438.640625 287.5625 382.351562 341.699219 314.554688 341.699219 "/></svg>
+    <div class="wrap">
+      <span class="eyebrow">Plugin para Claude Code</span>
+      <h1>Do banco legado ao painel executivo, com cada número <em>conferido.</em></h1>
+      <p class="lead">O Archeo conecta bancos de dados legados a assistentes de IA. Este plugin dá ao Claude as skills para criar ferramentas no Archeo MCP Creator, montar painéis de varejo e gerar relatórios de ERP, sempre validando o SQL no banco real antes de entregar.</p>
+      <div class="cta">
+        <a class="btn btn--primary" href="#instalacao">Instalar o plugin <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--secondary" href="https://github.com/cd2tec/archeo-claude-plugins">Ver no GitHub</a>
+      </div>
+      <div class="chips">
+        <span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença MIT</span><span class="chip">v0.3.0</span>
+      </div>
+
+      <div class="demo" role="img" aria-label="Exemplo de conversa: o usuário pede uma ferramenta de vendas por loja e mês e o Claude devolve a ficha pronta">
+        <div class="demo-bar">Exemplo no Claude Code</div>
+<pre><span class="u">Você:</span> crie uma ferramenta no Archeo para vendas por loja e mês, com filtro de período e loja
+
+<span class="c">Claude:</span> <span class="d">[identifica o banco conectado, procura colunas de venda, data e loja,
+         confere cancelamentos e nulos, escreve o SQL, roda com valores de teste]</span>
+
+        Banco: loja_demo (SQL Server 16.0)
+
+        <span class="k">Nome técnico</span>   pdv_venda_resumo_loja_mes
+        <span class="k">Schema</span>         dbo
+        <span class="k">Descrição</span>      Venda bruta, descontos, venda líquida e ticket médio por
+                       loja e mês, sem cupons cancelados. $1 = data inicial ...
+        <span class="k">Parâmetros</span>     $1 date · $2 date · $3 integer (0 = todas as lojas)
+        <span class="k">Teste</span>          <span class="u">✓ rodou em 2 cenários, resultado conferido</span></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="problema">
+    <div class="wrap problem">
+      <div class="section-head">
+        <span class="eyebrow">O problema</span>
+        <div class="stack">
+          <h2>Cadastrar uma boa ferramenta não é só escrever um <em>SELECT.</em></h2>
+          <p>Em um schema que ninguém documentou, cada etapa tem uma armadilha.</p>
+        </div>
+        <div class="block block--brand block--notch-tr">
+          <span class="block__kicker">O risco</span>
+          <h3 class="block__title">Um detalhe errado não dá erro.</h3>
+          <p class="block__text">A ferramenta devolve zero linhas, ou um número inflado, e ninguém percebe.</p>
+        </div>
+      </div>
+      <ol class="problem-list">
+        <li><b>1</b><span>Achar a tabela ou view certa num schema sem documentação.</span></li>
+        <li><b>2</b><span>Descobrir quais registros excluir: cancelados, estornados, marcados para expurgo.</span></li>
+        <li><b>3</b><span>Transformar filtros em parâmetros <code>$1</code>, <code>$2</code>, ... com o tipo certo.</span></li>
+        <li><b>4</b><span>Escrever uma descrição que outro modelo de IA entenda sem ambiguidade.</span></li>
+        <li><b>5</b><span>Testar tudo antes de publicar.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="skills" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Skills</span>
+        <div class="stack">
+          <h2>Dez skills para o trabalho que <em>ninguém quer fazer.</em></h2>
+          <p>Você pede em português, com os nomes que já usa no ERP. A skill certa entra em ação.</p>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Skills do plugin">
+        <button class="tab" role="tab" id="t-tool" aria-controls="p-tool" aria-selected="true">add-mcp-tool</button>
+        <button class="tab" role="tab" id="t-dash" aria-controls="p-dash" aria-selected="false" tabindex="-1">add-mcp-dashboard</button>
+        <button class="tab" role="tab" id="t-erp" aria-controls="p-erp" aria-selected="false" tabindex="-1">analyze-mcp-*</button>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-tool" aria-labelledby="t-tool">
+        <div class="panel-grid">
+          <div class="panel-intro">
+            <h3>Pergunta de negócio vira ferramenta pronta.</h3>
+            <p>O Claude explora o banco conectado ao Archeo, escreve o SQL, roda no banco real e devolve a ficha pronta para copiar e colar na tela <strong>Nova ferramenta</strong> do MCP Creator.</p>
+            <ul class="ticks">
+              <li><span><strong>Datas com fim exclusivo</strong> (<code>&gt;= início AND &lt; fim</code>), sem perder o último dia nem matar o índice.</span></li>
+              <li><span><strong>"Todos" sem armadilha</strong>: filtro opcional com sentinela (<code>0 = todas as lojas</code>).</span></li>
+              <li><span><strong>Somas à prova de nulo</strong> com <code>COALESCE</code> dentro de expressões compostas.</span></li>
+              <li><span><strong>Tipos como contrato</strong>: o tipo do parâmetro valida a entrada antes do banco.</span></li>
+              <li><span><strong>Validação obrigatória</strong> em pelo menos dois cenários. Sem validação, a ficha avisa com destaque.</span></li>
+            </ul>
+          </div>
+          <div class="tbl"><div class="tbl-scroll">
+            <table>
+              <thead><tr><th>Campo da ficha</th><th>O que a skill entrega</th></tr></thead>
+              <tbody>
+                <tr><td>Nome técnico</td><td><code>snake_case</code> com prefixo do sistema, sem colisão entre bancos</td></tr>
+                <tr><td>Nome de exibição</td><td>Rótulo curto em português</td></tr>
+                <tr><td>Descrição</td><td>Escrita para o modelo que vai chamar a ferramenta</td></tr>
+                <tr><td>Schema</td><td>O schema certo para o dropdown</td></tr>
+                <tr><td>SQL</td><td>Um único SELECT no dialeto do seu banco, com <code>$1..$n</code></td></tr>
+                <tr><td>Parâmetros</td><td>Nome, tipo e obrigatoriedade de cada <code>$n</code></td></tr>
+                <tr><td>Limites</td><td>Linhas, bytes e timeout dimensionados</td></tr>
+                <tr><td>Teste</td><td>Valores de entrada e resultado esperado</td></tr>
+                <tr><td>Premissas</td><td>Regras de negócio assumidas e ajustes aplicados</td></tr>
+              </tbody>
+            </table>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-dash" aria-labelledby="t-dash" hidden>
+        <div class="panel-grid">
+          <div class="panel-intro">
+            <h3>Painel executivo de varejo, direto do ERP.</h3>
+            <p>Peça um painel e receba um artefato pronto para abrir, com os números do ERP ou PDV conectado. O painel não esconde dado ruim: seção sem dado confiável sai do painel e aparece no rodapé com o motivo.</p>
+            <ul class="ticks">
+              <li><span>Reconcilia cada ranking com a venda total.</span></li>
+              <li><span>Detecta custo estimado (margem idêntica em todos os departamentos).</span></li>
+              <li><span>Aponta campo nunca preenchido e período anterior sem base de comparação.</span></li>
+            </ul>
+          </div>
+          <div class="tbl"><div class="tbl-scroll">
+            <table>
+              <thead><tr><th>Bloco</th><th>O que mostra</th></tr></thead>
+              <tbody>
+                <tr><td>Totalizadores</td><td>Venda líquida, cupons, ticket médio, desconto, cancelamentos e margem, com variação contra o período anterior</td></tr>
+                <tr><td>Índice de saúde</td><td>0 a 100, decomposto em crescimento, ticket, desconto, cancelamento, margem e identificação</td></tr>
+                <tr><td>Linha do tempo</td><td>Venda por dia, atual contra anterior alinhado</td></tr>
+                <tr><td>Mapa de calor</td><td>Dia da semana por hora, para escala e abastecimento</td></tr>
+                <tr><td>Rankings</td><td>Departamentos, produtos, pagamentos, lojas e operadores</td></tr>
+                <tr><td>Curva ABC</td><td>Quantos SKUs fazem 80% da venda</td></tr>
+                <tr><td>Leitura</td><td>3 a 6 alertas em linguagem de negócio</td></tr>
+              </tbody>
+            </table>
+          </div></div>
+        </div>
+        <div class="grid g3 after">
+          <div class="block block--raised block--notch-tr"><span class="block__kicker">Snapshot</span><h3 class="block__title">Período fechado.</h3><p class="block__text">Para qualquer pessoa com o link. Atualiza republicando.</p></div>
+          <div class="block block--raised block--notch-bl"><span class="block__kicker">Ao vivo</span><h3 class="block__title">Consulta ao abrir.</h3><p class="block__text">Para quem tem o conector Archeo no Claude. Atualiza a cada 5 minutos.</p></div>
+          <div class="block block--raised block--notch-tr"><span class="block__kicker">Agendado</span><h3 class="block__title">Republica sozinho.</h3><p class="block__text">Para a diretoria sem conector. Por exemplo, todo dia às 6h.</p></div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-erp" aria-labelledby="t-erp" hidden>
+        <div class="tbl"><div class="tbl-scroll">
+          <table>
+            <thead><tr><th>Skill</th><th>Você pede</th><th>Ela entrega</th></tr></thead>
+            <tbody>
+              <tr><td><code>analyze-mcp-estoque</code></td><td class="q">"Kardex do produto 1234 em julho"</td><td>Movimentação com saldo acumulado, conferida contra o saldo atual</td></tr>
+              <tr><td><code>analyze-mcp-vendas</code></td><td class="q">"curva ABC de venda do trimestre"</td><td>Classes A, B e C com participação e acumulado, somando a venda total</td></tr>
+              <tr><td><code>analyze-mcp-compras</code></td><td class="q">"sugestão de compra do fornecedor X"</td><td>Demanda, saldo, pendente e sugestão por embalagem, em planilha editável</td></tr>
+              <tr><td><code>analyze-mcp-precos</code></td><td class="q">"o que estou vendendo abaixo do custo?"</td><td>Itens com margem negativa, depois do teste de confiabilidade do custo</td></tr>
+              <tr><td><code>analyze-mcp-perdas</code></td><td class="q">"quebras por motivo e setor"</td><td>Perda identificada e não identificada, a custo e sobre a venda</td></tr>
+              <tr><td><code>analyze-mcp-fiscal</code></td><td class="q">"documentos fiscais por CFOP do mês"</td><td>Sintético por operação, com conferência de cabeçalho contra itens</td></tr>
+              <tr><td><code>analyze-mcp-contabil</code></td><td class="q">"balancete de julho"</td><td>Saldo anterior, débitos, créditos e saldo atual, com débito = crédito</td></tr>
+              <tr><td><code>analyze-mcp-financeiro</code></td><td class="q">"títulos vencidos e fluxo dos próximos 30 dias"</td><td>Aging e projeção, separando realizado, previsto e não incluído</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+        <div class="grid g3 after">
+          <div class="block block--brand block--notch-tr"><span class="block__numeral" aria-hidden="true">1</span><h3 class="block__title">Relatório sem prova não sai.</h3><p class="block__text">Kardex fecha com o saldo, balancete fecha débito com crédito, ABC soma a venda total.</p></div>
+          <div class="block block--brand block--notch-bl"><span class="block__numeral" aria-hidden="true">2</span><h3 class="block__title">Dado ruim aparece.</h3><p class="block__text">Custo estimado, campo nunca preenchido e posição desatualizada são achados, não rodapé.</p></div>
+          <div class="block block--brand block--notch-tr"><span class="block__numeral" aria-hidden="true">3</span><h3 class="block__title">Conferência gerencial.</h3><p class="block__text">Fiscal e contábil não substituem escrituração, livros oficiais nem apuração.</p></div>
+        </div>
+        <p class="note">O relatório que você vai pedir de novo vira ferramenta: cada skill indica os parâmetros e passa para <code>add-mcp-tool</code> o SQL já validado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="theme-blue">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Como funciona</span>
+        <div class="stack">
+          <h2>Nada sai sem ter rodado <em>no seu banco.</em></h2>
+          <p>Toda skill segue o mesmo método. Se o teste falha, o Claude diagnostica e ajusta antes de entregar.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="block block--raised block--notch-tr"><span class="block__numeral" aria-hidden="true">01</span><h3 class="block__title">Identifica o banco.</h3><p class="block__text">Qual banco está conectado ao Archeo, a engine e a versão.</p></div>
+        <div class="block block--raised block--notch-bl"><span class="block__numeral" aria-hidden="true">02</span><h3 class="block__title">Explora o schema.</h3><p class="block__text">Tabelas, colunas e amostras que respondem à pergunta.</p></div>
+        <div class="block block--raised block--notch-tr"><span class="block__numeral" aria-hidden="true">03</span><h3 class="block__title">Mede os dados.</h3><p class="block__text">Volume, período coberto, nulos e flags de cancelamento ou expurgo.</p></div>
+        <div class="block block--accent block--notch-bl"><span class="block__numeral" aria-hidden="true">04</span><h3 class="block__title">Escreve e valida.</h3><p class="block__text">SQL com parâmetros, rodado com valores de teste em mais de um cenário.</p></div>
+      </div>
+      <p class="loop-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg>
+        Falhou? Diagnostica, ajusta e roda de novo até o resultado conferir.
+      </p>
+    </div>
+  </section>
+
+  <section id="seguranca">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Segurança</span>
+        <div class="stack"><h2>Só leitura, <em>sempre.</em></h2></div>
+      </div>
+      <div class="grid g3">
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h3>A skill só lê.</h3><p>Toda exploração e validação usa as ferramentas somente leitura do conector (<code>db_*</code>).</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+          <h3>Um único SELECT.</h3><p>Sem escrita e sem identificador vindo de parâmetro, o mesmo que o validador do Archeo exige.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>Você decide.</h3><p>Nada é cadastrado automaticamente: você revisa a ficha e decide o que publicar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bancos" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Bancos suportados</span>
+        <div class="stack">
+          <h2>Funciona no dialeto <em>do seu ERP.</em></h2>
+          <p>Em qualquer engine, a palavra final é do teste no banco conectado.</p>
+        </div>
+      </div>
+      <div class="grid g4">
+        <div class="card db"><b>SQL Server</b><span class="tag tag--concluido"><span class="tag__dot" aria-hidden="true"></span>Validado</span></div>
+        <div class="card db"><b>PostgreSQL</b><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Suportado</span></div>
+        <div class="card db"><b>Oracle</b><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Suportado</span></div>
+        <div class="card db"><b>MySQL / MariaDB</b><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Suportado</span></div>
+      </div>
+      <p class="note">Validado: testado contra banco real. Suportado: sintaxe padrão a confirmar no primeiro uso. Se algo não roda, a skill diagnostica e ajusta antes de entregar.</p>
+    </div>
+  </section>
+
+  <section id="instalacao" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Instalação</span>
+        <div class="stack"><h2>Dois comandos <em>no Claude Code.</em></h2></div>
+      </div>
+      <div class="install">
+        <div>
+          <div class="term">
+            <div class="term-line"><code>/plugin marketplace add cd2tec/archeo-claude-plugins</code><button class="copy" type="button">Copiar</button></div>
+            <div class="term-line"><code>/plugin install archeo@archeo-plugins</code><button class="copy" type="button">Copiar</button></div>
+          </div>
+          <p class="note"><strong>Requisito:</strong> um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (<code>db_*</code>). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.</p>
+        </div>
+        <div>
+          <p class="prompts-title">Depois, é só pedir:</p>
+          <div class="prompts">
+            <div class="prompt">"crie uma ferramenta no Archeo para títulos vencidos por cliente"</div>
+            <div class="prompt">"monta um dashboard da rede dos últimos 30 dias"</div>
+            <div class="prompt">"quero um painel ao vivo da loja 3 para acompanhar a semana"</div>
+            <div class="prompt">"me dá o Kardex do produto 1234 no último mês"</div>
+            <div class="prompt">"balancete de julho no nível 3"</div>
+            <div class="prompt">"o que comprar do fornecedor X para a loja 2?"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="theme-blue">
+  <div class="wrap">
+    <div>
+      <svg class="logo" viewBox="114 91 1887 312" aria-label="CD2 Tech" role="img"><path class="lg" d="M 601.167969 397.566406 C 572.347656 397.566406 547.660156 391.261719 527.113281 378.652344 C 506.5625 366.042969 490.789062 348.464844 479.78125 325.914062 C 468.773438 303.367188 463.265625 277.214844 463.265625 247.457031 C 463.265625 217.707031 468.773438 191.550781 479.78125 169 C 490.789062 146.453125 506.5625 128.871094 527.113281 116.261719 C 547.660156 103.65625 572.347656 97.351562 601.167969 97.351562 C 634.390625 97.351562 662.078125 105.65625 684.226562 122.265625 C 706.375 138.878906 727.96875 172.328125 730.863281 203.113281 L 682.226562 202.824219 C 676.621094 184.011719 667.082031 169.300781 653.605469 158.695312 C 640.125 148.085938 622.648438 142.78125 601.167969 142.78125 C 581.820312 142.78125 565.707031 147.121094 552.832031 155.792969 C 539.953125 164.464844 530.28125 176.640625 523.8125 192.316406 C 517.339844 208 514.035156 226.378906 513.90625 247.457031 C 513.90625 268.542969 517.136719 286.921875 523.609375 302.597656 C 530.082031 318.277344 539.789062 330.453125 552.734375 339.125 C 565.671875 347.796875 581.820312 352.132812 601.167969 352.132812 C 622.648438 352.132812 640.125 346.796875 653.605469 336.121094 C 667.082031 325.449219 676.621094 310.773438 682.226562 292.089844 L 730.863281 292.351562 C 727.277344 324.863281 706.375 356.035156 684.226562 372.648438 C 662.078125 389.261719 634.390625 397.566406 601.167969 397.566406 "/><path class="lg" d="M 794.871094 346.128906 L 837.703125 346.128906 C 841.707031 346.128906 846.808594 345.996094 853.011719 345.730469 C 859.21875 345.464844 864.722656 344.863281 869.527344 343.925781 C 883.136719 341.394531 894.207031 335.320312 902.75 325.714844 C 911.285156 316.105469 917.589844 304.433594 921.664062 290.691406 C 925.730469 276.949219 927.765625 262.535156 927.765625 247.460938 C 927.765625 231.847656 925.699219 217.171875 921.5625 203.425781 C 917.425781 189.683594 911.054688 178.140625 902.449219 168.800781 C 893.84375 159.464844 882.867188 153.523438 869.527344 150.988281 C 864.722656 149.921875 859.21875 149.285156 853.011719 149.085938 C 846.808594 148.886719 841.707031 148.789062 837.703125 148.789062 L 794.871094 148.789062 Z M 745.835938 391.5625 L 745.835938 103.351562 L 837.703125 103.351562 C 840.105469 103.351562 844.871094 103.421875 852.011719 103.554688 C 859.148438 103.6875 866.054688 104.15625 872.730469 104.953125 C 895.542969 107.890625 914.859375 115.996094 930.667969 129.273438 C 946.480469 142.550781 958.457031 159.464844 966.59375 180.007812 C 974.734375 200.558594 978.804688 223.039062 978.804688 247.460938 C 978.804688 271.875 974.734375 294.363281 966.59375 314.90625 C 958.457031 335.457031 946.480469 352.367188 930.667969 365.644531 C 914.859375 378.921875 895.542969 387.027344 872.730469 389.960938 C 866.1875 390.761719 859.316406 391.230469 852.113281 391.363281 C 844.910156 391.496094 840.105469 391.5625 837.703125 391.5625 Z M 745.835938 391.5625 "/><path class="lg" d="M 982.253906 391.160156 L 982.253906 349.132812 L 1105.542969 239.253906 C 1115.148438 230.714844 1121.824219 222.640625 1125.558594 215.035156 C 1129.292969 207.429688 1131.160156 200.089844 1131.160156 193.019531 C 1131.160156 183.410156 1129.09375 174.839844 1124.957031 167.300781 C 1120.824219 159.761719 1115.113281 153.789062 1107.84375 149.386719 C 1100.574219 144.984375 1092.199219 142.78125 1082.730469 142.78125 C 1072.71875 142.78125 1063.878906 145.085938 1056.207031 149.6875 C 1048.53125 154.289062 1042.5625 160.394531 1038.296875 168 C 1034.019531 175.605469 1032.023438 183.8125 1032.292969 192.617188 L 982.65625 192.617188 C 982.65625 173.40625 986.957031 156.660156 995.5625 142.382812 C 1004.171875 128.105469 1016.042969 117.03125 1031.1875 109.15625 C 1046.332031 101.289062 1063.84375 97.351562 1083.730469 97.351562 C 1102.140625 97.351562 1118.683594 101.453125 1133.363281 109.65625 C 1148.039062 117.863281 1159.582031 129.207031 1167.988281 143.683594 C 1176.394531 158.164062 1180.597656 174.804688 1180.597656 193.617188 C 1180.597656 207.363281 1178.726562 218.90625 1174.992188 228.242188 C 1171.253906 237.585938 1165.6875 246.191406 1158.28125 254.0625 C 1150.875 261.9375 1141.703125 270.675781 1130.761719 280.28125 L 1043.296875 357.738281 L 1038.894531 345.730469 L 1180.597656 345.730469 L 1180.597656 391.160156 Z M 982.253906 391.160156 "/><path class="lg-tech" d="M 1387.714844 254.460938 L 1536.421875 254.460938 L 1536.421875 290.890625 L 1387.714844 290.890625 Z M 1462.167969 391.5625 C 1440.285156 391.5625 1421.070312 386.824219 1404.527344 377.351562 C 1387.980469 367.878906 1375.070312 354.734375 1365.800781 337.921875 C 1356.523438 321.109375 1351.886719 301.765625 1351.886719 279.878906 C 1351.886719 256.265625 1356.425781 235.75 1365.496094 218.335938 C 1374.570312 200.921875 1387.179688 187.414062 1403.324219 177.804688 C 1419.472656 168.199219 1438.152344 163.398438 1459.367188 163.398438 C 1481.78125 163.398438 1500.828125 168.632812 1516.507812 179.109375 C 1532.183594 189.585938 1543.828125 204.359375 1551.433594 223.441406 C 1559.039062 242.523438 1561.90625 265.003906 1560.039062 290.890625 L 1512.203125 290.890625 L 1512.203125 273.277344 C 1512.070312 249.792969 1507.933594 232.644531 1499.796875 221.839844 C 1491.65625 211.03125 1478.847656 205.625 1461.367188 205.625 C 1441.621094 205.625 1426.945312 211.730469 1417.335938 223.941406 C 1407.730469 236.148438 1402.925781 253.996094 1402.925781 277.480469 C 1402.925781 299.363281 1407.730469 316.308594 1417.335938 328.316406 C 1426.945312 340.324219 1440.953125 346.328125 1459.367188 346.328125 C 1471.242188 346.328125 1481.480469 343.695312 1490.089844 338.421875 C 1498.695312 333.152344 1505.332031 325.511719 1510 315.507812 L 1560.191406 315.566406 C 1549.882812 347.863281 1536.589844 364.542969 1519.308594 375.351562 C 1502.027344 386.160156 1482.984375 391.5625 1462.167969 391.5625 "/><path class="lg" d="M 242.320312 397.777344 C 174.101562 397.742188 118.683594 341.917969 119.3125 273.550781 C 119.9375 205.753906 176.226562 151.621094 244.023438 151.621094 L 316.152344 151.621094 C 316.191406 151.621094 316.21875 151.648438 316.21875 151.683594 C 316.21875 182.632812 291.132812 207.722656 260.183594 207.722656 L 243.574219 207.722656 C 206.863281 207.722656 176.082031 236.761719 175.421875 273.46875 C 174.746094 310.9375 205.011719 341.640625 242.320312 341.675781 C 242.355469 341.675781 242.386719 341.703125 242.386719 341.738281 L 242.386719 397.710938 C 242.386719 397.75 242.355469 397.777344 242.320312 397.777344 "/><path class="lg-tech" d="M 314.554688 341.699219 L 242.421875 341.699219 C 242.386719 341.699219 242.359375 341.667969 242.359375 341.632812 C 242.359375 310.683594 267.445312 285.597656 298.394531 285.597656 L 315.003906 285.597656 C 351.714844 285.597656 382.492188 256.554688 383.15625 219.851562 C 383.832031 182.378906 353.566406 151.679688 316.257812 151.644531 C 316.21875 151.644531 316.191406 151.613281 316.191406 151.578125 L 316.191406 95.605469 C 316.191406 95.570312 316.222656 95.539062 316.257812 95.539062 C 384.476562 95.578125 439.890625 151.402344 439.265625 219.769531 C 438.640625 287.5625 382.351562 341.699219 314.554688 341.699219 "/><path class="lg-tech" d="M 1236.042969 170.421875 L 1327 170.394531 L 1327 218.511719 L 1284.167969 218.511719 Z M 1236.042969 170.421875 "/><path class="lg" d="M 1236.046875 170.375 L 1236.019531 127.527344 L 1284.136719 127.527344 L 1284.136719 170.363281 Z M 1236.046875 170.375 "/><path class="lg-tech" d="M 1350.046875 396.464844 L 1276.976562 396.464844 C 1254.328125 396.464844 1235.902344 378.035156 1235.902344 355.390625 L 1235.902344 221.097656 L 1284.671875 221.097656 L 1284.671875 347.695312 L 1350.046875 347.695312 Z M 1350.046875 396.464844 "/><path class="lg-tech" d="M 1689.15625 394.40625 C 1666.238281 394.40625 1646.683594 389.292969 1630.492188 379.070312 C 1614.296875 368.851562 1601.917969 354.882812 1593.339844 337.183594 C 1584.761719 319.480469 1580.402344 299.445312 1580.269531 277.082031 C 1580.402344 254.304688 1584.902344 234.09375 1593.75 216.460938 C 1602.601562 198.828125 1615.191406 184.964844 1631.523438 174.882812 C 1647.851562 164.796875 1667.269531 159.75 1689.777344 159.75 C 1715.023438 159.75 1736.394531 166.101562 1753.894531 178.789062 C 1771.390625 191.488281 1780.328125 205.074219 1791.050781 243.8125 L 1738.765625 244.148438 C 1734.917969 232.207031 1728.539062 222.914062 1719.621094 216.253906 C 1710.699219 209.601562 1700.542969 206.273438 1689.15625 206.273438 C 1676.257812 206.273438 1665.621094 209.328125 1657.25 215.433594 C 1648.878906 221.539062 1642.703125 229.941406 1638.726562 240.648438 C 1634.746094 251.351562 1632.757812 263.496094 1632.757812 277.082031 C 1632.757812 298.210938 1637.492188 315.296875 1646.960938 328.332031 C 1656.429688 341.371094 1670.496094 347.886719 1689.15625 347.886719 C 1702.328125 347.886719 1712.726562 344.871094 1720.339844 338.828125 C 1727.957031 332.792969 1733.683594 324.082031 1737.53125 312.691406 L 1792.261719 312.816406 C 1787.59375 335.300781 1769.292969 364.042969 1752.144531 376.1875 C 1734.984375 388.332031 1713.992188 394.40625 1689.15625 394.40625 "/><path class="lg-tech" d="M 1856.597656 388.230469 L 1812.519531 388.230469 L 1812.519531 126.210938 L 1856.769531 126.210938 L 1856.769531 247.851562 "/><path class="lg-tech" d="M 1995.6875 388.046875 L 1950.984375 388.046875 L 1950.984375 251.984375 L 1843.105469 251.984375 L 1843.105469 207.28125 L 1943.328125 207.28125 C 1972.246094 207.28125 1995.6875 230.722656 1995.6875 259.640625 Z M 1995.6875 388.046875 "/></svg>
+      <p class="tagline">Para operações que não podem parar.</p>
+    </div>
+    <nav aria-label="Links">
+      <a href="https://github.com/cd2tec/archeo-claude-plugins">GitHub</a>
+      <a href="https://github.com/cd2tec/archeo-claude-plugins/issues">Issues</a>
+      <a href="https://github.com/cd2tec/archeo-claude-plugins/blob/main/LICENSE">Licença MIT</a>
+      <a href="https://cd2.com.br">cd2.com.br</a>
+    </nav>
+    <span class="caption">CD2 Tech · Archeo para Claude</span>
+  </div>
+</footer>
+
+<script>
+  // Abas das skills.
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+    function select(tab) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on);
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { select(t); });
+      t.addEventListener("keydown", function (e) {
+        var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        var n = tabs[(i + d + tabs.length) % tabs.length];
+        select(n); n.focus();
+      });
+    });
+  })();
+
+  // Botões de copiar.
+  document.querySelectorAll(".copy").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var txt = b.previousElementSibling.textContent;
+      var done = function () { b.textContent = "Copiado"; setTimeout(function () { b.textContent = "Copiar"; }, 1500); };
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () {});
+    });
+  });
+</script>
+</body>
+</html>
