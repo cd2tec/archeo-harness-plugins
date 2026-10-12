@@ -12,7 +12,7 @@
       "name": "archeo",
       "source": "./plugins/claude/archeo",
       "description": "Skills spec-mcp-tool (ficha de ferramenta no MCP Creator), build-mcp-dashboard (painel executivo de varejo) e analyze-mcp-* (relatórios de estoque, vendas, compras, preços, perdas, fiscal, contábil e financeiro), sempre validadas no banco conectado.",
-      "license": "MIT",
+      "license": "Apache-2.0",
       "keywords": [
         "archeo",
         "mcp",
