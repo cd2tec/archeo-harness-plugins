@@ -4,7 +4,7 @@
 
 **Do banco legado ao painel executivo e às ferramentas de IA, com cada número conferido no seu banco.**
 
-[![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
+[![Licença Apache 2.0](https://img.shields.io/badge/licen%C3%A7a-Apache%202.0-blue.svg)](LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#claude-code)
 [![Codex plugin](https://img.shields.io/badge/Codex-plugin-10a37f.svg)](#codex)
 [![Release](https://img.shields.io/github/v/release/cd2tec/archeo-harness-plugins?label=release)](https://github.com/cd2tec/archeo-harness-plugins/releases/latest)
@@ -298,4 +298,6 @@ Encontrou uma engine com comportamento diferente, ou um caso que a skill não co
 
 ## Licença
 
-[MIT](LICENSE), por [CD2 Retail Tech](https://github.com/cd2tec).
+[Apache License 2.0](LICENSE), por [CD2 Retail Tech](https://github.com/cd2tec). Uso, modificação e redistribuição livres, inclusive comercial. Veja o [NOTICE](NOTICE) sobre nomes e marcas.
+
+As versões publicadas até a 0.4.0 estavam sob a licença MIT; quem já baixou essas versões mantém os direitos que a MIT concede.
