@@ -172,6 +172,19 @@ Em qualquer engine, a palavra final é do teste no banco conectado: se algo não
 /plugin install archeo@archeo-harness
 ```
 
+### App do Claude (Cowork)
+
+A sincronização de marketplace pelo GitHub no app do Claude só aceita repositório privado, então aqui a instalação é por upload. Baixe o `archeo-claude-<versão>.zip` da [última release](https://github.com/cd2tec/archeo-harness-plugins/releases/latest) e:
+
+- **Para você:** **Customize > Plugins**, upload do ZIP.
+- **Para a organização** (Owner, planos Team e Enterprise): **Organization settings > Plugins & skills > Add > Upload a plugin**. Depois, em **Inventory > Default access**, escolha se fica disponível, instalado por padrão ou obrigatório.
+
+Para atualizar, suba o ZIP da versão nova com o mesmo nome; ele substitui o anterior.
+
+### ChatGPT (workspace)
+
+O admin importa o marketplace em **Workspace settings > Plugins > Add > Import marketplace**, com Source `https://github.com/cd2tec/archeo-harness-plugins` e Path vazio. O ChatGPT lê o `.agents/plugins/marketplace.json` e sincroniza uma vez por dia. As skills precisam do conector Archeo disponível como app MCP no workspace.
+
 ### Codex
 
 ```
@@ -233,7 +246,8 @@ flowchart LR
 
 1. Edite as skills em `core/`, nunca nas cópias dentro de `plugins/<harness>/`.
 2. Rode `python3 scripts/sync_plugins.py` e depois `python3 scripts/sync_plugins.py --check`.
-3. Abra o pull request. O CI repete o `--check` e falha se `core/` e as cópias divergirem, se algum manifesto tiver nome ou versão diferente do core ou se uma referência entre arquivos estiver quebrada.
+3. Para lançar versão, suba a versão em `core/archeo/plugin.core.json`, nos manifestos de cada harness e no marketplace do Claude. Ao chegar na `main`, o workflow de release cria a tag `archeo-v<versão>` com um ZIP por harness.
+4. Abra o pull request. O CI repete o `--check` e falha se `core/` e as cópias divergirem, se algum manifesto tiver nome ou versão diferente do core ou se uma referência entre arquivos estiver quebrada.
 
 Para adicionar um harness, crie `plugins/<harness>/<plugin>/` com o manifesto, registre-o em `harnesses.json`, crie o marketplace correspondente e rode o sync. Os detalhes estão em [`AGENTS.md`](AGENTS.md).
 

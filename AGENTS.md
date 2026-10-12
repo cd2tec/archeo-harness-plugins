@@ -31,5 +31,5 @@ O CI roda o `--check` e falha se as cópias divergirem de `core/`.
 - Skills seguem o formato `skills/<nome>/SKILL.md` com frontmatter `name` (igual ao nome da pasta) e `description`. O formato é o mesmo nos dois harnesses.
 - Referências entre skills usam caminho relativo (`../outra-skill/references/x.md`); por isso cada harness recebe o conjunto completo.
 - Escreva as skills de forma neutra quanto ao harness. Quando um passo depender de um recurso exclusivo (por exemplo, publicar artefato no Claude), diga isso explicitamente na skill e ofereça a alternativa para os demais harnesses.
-- Ao mudar a versão, atualize `core/<plugin>/plugin.core.json`, os manifestos de cada harness e a entrada do marketplace do Claude. O `--check` confere nome e versão dos manifestos.
+- Ao mudar a versão, atualize `core/<plugin>/plugin.core.json`, os manifestos de cada harness e a entrada do marketplace do Claude. O `--check` confere nome e versão dos manifestos. A mudança em `plugin.core.json` na `main` dispara `.github/workflows/release.yml`, que cria a release `<plugin>-v<versão>` com um ZIP por harness (gerado por `scripts/package_plugins.py`). Release de versão já existente não é recriada: suba a versão.
 - Para adicionar um harness: crie `plugins/<harness>/<plugin>/` com o manifesto, registre em `harnesses.json`, crie o marketplace correspondente e rode o sync.
