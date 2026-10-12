@@ -1,6 +1,6 @@
 # Plugin archeo para Codex
 
-Skills para trabalhar com o [Archeo](https://github.com/cd2tec/archeo-harness-plugins), as mesmas do pacote do Claude Code.
+Skills para trabalhar com o [Archeo](https://archeo.cd2.com.br), as mesmas do pacote do Claude Code.
 
 > As pastas `skills/` e `references/` deste pacote são **cópias geradas** de [`core/archeo`](../../../core/archeo). Edite lá e rode `python3 scripts/sync_plugins.py` na raiz do repositório.
 

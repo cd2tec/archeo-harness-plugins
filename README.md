@@ -8,6 +8,7 @@
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#claude-code)
 [![Codex plugin](https://img.shields.io/badge/Codex-plugin-10a37f.svg)](#codex)
 [![Release](https://img.shields.io/github/v/release/cd2tec/archeo-harness-plugins?label=release)](https://github.com/cd2tec/archeo-harness-plugins/releases/latest)
+[![Archeo](https://img.shields.io/badge/archeo-archeo.cd2.com.br-0000ff.svg)](https://archeo.cd2.com.br)
 [![Site](https://img.shields.io/badge/site-cd2tec.github.io-0000ff.svg)](https://cd2tec.github.io/archeo-harness-plugins/)
 [![Bancos](https://img.shields.io/badge/bancos-SQL%20Server%20%7C%20PostgreSQL%20%7C%20Oracle%20%7C%20MySQL-555.svg)](#bancos-suportados)
 
@@ -17,7 +18,7 @@
 
 ---
 
-O [Archeo](https://github.com/cd2tec) conecta bancos de dados legados a assistentes de IA. Com o **Archeo MCP Creator**, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.
+O [Archeo](https://archeo.cd2.com.br) conecta bancos de dados legados a assistentes de IA. Com o **Archeo MCP Creator**, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.
 
 Este repositório reúne plugins que tiram o trabalho braçal desse processo, com **as mesmas skills empacotadas para mais de um harness de agente**: hoje [Claude Code](#claude-code), [Claude Cowork](#claude-cowork), [Codex](#codex) e [ChatGPT Work](#chatgpt-work).
 
