@@ -9,7 +9,7 @@ Consultas em SQL Server com marcadores `<assim>`; **[modelo]** até passarem na 
 
 ## 1. Mapeamento
 
-Itens vendidos, produto, departamento e custo: `../../add-mcp-dashboard/references/indicadores-varejo.md`, seção 1. Acrescente:
+Itens vendidos, produto, departamento e custo: `../../build-mcp-dashboard/references/indicadores-varejo.md`, seção 1. Acrescente:
 
 | Domínio | Para quê | Termos de busca | O que confirmar |
 |---|---|---|---|

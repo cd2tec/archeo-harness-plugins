@@ -63,4 +63,4 @@ Balancete que não fecha não é entregue como balancete: entregue a diferença,
 
 Formato do método comum, com o aviso de conferência no cabeçalho. Valores em colunas de débito, crédito e saldo com indicador D ou C.
 
-Relatórios que valem virar ferramenta (`add-mcp-tool`): balancete (`$1` empresa, `$2` data inicial, `$3` data final, `$4` nível) e razão (`$1` empresa, `$2` conta, `$3`, `$4` período).
+Relatórios que valem virar ferramenta (`spec-mcp-tool`): balancete (`$1` empresa, `$2` data inicial, `$3` data final, `$4` nível) e razão (`$1` empresa, `$2` conta, `$3`, `$4` período).

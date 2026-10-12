@@ -5,7 +5,7 @@ Conteúdo:
 2. O que medir
 3. Relatórios (3.1 a 3.8)
 
-Consultas em SQL Server, com marcadores `<assim>` no lugar de tabelas e colunas. Traduza para outras engines com `../../add-mcp-tool/references/regras-sql.md`, seção 1. São **[modelo]**: valem depois de rodar e passar na prova no banco conectado. O padrão de janela para acumulado é **[validado]** pelo conector.
+Consultas em SQL Server, com marcadores `<assim>` no lugar de tabelas e colunas. Traduza para outras engines com `../../spec-mcp-tool/references/regras-sql.md`, seção 1. São **[modelo]**: valem depois de rodar e passar na prova no banco conectado. O padrão de janela para acumulado é **[validado]** pelo conector.
 
 ## 1. Mapeamento
 
@@ -19,7 +19,7 @@ Consultas em SQL Server, com marcadores `<assim>` no lugar de tabelas e colunas.
 | Mercadológico | Quebras do relatório | `departamento`, `secao`, `grupo`, `subgrupo`, `categoria`, `familia` | Níveis da árvore e chave |
 | Fornecedor do produto | Filtro por fornecedor | `fornecedor`, `prod_fornec`, `fabricante` | Fornecedor principal, quando o produto tem vários |
 | Custo e preço | Valorização | `custo`, `custo_medio`, `custo_reposicao`, `preco_venda` | Qual custo é (médio, última entrada), se é por loja, cobertura |
-| Venda por item | Cobertura, ruptura, parado | (ver `add-mcp-dashboard`, mapeamento de itens vendidos) | Mesma unidade do saldo |
+| Venda por item | Cobertura, ruptura, parado | (ver `build-mcp-dashboard`, mapeamento de itens vendidos) | Mesma unidade do saldo |
 
 ## 2. O que medir
 

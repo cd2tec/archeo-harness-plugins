@@ -1,5 +1,5 @@
 {
   "name": "archeo",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Fonte única do plugin archeo. Nome e versão daqui são a referência: os manifestos de cada harness precisam bater com eles (scripts/sync_plugins.py confere)."
 }

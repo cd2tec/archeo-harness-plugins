@@ -32,7 +32,7 @@ Nenhum relatório de margem sai sem estes três números, medidos no período:
 | Dispersão | Diferença entre a maior e a menor margem por departamento | Abaixo de 1 ponto percentual: o custo é estimado por um percentual fixo, não real. Diga isso e não ranqueie por margem |
 | Época do custo | O custo vem gravado no item vendido ou só existe o custo atual do cadastro? | Só custo atual: a margem de períodos passados é aproximada; declare |
 
-A consulta de cobertura e dispersão está em `../add-mcp-dashboard/references/indicadores-varejo.md` (margem bruta).
+A consulta de cobertura e dispersão está em `../build-mcp-dashboard/references/indicadores-varejo.md` (margem bruta).
 
 ## Definições (declare a que usou)
 
@@ -64,4 +64,4 @@ Diga se venda e custo estão com ou sem impostos. Venda com imposto contra custo
 
 Formato do método comum, com o teste do custo no bloco de premissas. A skill não altera preço: sugestões de remarcação saem como lista para decisão.
 
-Relatórios que valem virar ferramenta (`add-mcp-tool`): margem por departamento (`$1`, `$2` período, `$3` loja), itens com margem negativa (`$1`, `$2` período, `$3` loja) e custo sem repasse (`$1` dias, `$2` variação mínima %).
+Relatórios que valem virar ferramenta (`spec-mcp-tool`): margem por departamento (`$1`, `$2` período, `$3` loja), itens com margem negativa (`$1`, `$2` período, `$3` loja) e custo sem repasse (`$1` dias, `$2` variação mínima %).

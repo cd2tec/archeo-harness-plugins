@@ -57,4 +57,4 @@ Pedido genérico ("como estão as perdas") recebe a **perda total** (3.2) com a 
 
 Formato do método comum. Sempre diga quais departamentos tiveram inventário no período e quais não tiveram.
 
-Relatórios que valem virar ferramenta (`add-mcp-tool`): quebra por motivo (`$1`, `$2` período, `$3` loja, `$4` departamento) e exceções por operador (`$1`, `$2` período, `$3` loja).
+Relatórios que valem virar ferramenta (`spec-mcp-tool`): quebra por motivo (`$1`, `$2` período, `$3` loja, `$4` departamento) e exceções por operador (`$1`, `$2` período, `$3` loja).

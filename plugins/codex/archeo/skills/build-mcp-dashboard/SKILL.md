@@ -1,9 +1,9 @@
 ---
-name: add-mcp-dashboard
+name: build-mcp-dashboard
 description: Monta automaticamente um dashboard executivo de varejo (totalizadores, índice de saúde de 0 a 100, linha do tempo, mapa de calor por dia e hora, rankings de departamentos, produtos, meios de pagamento e operadores, curva ABC e leitura com alertas) a partir do ERP ou PDV conectado ao Archeo, e publica como artefato em modo snapshot, ao vivo (consulta o banco ao abrir) ou com atualização agendada. Use quando o usuário pedir dashboard, painel, visão geral, indicadores, KPIs, score ou "como está a operação" de um varejo, supermercado, loja ou rede cujo banco esteja conectado ao Archeo, mesmo sem dizer "dashboard".
 ---
 
-# add-mcp-dashboard: dashboard de varejo a partir do banco conectado ao Archeo
+# build-mcp-dashboard: dashboard de varejo a partir do banco conectado ao Archeo
 
 Entrega um painel que um diretor de varejo abre e entende em 30 segundos: quanto vendeu, se está melhor ou pior que antes, onde está o problema e o que olhar primeiro. Os números saem do banco conectado ao Archeo, por consultas somente leitura, e o painel é publicado como artefato.
 
@@ -15,7 +15,7 @@ O painel não inventa nada. Toda seção vem de uma consulta que rodou no banco;
 
 As ferramentas de um conector Archeo seguem o padrão `mcp__<conector>__db_<banco>_<engine>_<id>__<ação>` (`db_connection_status`, `db_list_tables`, `db_search_columns`, `db_describe_table`, `db_sample_table`, `db_read_only_query`). Podem estar deferidas: procure com ToolSearch e carregue as do conector numa chamada só. Com vários conectores, pergunte qual banco; sem nenhum, diga que o painel precisa de um banco do Archeo conectado e pare.
 
-Rode `db_connection_status` e anote engine e versão. Para sintaxe por engine e ajustes do conector, leia `../add-mcp-tool/references/regras-sql.md` (seções 1, 3 e 4) antes da primeira consulta.
+Rode `db_connection_status` e anote engine e versão. Para sintaxe por engine e ajustes do conector, leia `../spec-mcp-tool/references/regras-sql.md` (seções 1, 3 e 4) antes da primeira consulta.
 
 ### 2. Combine o escopo em uma pergunta, se precisar
 

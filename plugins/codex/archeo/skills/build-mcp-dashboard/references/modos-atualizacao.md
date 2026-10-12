@@ -47,7 +47,7 @@ Snapshot republicado por uma tarefa agendada, para quem vai ver sem ter o conect
 Depois do primeiro publish, crie a tarefa com a ferramenta de agendamento da sessão (procure com ToolSearch; chame de "tarefa agendada" ao falar com o usuário). Prompt da tarefa, autocontido:
 
 ```
-Rode a skill /archeo:add-mcp-dashboard no modo snapshot, com o mesmo recorte do painel
+Rode a skill /archeo:build-mcp-dashboard no modo snapshot, com o mesmo recorte do painel
 <url do artefato>: <lojas>, últimos <N> dias até a última data com venda, comparado com o
 período anterior equivalente. Use o banco <nome> pelo conector <conector>. Leia o artefato,
 gere a página com os dados novos e republique na mesma url. Se o banco não responder,

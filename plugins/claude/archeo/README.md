@@ -11,7 +11,7 @@ Instalação:
 /plugin install archeo@archeo-harness
 ```
 
-## add-mcp-tool
+## spec-mcp-tool
 
 Gera, pronta para copiar e colar, a ficha da tela **Nova ferramenta** do Archeo MCP Creator, para qualquer banco conectado ao Archeo.
 
@@ -19,9 +19,9 @@ A skill identifica o conector ativo na sessão, explora o banco (tabelas, coluna
 
 | Arquivo | Conteúdo |
 |---|---|
-| [`SKILL.md`](skills/add-mcp-tool/SKILL.md) | Fluxo, formato da ficha e convenções de nome, descrição e limites |
-| [`references/regras-sql.md`](skills/add-mcp-tool/references/regras-sql.md) | Sintaxe por engine, tipos de parâmetro, filtros opcionais, diagnóstico de falhas e checklist |
-| [`references/exemplo-ficha.md`](skills/add-mcp-tool/references/exemplo-ficha.md) | Ficha completa sobre um banco fictício |
+| [`SKILL.md`](skills/spec-mcp-tool/SKILL.md) | Fluxo, formato da ficha e convenções de nome, descrição e limites |
+| [`references/regras-sql.md`](skills/spec-mcp-tool/references/regras-sql.md) | Sintaxe por engine, tipos de parâmetro, filtros opcionais, diagnóstico de falhas e checklist |
+| [`references/exemplo-ficha.md`](skills/spec-mcp-tool/references/exemplo-ficha.md) | Ficha completa sobre um banco fictício |
 
 Exemplos de uso:
 
@@ -29,19 +29,19 @@ Exemplos de uso:
 - "gere o SQL dessa consulta para cadastrar como ferramenta no MCP"
 - "quais tipos uso nos parâmetros dessa ferramenta?"
 
-## add-mcp-dashboard
+## build-mcp-dashboard
 
 Monta um dashboard executivo de varejo a partir do ERP ou PDV conectado ao Archeo e publica como artefato: totalizadores com variação, índice de saúde de 0 a 100, venda por dia, mapa de calor por dia e hora, rankings de departamentos, produtos, pagamentos, lojas e operadores, curva ABC e leitura com alertas.
 
 | Arquivo | Conteúdo |
 |---|---|
-| [`SKILL.md`](skills/add-mcp-dashboard/SKILL.md) | Fluxo, escolha do modo de atualização |
-| [`references/indicadores-varejo.md`](skills/add-mcp-dashboard/references/indicadores-varejo.md) | Mapeamento do ERP, catálogo de seções, consultas-modelo validadas |
-| [`references/score.md`](skills/add-mcp-dashboard/references/score.md) | Componentes, pesos e limites do índice de saúde |
-| [`references/modos-atualizacao.md`](skills/add-mcp-dashboard/references/modos-atualizacao.md) | Snapshot, ao vivo (capability `mcp`) e agendado |
-| [`references/config.md`](skills/add-mcp-dashboard/references/config.md) | Formato do config do painel |
-| [`assets/dashboard-template.html`](skills/add-mcp-dashboard/assets/dashboard-template.html) | Template sem dependências externas, claro e escuro |
-| [`scripts/`](skills/add-mcp-dashboard/scripts) | Montagem com validação do config e pré-visualização em Chromium |
+| [`SKILL.md`](skills/build-mcp-dashboard/SKILL.md) | Fluxo, escolha do modo de atualização |
+| [`references/indicadores-varejo.md`](skills/build-mcp-dashboard/references/indicadores-varejo.md) | Mapeamento do ERP, catálogo de seções, consultas-modelo validadas |
+| [`references/score.md`](skills/build-mcp-dashboard/references/score.md) | Componentes, pesos e limites do índice de saúde |
+| [`references/modos-atualizacao.md`](skills/build-mcp-dashboard/references/modos-atualizacao.md) | Snapshot, ao vivo (capability `mcp`) e agendado |
+| [`references/config.md`](skills/build-mcp-dashboard/references/config.md) | Formato do config do painel |
+| [`assets/dashboard-template.html`](skills/build-mcp-dashboard/assets/dashboard-template.html) | Template sem dependências externas, claro e escuro |
+| [`scripts/`](skills/build-mcp-dashboard/scripts) | Montagem com validação do config e pré-visualização em Chromium |
 
 ## analyze-mcp-*: relatórios de ERP de varejo
 
@@ -66,7 +66,7 @@ Estrutura comum:
 | `skills/analyze-mcp-<módulo>/SKILL.md` | Roteamento do pedido para o relatório, defaults de escopo, particularidades do domínio e provas obrigatórias |
 | `skills/analyze-mcp-<módulo>/references/relatorios.md` | Mapeamento do ERP (termos de busca), o que medir, colunas e consultas-modelo de cada relatório |
 
-As skills são agnósticas de ERP: tabelas e colunas saem da exploração do banco conectado. Fiscal e contábil entregam **conferência gerencial**, não escrituração oficial. Um relatório que será pedido de novo pode virar ferramenta com `add-mcp-tool`.
+As skills são agnósticas de ERP: tabelas e colunas saem da exploração do banco conectado. Fiscal e contábil entregam **conferência gerencial**, não escrituração oficial. Um relatório que será pedido de novo pode virar ferramenta com `spec-mcp-tool`.
 
 ### Convenção de nomes
 

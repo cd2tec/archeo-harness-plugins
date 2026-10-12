@@ -1,9 +1,9 @@
 ---
-name: add-mcp-tool
+name: spec-mcp-tool
 description: Gera, pronta para copiar e colar, a ficha de cadastro de uma nova ferramenta no Archeo MCP Creator (tela "Nova ferramenta") para qualquer banco conectado ao Archeo: nome técnico, nome de exibição, descrição, schema, SQL com parâmetros posicionais $1..$n, tipo e obrigatoriedade de cada parâmetro, limites por chamada e valores de teste. Sempre explora e valida o SQL no banco conectado na sessão antes de entregar. Use quando o usuário quiser criar, cadastrar ou publicar uma ferramenta no Archeo ou no MCP Creator, transformar uma consulta em tool do Archeo, perguntar "gere o SQL para cadastrar como ferramenta" ou "quais tipos uso nos parâmetros", mesmo sem citar o nome da skill.
 ---
 
-# add-mcp-tool: ficha de cadastro de ferramenta no Archeo MCP Creator
+# spec-mcp-tool: ficha de cadastro de ferramenta no Archeo MCP Creator
 
 O Archeo MCP Creator expõe bancos legados para IA. Uma **ferramenta** é um SELECT fixo com parâmetros de valor, validado pelo servidor antes de ser aceito. Esta skill entrega tudo que o usuário precisa para preencher a tela "Nova ferramenta" de primeira, com um SQL que já rodou no banco conectado.
 

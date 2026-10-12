@@ -61,4 +61,4 @@ Pedido genérico ("relatório fiscal do mês") recebe o **sintético por CFOP** 
 
 Formato do método comum, com o aviso de conferência no cabeçalho. Divergência é apresentada como "a conferir", com a nota e o valor, nunca como "erro fiscal" ou "imposto a pagar".
 
-Relatórios que valem virar ferramenta (`add-mcp-tool`): sintético por CFOP (`$1`, `$2` período, `$3` loja, `$4` entrada ou saída) e notas com divergência (`$1`, `$2` período, `$3` loja).
+Relatórios que valem virar ferramenta (`spec-mcp-tool`): sintético por CFOP (`$1`, `$2` período, `$3` loja, `$4` entrada ou saída) e notas com divergência (`$1`, `$2` período, `$3` loja).

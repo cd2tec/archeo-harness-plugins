@@ -53,4 +53,4 @@ Pedido genérico ("análise de compras") recebe a **ABC de abastecimento por val
 
 Formato do método comum. **Sugestão de compra é sugestão:** entregue em planilha editável, com as colunas do cálculo abertas e as premissas de prazo, frequência e segurança visíveis, para o comprador ajustar. A skill não cria pedido no ERP.
 
-Relatórios que valem virar ferramenta (`add-mcp-tool`): sugestão de compra (`$1` fornecedor, `$2` loja, `$3` dias de cobertura alvo), pedidos pendentes (`$1` fornecedor, `$2` loja) e variação de custo (`$1` data inicial, `$2` data final, `$3` variação mínima %).
+Relatórios que valem virar ferramenta (`spec-mcp-tool`): sugestão de compra (`$1` fornecedor, `$2` loja, `$3` dias de cobertura alvo), pedidos pendentes (`$1` fornecedor, `$2` loja) e variação de custo (`$1` data inicial, `$2` data final, `$3` variação mínima %).

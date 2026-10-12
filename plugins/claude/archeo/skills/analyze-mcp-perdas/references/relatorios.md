@@ -9,7 +9,7 @@ Consultas em SQL Server com marcadores `<assim>`; **[modelo]** até passarem na 
 
 ## 1. Mapeamento
 
-Movimento, tipo de operação, inventário, produto e custo: `../../analyze-mcp-estoque/references/relatorios.md`, seção 1. Venda por cupom e operador: `../../add-mcp-dashboard/references/indicadores-varejo.md`, seção 1. Acrescente:
+Movimento, tipo de operação, inventário, produto e custo: `../../analyze-mcp-estoque/references/relatorios.md`, seção 1. Venda por cupom e operador: `../../build-mcp-dashboard/references/indicadores-varejo.md`, seção 1. Acrescente:
 
 | Domínio | Para quê | Termos de busca | O que confirmar |
 |---|---|---|---|

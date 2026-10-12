@@ -21,8 +21,8 @@ O [Archeo](https://github.com/cd2tec) conecta bancos de dados legados a assisten
 
 Este repositório reúne plugins que tiram o trabalho braçal desse processo, com **as mesmas skills empacotadas para mais de um harness de agente**: hoje [Claude Code](#claude-code), [Claude Cowork](#claude-cowork), [Codex](#codex) e [ChatGPT Work](#chatgpt-work).
 
-- **`add-mcp-tool`** transforma uma pergunta de negócio em ferramenta pronta para cadastrar no MCP Creator.
-- **`add-mcp-dashboard`** monta um painel executivo de varejo direto do ERP conectado, em snapshot, ao vivo ou com atualização agendada.
+- **`spec-mcp-tool`** transforma uma pergunta de negócio em ferramenta pronta para cadastrar no MCP Creator.
+- **`build-mcp-dashboard`** monta um painel executivo de varejo direto do ERP conectado, em snapshot, ao vivo ou com atualização agendada.
 - **`analyze-mcp-*`** gera os relatórios de um ERP de varejo (estoque, vendas, compras, preços, perdas, fiscal, contábil e financeiro), cada um com sua prova de reconciliação.
 
 ## O problema
@@ -37,7 +37,7 @@ Cadastrar uma boa ferramenta não é só escrever um SELECT. Você precisa:
 
 Um detalhe errado não dá erro. A ferramenta simplesmente **devolve zero linhas, ou um número inflado, e ninguém percebe**.
 
-## A solução: `add-mcp-tool`
+## A solução: `spec-mcp-tool`
 
 Você descreve o que quer em português. O agente explora o banco conectado ao Archeo, escreve o SQL, roda no banco real e devolve a ficha pronta para copiar e colar na tela **Nova ferramenta**.
 
@@ -57,7 +57,7 @@ Agente: [identifica o banco conectado, procura colunas de venda, data e loja,
         SQL, parâmetros com tipos, limites e resultado esperado do teste ...
 ```
 
-Veja uma ficha completa em [`exemplo-ficha.md`](core/archeo/skills/add-mcp-tool/references/exemplo-ficha.md).
+Veja uma ficha completa em [`exemplo-ficha.md`](core/archeo/skills/spec-mcp-tool/references/exemplo-ficha.md).
 
 ## Como funciona
 
@@ -97,7 +97,7 @@ A skill aplica, por padrão, regras que evitam os erros silenciosos mais comuns:
 - **Tipos como contrato**: o tipo do parâmetro na tela valida a entrada antes de chegar no banco.
 - **Validação obrigatória**: nenhuma ficha sai sem ter rodado no banco conectado, em pelo menos dois cenários. Quando não dá para validar, a ficha avisa com destaque.
 
-## Painel de varejo: `add-mcp-dashboard`
+## Painel de varejo: `build-mcp-dashboard`
 
 Peça um painel e receba um artefato pronto para abrir, com os números do ERP ou PDV conectado ao Archeo:
 
@@ -149,7 +149,7 @@ Três regras valem para todas:
 - **Dado ruim aparece.** Custo estimado, campo nunca preenchido, módulo sem uso e posição desatualizada são achados, não rodapé.
 - **Fiscal e contábil são conferência gerencial.** Não substituem escrituração, livros oficiais nem apuração.
 
-O relatório que você vai pedir de novo vira ferramenta: cada skill indica os parâmetros e passa para `add-mcp-tool` o SQL já validado.
+O relatório que você vai pedir de novo vira ferramenta: cada skill indica os parâmetros e passa para `spec-mcp-tool` o SQL já validado.
 
 ## Bancos suportados
 
@@ -236,7 +236,7 @@ No workspace do ChatGPT, quem instala é o admin, que importa o marketplace dire
 
 **Atualizar:** é automático, o ChatGPT sincroniza o marketplace uma vez por dia. Para trazer uma versão nova na hora, vá em **Workspace settings > Plugins > Marketplaces**, escolha `archeo-harness` e clique em **Sync now**. Se você fixou uma tag no import, as versões novas só chegam quando você trocar a tag.
 
-> **Diferença entre ambientes:** no Claude (Code e Cowork), a `add-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex e no ChatGPT Work, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual em todos.
+> **Diferença entre ambientes:** no Claude (Code e Cowork), a `build-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex e no ChatGPT Work, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual em todos.
 
 Depois de instalar, é só pedir:
 
@@ -259,7 +259,7 @@ Depois de instalar, é só pedir:
 
 | Plugin | Skills | Harnesses | Para quê |
 |---|---|---|---|
-| `archeo` | `add-mcp-tool`, `add-mcp-dashboard`, `analyze-mcp-estoque`, `-vendas`, `-compras`, `-precos`, `-perdas`, `-fiscal`, `-contabil`, `-financeiro` | [Claude Code](plugins/claude/archeo), [Codex](plugins/codex/archeo) | Criar ferramentas no Archeo MCP Creator, painéis de varejo e relatórios de ERP a partir do banco conectado |
+| `archeo` | `spec-mcp-tool`, `build-mcp-dashboard`, `analyze-mcp-estoque`, `-vendas`, `-compras`, `-precos`, `-perdas`, `-fiscal`, `-contabil`, `-financeiro` | [Claude Code](plugins/claude/archeo), [Codex](plugins/codex/archeo) | Criar ferramentas no Archeo MCP Creator, painéis de varejo e relatórios de ERP a partir do banco conectado |
 
 ## Estrutura do repositório
 

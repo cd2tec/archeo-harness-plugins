@@ -24,9 +24,9 @@ Conteúdo:
 
 ### 2.1 Identifique o banco conectado
 
-Como em `../skills/add-mcp-tool/SKILL.md`, passo 1: ferramentas `mcp__<conector>__db_<banco>_<engine>_<id>__<ação>` (`db_connection_status`, `db_list_tables`, `db_search_columns`, `db_describe_table`, `db_sample_table`, `db_read_only_query`), possivelmente deferidas (ToolSearch, uma chamada só). Com vários bancos, pergunte qual; sem nenhum, diga que a análise precisa de um banco do Archeo conectado e pare.
+Como em `../skills/spec-mcp-tool/SKILL.md`, passo 1: ferramentas `mcp__<conector>__db_<banco>_<engine>_<id>__<ação>` (`db_connection_status`, `db_list_tables`, `db_search_columns`, `db_describe_table`, `db_sample_table`, `db_read_only_query`), possivelmente deferidas (ToolSearch, uma chamada só). Com vários bancos, pergunte qual; sem nenhum, diga que a análise precisa de um banco do Archeo conectado e pare.
 
-Rode `db_connection_status`, anote engine e versão e leia `../skills/add-mcp-tool/references/regras-sql.md` (seções 1, 3 e 4) antes da primeira consulta.
+Rode `db_connection_status`, anote engine e versão e leia `../skills/spec-mcp-tool/references/regras-sql.md` (seções 1, 3 e 4) antes da primeira consulta.
 
 ### 2.2 Feche o escopo
 
@@ -66,7 +66,7 @@ De 3 a 5 achados, do mais urgente ao menos, cada um com o número que o sustenta
 
 ## 3. Regras de consulta
 
-Valem as de `regras-sql.md` e as de `../skills/add-mcp-dashboard/references/indicadores-varejo.md`, seção 2. As que mais pesam em relatório:
+Valem as de `regras-sql.md` e as de `../skills/build-mcp-dashboard/references/indicadores-varejo.md`, seção 2. As que mais pesam em relatório:
 
 - **Sem CTE**: use tabelas derivadas (`FROM (SELECT ...) x`).
 - **`ORDER BY` com `OFFSET 0 ROWS`** no SQL Server; teste nas outras engines.
@@ -121,8 +121,8 @@ Relatórios por cliente, fornecedor pessoa física, operador ou vendedor trazem 
 
 Um relatório que o usuário vai pedir de novo deve virar ativo, não conversa:
 
-- **Ferramenta no MCP Creator:** cada relatório do catálogo lista os parâmetros naturais. Ofereça `add-mcp-tool` para gerar a ficha com o SQL já validado nesta sessão.
-- **Painel:** indicadores recorrentes cabem em `add-mcp-dashboard`.
+- **Ferramenta no MCP Creator:** cada relatório do catálogo lista os parâmetros naturais. Ofereça `spec-mcp-tool` para gerar a ficha com o SQL já validado nesta sessão.
+- **Painel:** indicadores recorrentes cabem em `build-mcp-dashboard`.
 
 Ofereça em uma linha no fim da entrega, sem insistir.
 

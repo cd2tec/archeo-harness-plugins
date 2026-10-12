@@ -73,6 +73,11 @@ jobs:
           No Claude Code, no Codex e no ChatGPT Work (import de marketplace) não é preciso baixar: instale direto do repositório, como descrito no README.
           EOF
           )
+            # Prepende a seção "## <versão>" do CHANGELOG.md, quando existir.
+            changes=$(awk -v v="$version" '$0=="## "v{f=1;next} /^## /{f=0} f' CHANGELOG.md 2>/dev/null || true)
+            if [ -n "${changes//[[:space:]]/}" ]; then
+              notes="$changes"$'\n\n---\n\n'"$notes"
+            fi
             gh release create "$tag" dist/"$plugin"-*.zip \
               --title "$plugin $version" \
               --notes "$notes" \

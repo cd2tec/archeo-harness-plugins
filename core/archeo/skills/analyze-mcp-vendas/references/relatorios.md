@@ -9,7 +9,7 @@ Consultas em SQL Server com marcadores `<assim>`; **[modelo]** até passarem na 
 
 ## 1. Mapeamento
 
-Venda por cupom, itens, produto, departamento, loja e custo: `../../add-mcp-dashboard/references/indicadores-varejo.md`, seção 1. Acrescente:
+Venda por cupom, itens, produto, departamento, loja e custo: `../../build-mcp-dashboard/references/indicadores-varejo.md`, seção 1. Acrescente:
 
 | Domínio | Para quê | Termos de busca | O que confirmar |
 |---|---|---|---|
@@ -122,7 +122,7 @@ Atenção: ficha com vários níveis (componente que também é composto) exige 
 - Período anterior: imediatamente anterior de mesma duração, ou mesmo período do ano anterior alinhado por dia da semana (364 dias atrás) quando houver histórico.
 - **Mesmas lojas:** só lojas com venda nos dois períodos.
 - Decomposição simples da variação, quando houver cupons: efeito fluxo (cupons) e efeito ticket.
-- Use a regra de base comparável de `add-mcp-dashboard` (menos de 30 documentos ou menos de 10% do outro período: sem comparação).
+- Use a regra de base comparável de `build-mcp-dashboard` (menos de 30 documentos ou menos de 10% do outro período: sem comparação).
 
 **Prova:** total = mesmas lojas + novas + encerradas, nos dois períodos.
 
