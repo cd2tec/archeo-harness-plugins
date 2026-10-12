@@ -7,6 +7,7 @@
 [![Licença Apache 2.0](https://img.shields.io/badge/licen%C3%A7a-Apache%202.0-blue.svg)](LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#claude-code)
 [![Codex plugin](https://img.shields.io/badge/Codex-plugin-10a37f.svg)](#codex)
+[![DeepSeek Harness](https://img.shields.io/badge/DeepSeek%20Harness-skills-4d6bfe.svg)](#deepseek-harness-dsh)
 [![Release](https://img.shields.io/github/v/release/cd2tec/archeo-harness-plugins?label=release)](https://github.com/cd2tec/archeo-harness-plugins/releases/latest)
 [![Archeo](https://img.shields.io/badge/archeo-archeo.cd2.com.br-0000ff.svg)](https://archeo.cd2.com.br)
 [![Site](https://img.shields.io/badge/site-cd2tec.github.io-0000ff.svg)](https://cd2tec.github.io/archeo-harness-plugins/)
@@ -20,7 +21,7 @@
 
 O [Archeo](https://archeo.cd2.com.br) conecta bancos de dados legados a assistentes de IA. Com o **Archeo MCP Creator**, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.
 
-Este repositório reúne plugins que tiram o trabalho braçal desse processo, com **as mesmas skills empacotadas para mais de um harness de agente**: hoje [Claude Code](#claude-code), [Claude Cowork](#claude-cowork), [Codex](#codex) e [ChatGPT Work](#chatgpt-work).
+Este repositório reúne plugins que tiram o trabalho braçal desse processo, com **as mesmas skills empacotadas para mais de um harness de agente**: hoje [Claude Code](#claude-code), [Claude Cowork](#claude-cowork), [Codex](#codex), [ChatGPT Work](#chatgpt-work) e [DeepSeek Harness](#deepseek-harness-dsh).
 
 - **`spec-mcp-tool`** transforma uma pergunta de negócio em ferramenta pronta para cadastrar no MCP Creator.
 - **`build-mcp-dashboard`** monta um painel executivo de varejo direto do ERP conectado, em snapshot, ao vivo ou com atualização agendada.
@@ -237,7 +238,19 @@ No workspace do ChatGPT, quem instala é o admin, que importa o marketplace dire
 
 **Atualizar:** é automático, o ChatGPT sincroniza o marketplace uma vez por dia. Para trazer uma versão nova na hora, vá em **Workspace settings > Plugins > Marketplaces**, escolha `archeo-harness` e clique em **Sync now**. Se você fixou uma tag no import, as versões novas só chegam quando você trocar a tag.
 
-> **Diferença entre ambientes:** no Claude (Code e Cowork), a `build-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex e no ChatGPT Work, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual em todos.
+### DeepSeek Harness (DSH)
+
+O DSH lê skills de diretórios planos (`~/.agents/skills/<skill>/SKILL.md`, entre outros), então o pacote é um ZIP com as skills e um script que as copia para lá:
+
+1. Baixe o [`archeo-dsh.zip`](https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-dsh.zip) e descompacte.
+2. Na pasta descompactada, rode `python3 install.py`. Para instalar só num projeto, `python3 install.py --project`; para ver as opções, `python3 install.py --help`.
+3. Configure o conector do Archeo no DSH como servidor MCP (plugin `@deepseek-ai/dsh-mcp-client`, num `cordis.patch.yml`). O [README do pacote](plugins/dsh/archeo/README.md) traz o exemplo e os diretórios que o DSH lê.
+
+**Atualizar:** baixe o ZIP novo e rode `python3 install.py` de novo. Só as pastas das skills do Archeo são substituídas. **Remover:** `python3 install.py --remove`.
+
+O DSH está em developer preview e a DeepSeek avisa que haverá mudanças incompatíveis; se um caminho mudar, abra uma issue com a versão do `dsh`.
+
+> **Diferença entre ambientes:** no Claude (Code e Cowork), a `build-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex, no ChatGPT Work e no DeepSeek Harness, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual em todos.
 
 Depois de instalar, é só pedir:
 
@@ -260,16 +273,17 @@ Depois de instalar, é só pedir:
 
 | Plugin | Skills | Harnesses | Para quê |
 |---|---|---|---|
-| `archeo` | `spec-mcp-tool`, `build-mcp-dashboard`, `analyze-mcp-estoque`, `-vendas`, `-compras`, `-precos`, `-perdas`, `-fiscal`, `-contabil`, `-financeiro` | [Claude Code](plugins/claude/archeo), [Codex](plugins/codex/archeo) | Criar ferramentas no Archeo MCP Creator, painéis de varejo e relatórios de ERP a partir do banco conectado |
+| `archeo` | `spec-mcp-tool`, `build-mcp-dashboard`, `analyze-mcp-estoque`, `-vendas`, `-compras`, `-precos`, `-perdas`, `-fiscal`, `-contabil`, `-financeiro` | [Claude Code](plugins/claude/archeo), [Codex](plugins/codex/archeo), [DeepSeek Harness](plugins/dsh/archeo) | Criar ferramentas no Archeo MCP Creator, painéis de varejo e relatórios de ERP a partir do banco conectado |
 
 ## Estrutura do repositório
 
-As skills são escritas **uma vez**, em `core/`, e copiadas para o pacote de cada harness por um script. Assim o conteúdo não diverge entre Claude e Codex, e cada harness mantém só o que é dele: manifesto, marketplace e README.
+As skills são escritas **uma vez**, em `core/`, e copiadas para o pacote de cada harness por um script. Assim o conteúdo não diverge entre os harnesses, e cada harness mantém só o que é dele: manifesto, marketplace, README e, no DSH, o script de instalação. Harness que lê skills de diretório plano (DSH) recebe só `skills/`, com as referências compartilhadas copiadas para dentro de cada skill que as cita.
 
 ```
 core/archeo/                    fonte única: skills/, references/, plugin.core.json
 plugins/claude/archeo/          pacote do Claude Code (.claude-plugin/plugin.json + cópias geradas)
 plugins/codex/archeo/           pacote do Codex (plugin.json + cópias geradas)
+plugins/dsh/archeo/             pacote do DeepSeek Harness (plugin.json + install.py + skills/ geradas no layout plano)
 .claude-plugin/marketplace.json marketplace do Claude Code
 .agents/plugins/marketplace.json marketplace do Codex
 harnesses.json                  quais harnesses recebem cada plugin
@@ -284,6 +298,8 @@ flowchart LR
     C -->|sync_plugins.py| CX[plugins/codex/archeo]
     CL --> MC[.claude-plugin/marketplace.json]
     CX --> MX[.agents/plugins/marketplace.json]
+    C -->|sync_plugins.py<br/>layout plano| DS[plugins/dsh/archeo]
+    DS --> ZD[archeo-dsh.zip na release<br/>install.py copia para ~/.agents/skills]
 ```
 
 ## Contribuindo

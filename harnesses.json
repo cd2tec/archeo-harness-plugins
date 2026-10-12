@@ -2,7 +2,10 @@
   "plugins": {
     "archeo": {
       "core": "core/archeo",
-      "synced_dirs": ["skills", "references"],
+      "synced_dirs": [
+        "skills",
+        "references"
+      ],
       "harnesses": {
         "claude": {
           "path": "plugins/claude/archeo",
@@ -11,6 +14,11 @@
         "codex": {
           "path": "plugins/codex/archeo",
           "manifest": "plugin.json"
+        },
+        "dsh": {
+          "path": "plugins/dsh/archeo",
+          "manifest": "plugin.json",
+          "layout": "flat-skills"
         }
       }
     }

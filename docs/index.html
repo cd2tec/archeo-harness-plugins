@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Archeo para agentes de IA · CD2 Tech</title>
-<meta name="description" content="Plugin do Archeo para agentes de IA (Claude Code, Claude Cowork, Codex e ChatGPT Work): ferramentas no MCP Creator, painel executivo de varejo e relatórios de ERP, com cada número conferido no seu banco.">
+<meta name="description" content="Plugin do Archeo para agentes de IA (Claude Code, Claude Cowork, Codex, ChatGPT Work e DeepSeek Harness): ferramentas no MCP Creator, painel executivo de varejo e relatórios de ERP, com cada número conferido no seu banco.">
 <meta property="og:title" content="Archeo para agentes de IA · CD2 Tech">
 <meta property="og:description" content="Do banco legado ao painel executivo e às ferramentas de IA, com cada número conferido no seu banco.">
 <meta property="og:type" content="website">
@@ -279,7 +279,8 @@
   /* Harnesses */
   .flow { display: grid; gap: var(--space-6); align-items: stretch; }
   .flow > * { min-width: 0; }
-  @media (min-width: 1000px) { .flow { grid-template-columns: 1fr 1fr 1fr; } }
+  @media (min-width: 720px) { .flow { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .flow { grid-template-columns: repeat(4, 1fr); } }
   .flow .block { min-height: 200px; }
   .flow code { font-size: 12px; }
   .path { font: 700 13px/20px var(--font-mono); overflow-wrap: anywhere; }
@@ -388,16 +389,16 @@
   <div class="hero">
     <svg class="hero-art" viewBox="114 91 332 312" aria-hidden="true"><path class="lg" d="M 242.320312 397.777344 C 174.101562 397.742188 118.683594 341.917969 119.3125 273.550781 C 119.9375 205.753906 176.226562 151.621094 244.023438 151.621094 L 316.152344 151.621094 C 316.191406 151.621094 316.21875 151.648438 316.21875 151.683594 C 316.21875 182.632812 291.132812 207.722656 260.183594 207.722656 L 243.574219 207.722656 C 206.863281 207.722656 176.082031 236.761719 175.421875 273.46875 C 174.746094 310.9375 205.011719 341.640625 242.320312 341.675781 C 242.355469 341.675781 242.386719 341.703125 242.386719 341.738281 L 242.386719 397.710938 C 242.386719 397.75 242.355469 397.777344 242.320312 397.777344 "/><path class="lg-tech" d="M 314.554688 341.699219 L 242.421875 341.699219 C 242.386719 341.699219 242.359375 341.667969 242.359375 341.632812 C 242.359375 310.683594 267.445312 285.597656 298.394531 285.597656 L 315.003906 285.597656 C 351.714844 285.597656 382.492188 256.554688 383.15625 219.851562 C 383.832031 182.378906 353.566406 151.679688 316.257812 151.644531 C 316.21875 151.644531 316.191406 151.613281 316.191406 151.578125 L 316.191406 95.605469 C 316.191406 95.570312 316.222656 95.539062 316.257812 95.539062 C 384.476562 95.578125 439.890625 151.402344 439.265625 219.769531 C 438.640625 287.5625 382.351562 341.699219 314.554688 341.699219 "/></svg>
     <div class="wrap">
-      <span class="eyebrow">Plugin para Claude e ChatGPT</span>
+      <span class="eyebrow">Plugin para Claude, ChatGPT e DeepSeek</span>
       <h1>Do banco legado ao agente de IA, <em>sem número inventado.</em></h1>
       <p class="lead">O <a href="https://archeo.cd2.com.br" target="_blank" rel="noopener">Archeo</a> conecta bancos de dados legados a assistentes de IA. Com o Archeo MCP Creator, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.</p>
-      <p class="lead">Este plugin tira o trabalho braçal desse processo. As mesmas skills, no Claude Code, no Claude Cowork, no Codex e no ChatGPT Work, geram os relatórios de oito módulos do ERP com prova de reconciliação, montam painéis de varejo e especificam ferramentas para o MCP Creator, sempre validando o SQL no seu banco antes de entregar.</p>
+      <p class="lead">Este plugin tira o trabalho braçal desse processo. As mesmas skills, no Claude Code, no Claude Cowork, no Codex, no ChatGPT Work e no DeepSeek Harness, geram os relatórios de oito módulos do ERP com prova de reconciliação, montam painéis de varejo e especificam ferramentas para o MCP Creator, sempre validando o SQL no seu banco antes de entregar.</p>
       <div class="cta">
         <a class="btn btn--primary" href="#instalacao">Instalar o plugin <span class="btn__arrow" aria-hidden="true">→</span></a>
         <a class="btn btn--secondary" href="#relatorios">Ver os relatórios</a>
       </div>
       <div class="chips">
-        <span class="chip">Claude Code</span><span class="chip">Claude Cowork</span><span class="chip">Codex</span><span class="chip">ChatGPT Work</span><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença Apache 2.0</span><span class="chip">v0.4.1</span>
+        <span class="chip">Claude Code</span><span class="chip">Claude Cowork</span><span class="chip">Codex</span><span class="chip">ChatGPT Work</span><span class="chip">DeepSeek Harness</span><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença Apache 2.0</span><span class="chip">v0.5.0</span>
       </div>
 
       <div class="demo" role="img" aria-label="Exemplo de conversa: o usuário pede o Kardex de um produto e o agente devolve a movimentação com a prova de que o saldo fecha">
@@ -580,7 +581,7 @@
           </div></div>
         </div>
         <div class="grid g3 after">
-          <div class="block block--raised block--notch-tr"><span class="tag tag--concluido"><span class="tag__dot" aria-hidden="true"></span>Todos os ambientes</span><span class="block__kicker">Snapshot</span><h3 class="block__title">Período fechado.</h3><p class="block__text">Para qualquer pessoa com o link. Atualiza republicando. No Codex e no ChatGPT Work, sai como arquivo HTML.</p></div>
+          <div class="block block--raised block--notch-tr"><span class="tag tag--concluido"><span class="tag__dot" aria-hidden="true"></span>Todos os ambientes</span><span class="block__kicker">Snapshot</span><h3 class="block__title">Período fechado.</h3><p class="block__text">Para qualquer pessoa com o link. Atualiza republicando. No Codex, no ChatGPT Work e no DeepSeek Harness, sai como arquivo HTML.</p></div>
           <div class="block block--raised block--notch-bl"><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Só no Claude</span><span class="block__kicker">Ao vivo</span><h3 class="block__title">Consulta ao abrir.</h3><p class="block__text">Para quem usa o Claude com o conector Archeo. A página consulta o banco ao abrir e a cada 5 minutos.</p></div>
           <div class="block block--raised block--notch-tr"><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Só no Claude</span><span class="block__kicker">Agendado</span><h3 class="block__title">Republica sozinho.</h3><p class="block__text">Para a diretoria sem conector. Uma tarefa agendada roda a skill e republica, por exemplo todo dia às 6h.</p></div>
         </div>
@@ -691,21 +692,22 @@
         <span class="eyebrow">Harnesses</span>
         <div class="stack">
           <h2>Escrito uma vez, <em>em cada agente.</em></h2>
-          <p>As skills ficam em <code>core/</code> e um script copia o mesmo conteúdo para o pacote de cada harness. O conteúdo não diverge entre Claude e Codex; cada harness mantém só o que é dele: manifesto, marketplace e README.</p>
+          <p>As skills ficam em <code>core/</code> e um script copia o mesmo conteúdo para o pacote de cada harness. O conteúdo não diverge entre os harnesses; cada harness mantém só o que é dele: manifesto, marketplace, README e, no DSH, o script de instalação.</p>
         </div>
       </div>
       <div class="flow">
         <div class="block block--brand block--notch-tr"><span class="block__kicker">Fonte única</span><h3 class="block__title">core/archeo</h3><p class="block__text">Skills, references e <code>plugin.core.json</code> com o nome e a versão de referência.</p></div>
         <div class="block block--raised block--notch-bl"><span class="block__kicker">Claude Code</span><p class="path">plugins/claude/archeo</p><p class="block__text">Manifesto em <code>.claude-plugin/plugin.json</code> e marketplace em <code>.claude-plugin/marketplace.json</code>.</p></div>
         <div class="block block--raised block--notch-tr"><span class="block__kicker">Codex</span><p class="path">plugins/codex/archeo</p><p class="block__text">Manifesto em <code>plugin.json</code> e marketplace em <code>.agents/plugins/marketplace.json</code>.</p></div>
+        <div class="block block--raised block--notch-bl"><span class="block__kicker">DeepSeek Harness</span><p class="path">plugins/dsh/archeo</p><p class="block__text">Skills no layout plano que o DSH lê, com as referências compartilhadas copiadas para dentro de cada skill, e <code>install.py</code> para copiá-las a <code>~/.agents/skills</code>.</p></div>
       </div>
       <div class="tbl harness-tbl"><div class="tbl-scroll">
         <table>
-          <thead><tr><th>O que muda</th><th>Claude Code</th><th>Codex</th></tr></thead>
+          <thead><tr><th>O que muda</th><th>Claude Code</th><th>Codex</th><th>DeepSeek Harness</th></tr></thead>
           <tbody>
-            <tr><td>Painel <code>build-mcp-dashboard</code></td><td>Publicado como artefato, nos modos snapshot, ao vivo e agendado</td><td>Entregue como arquivo HTML, só no modo snapshot</td></tr>
-            <tr><td>Demais skills</td><td>Iguais</td><td>Iguais</td></tr>
-            <tr><td>Requisito</td><td colspan="2">Conector do Archeo ativo na sessão, com as ferramentas somente leitura <code>db_*</code></td></tr>
+            <tr><td>Painel <code>build-mcp-dashboard</code></td><td>Publicado como artefato, nos modos snapshot, ao vivo e agendado</td><td>Entregue como arquivo HTML, só no modo snapshot</td><td>Entregue como arquivo HTML, só no modo snapshot</td></tr>
+            <tr><td>Demais skills</td><td>Iguais</td><td>Iguais</td><td>Iguais</td></tr>
+            <tr><td>Requisito</td><td colspan="3">Conector do Archeo ativo na sessão, com as ferramentas somente leitura <code>db_*</code></td></tr>
           </tbody>
         </table>
       </div></div>
@@ -718,7 +720,7 @@
       <div class="section-head">
         <span class="eyebrow">Instalação</span>
         <div class="stack">
-          <h2>No Claude <em>ou no ChatGPT.</em></h2>
+          <h2>No Claude, no ChatGPT <em>ou no DeepSeek.</em></h2>
           <p>O plugin é o mesmo em todos os ambientes. Muda só a forma de instalar e de atualizar.</p>
           <p><strong>Requisito, em qualquer ambiente:</strong> um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (<code>db_*</code>). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.</p>
         </div>
@@ -768,6 +770,16 @@
           </div>
           <p class="install-foot">O conector do Archeo precisa estar no workspace como app MCP. No Enterprise, a permissão <strong>Create plugins with MCPs</strong> vem desligada por padrão.</p>
         </div>
+        <div class="card install-card">
+          <span class="install-kicker">DeepSeek · App e Web UI</span>
+          <h3>DeepSeek Harness</h3>
+          <p>O DSH lê skills de <code>~/.agents/skills</code>. Baixe o ZIP, descompacte e rode o script, que copia as skills para lá.</p>
+          <div class="install-actions"><a class="btn btn--primary" href="https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-dsh.zip">Baixar archeo-dsh.zip <span class="btn__arrow" aria-hidden="true">↓</span></a></div>
+          <div class="term">
+            <div class="term-line"><code>python3 install.py</code><button class="copy" type="button">Copiar</button></div>
+          </div>
+          <p class="install-foot">Ligue o conector do Archeo como servidor MCP no DSH (plugin <code>@deepseek-ai/dsh-mcp-client</code>). O <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/plugins/dsh/archeo/README.md">README do pacote</a> traz o exemplo. O DSH está em developer preview.</p>
+        </div>
       </div>
 
       <div class="update">
@@ -781,10 +793,11 @@
               <tr><td><strong>Claude Cowork</strong></td><td>Baixe o <a href="https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-claude.zip">ZIP novo</a> e repita o upload. Na organização, o mesmo nome substitui a versão anterior.</td><td>Não</td></tr>
               <tr><td><strong>Codex</strong></td><td><code>codex plugin marketplace upgrade archeo-harness</code>. Se a versão em <code>codex plugin list</code> não mudar, rode o <code>codex plugin add</code> de novo.</td><td>Não</td></tr>
               <tr><td><strong>ChatGPT Work</strong></td><td>Sincroniza sozinho todo dia. Para trazer na hora: <strong>Workspace settings &gt; Plugins &gt; Marketplaces &gt; Sync now</strong>.</td><td>Sim</td></tr>
+              <tr><td><strong>DeepSeek Harness</strong></td><td>Baixe o <a href="https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-dsh.zip">ZIP novo</a> e rode <code>python3 install.py</code> de novo. Só as pastas das skills do Archeo são substituídas.</td><td>Não</td></tr>
             </tbody>
           </table>
         </div></div>
-        <p class="note">No Codex e no ChatGPT Work, o painel da <code>build-mcp-dashboard</code> sai como arquivo HTML, só no modo snapshot. Os modos ao vivo e agendado dependem de recursos do Claude.</p>
+        <p class="note">No Codex, no ChatGPT Work e no DeepSeek Harness, o painel da <code>build-mcp-dashboard</code> sai como arquivo HTML, só no modo snapshot. Os modos ao vivo e agendado dependem de recursos do Claude.</p>
       </div>
 
       <div class="prompts-wrap">

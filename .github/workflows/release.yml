@@ -68,7 +68,8 @@ jobs:
           |---|---|
           | \`$plugin-claude-$version.zip\` | Claude Cowork: **Customize > Plugins** (pessoal) ou **Organization settings > Plugins & skills > Add > Upload a plugin** (organização) |
           | \`$plugin-codex-$version.zip\` | Codex e ChatGPT Work, quando não for usar o import pelo GitHub |
-          | \`$plugin-claude.zip\` e \`$plugin-codex.zip\` | Os mesmos arquivos, sem versão no nome, para o link fixo \`releases/latest/download/...\` |
+          | \`$plugin-dsh-$version.zip\` | DeepSeek Harness (DSH): descompacte e rode \`python3 install.py\`, que copia as skills para \`~/.agents/skills\` |
+          | \`$plugin-claude.zip\`, \`$plugin-codex.zip\` e \`$plugin-dsh.zip\` | Os mesmos arquivos, sem versão no nome, para o link fixo \`releases/latest/download/...\` |
 
           No Claude Code, no Codex e no ChatGPT Work (import de marketplace) não é preciso baixar: instale direto do repositório, como descrito no README.
           EOF

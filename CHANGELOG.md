@@ -2,6 +2,14 @@
 
 As notas de cada versão entram automaticamente na release do GitHub. Use um título `## <versão>` por versão, da mais recente para a mais antiga.
 
+## 0.5.0
+
+**Pacote para o DeepSeek Harness (DSH).** As mesmas dez skills, agora também em `plugins/dsh/archeo` e no `archeo-dsh.zip` da release. O DSH lê skills de diretórios planos (`~/.agents/skills/<skill>/`), então o pacote vem com um `install.py` que copia as skills para lá e traz, dentro de cada skill, as referências compartilhadas que ela cita. O README do pacote explica como ligar o conector do Archeo como servidor MCP no DSH.
+
+- Novo layout `flat-skills` em `harnesses.json` e no `scripts/sync_plugins.py`, que também passa a conferir as referências entre arquivos na árvore gerada de cada harness.
+- `build-mcp-dashboard` cita o DeepSeek Harness entre os harnesses sem Artifact tool. O comportamento no Claude e no Codex não muda.
+- O DSH está em developer preview; a instalação por cópia continuará funcionando quando o pacote virar um bundle npm.
+
 ## 0.4.1
 
 **Licença Apache 2.0.** O repositório passa de MIT para Apache License 2.0. O uso continua livre, inclusive comercial, sem obrigação de abrir código derivado. O que muda para quem usa:
