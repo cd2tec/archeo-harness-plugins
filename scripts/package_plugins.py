@@ -4,7 +4,8 @@
 Uso:
     python3 scripts/package_plugins.py [--out dist]
 
-Saída: <out>/<plugin>-<harness>-<versão>.zip, com o conteúdo da pasta do
+Saída: <out>/<plugin>-<harness>-<versão>.zip e a mesma cópia sem versão
+(<plugin>-<harness>.zip, para o link estável da última release), com o conteúdo da pasta do
 pacote na raiz do ZIP (manifesto, skills/ e references/). O ZIP do Claude é o
 que se sobe em Customize > Plugins ou em Organization settings > Plugins & skills.
 
@@ -58,7 +59,11 @@ def main() -> int:
         for harness, target in spec["harnesses"].items():
             dest = out / f"{plugin}-{harness}-{version}.zip"
             n = zip_dir(ROOT / target["path"], dest)
-            print(f"{dest.relative_to(ROOT) if dest.is_relative_to(ROOT) else dest}: {n} arquivos")
+            # Cópia sem versão no nome: permite o link estável
+            # releases/latest/download/<plugin>-<harness>.zip no site e no README.
+            alias = out / f"{plugin}-{harness}.zip"
+            alias.write_bytes(dest.read_bytes())
+            print(f"{dest.name} e {alias.name}: {n} arquivos")
 
     gh_output = os.environ.get("GITHUB_OUTPUT")
     if gh_output:

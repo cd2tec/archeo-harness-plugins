@@ -2,7 +2,8 @@ name: Publicar release dos plugins
 
 # Roda quando a versão de um plugin muda em core/ (ou manualmente).
 # Para cada plugin cuja tag <plugin>-v<versão> ainda não existe, cria a
-# release com um ZIP por harness, pronto para upload no Claude ou no ChatGPT.
+# release com um ZIP por harness, pronto para upload no Claude Cowork ou no
+# ChatGPT Work. Se a release já existe, só envia os arquivos que faltarem.
 
 on:
   push:
@@ -44,24 +45,35 @@ jobs:
         run: |
           set -euo pipefail
           for tag in $TAGS; do
-            if gh release view "$tag" >/dev/null 2>&1; then
-              echo "Release $tag já existe, nada a fazer."
-              continue
-            fi
             plugin="${tag%-v*}"
             version="${tag##*-v}"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              # Release existente: não recria nem sobrescreve, só completa os arquivos que faltam.
+              existing=$(gh release view "$tag" --json assets --jq '.assets[].name')
+              for f in dist/"$plugin"-*.zip; do
+                name=$(basename "$f")
+                if grep -qxF "$name" <<<"$existing"; then
+                  echo "$tag já tem $name."
+                else
+                  echo "$tag: enviando $name que faltava."
+                  gh release upload "$tag" "$f"
+                fi
+              done
+              continue
+            fi
             notes=$(cat <<EOF
           Plugin \`$plugin\` versão $version.
 
           | Arquivo | Para |
           |---|---|
-          | \`$plugin-claude-$version.zip\` | Claude: **Customize > Plugins** (pessoal) ou **Organization settings > Plugins & skills > Add > Upload a plugin** (organização) |
-          | \`$plugin-codex-$version.zip\` | Codex e ChatGPT, quando não for usar o import pelo GitHub |
+          | \`$plugin-claude-$version.zip\` | Claude Cowork: **Customize > Plugins** (pessoal) ou **Organization settings > Plugins & skills > Add > Upload a plugin** (organização) |
+          | \`$plugin-codex-$version.zip\` | Codex e ChatGPT Work, quando não for usar o import pelo GitHub |
+          | \`$plugin-claude.zip\` e \`$plugin-codex.zip\` | Os mesmos arquivos, sem versão no nome, para o link fixo \`releases/latest/download/...\` |
 
-          No Claude Code, Codex e ChatGPT (import de marketplace) não é preciso baixar: instale direto do repositório, como descrito no README.
+          No Claude Code, no Codex e no ChatGPT Work (import de marketplace) não é preciso baixar: instale direto do repositório, como descrito no README.
           EOF
           )
-            gh release create "$tag" dist/"$plugin"-*-"$version".zip \
+            gh release create "$tag" dist/"$plugin"-*.zip \
               --title "$plugin $version" \
               --notes "$notes" \
               --target "$GITHUB_SHA"

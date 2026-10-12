@@ -7,6 +7,7 @@
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#claude-code)
 [![Codex plugin](https://img.shields.io/badge/Codex-plugin-10a37f.svg)](#codex)
+[![Release](https://img.shields.io/github/v/release/cd2tec/archeo-harness-plugins?label=release)](https://github.com/cd2tec/archeo-harness-plugins/releases/latest)
 [![Site](https://img.shields.io/badge/site-cd2tec.github.io-0000ff.svg)](https://cd2tec.github.io/archeo-harness-plugins/)
 [![Bancos](https://img.shields.io/badge/bancos-SQL%20Server%20%7C%20PostgreSQL%20%7C%20Oracle%20%7C%20MySQL-555.svg)](#bancos-suportados)
 
@@ -18,7 +19,7 @@
 
 O [Archeo](https://github.com/cd2tec) conecta bancos de dados legados a assistentes de IA. Com o **Archeo MCP Creator**, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.
 
-Este repositório reúne plugins que tiram o trabalho braçal desse processo, com **as mesmas skills empacotadas para mais de um harness de agente**: hoje [Claude Code](#claude-code) e [Codex](#codex).
+Este repositório reúne plugins que tiram o trabalho braçal desse processo, com **as mesmas skills empacotadas para mais de um harness de agente**: hoje [Claude Code](#claude-code), [Claude Cowork](#claude-cowork), [Codex](#codex) e [ChatGPT Work](#chatgpt-work).
 
 - **`add-mcp-tool`** transforma uma pergunta de negócio em ferramenta pronta para cadastrar no MCP Creator.
 - **`add-mcp-dashboard`** monta um painel executivo de varejo direto do ERP conectado, em snapshot, ao vivo ou com atualização agendada.
@@ -163,37 +164,79 @@ Em qualquer engine, a palavra final é do teste no banco conectado: se algo não
 
 ## Instalação
 
-**Requisito, em qualquer harness:** um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (`db_*`). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.
+O plugin `archeo` é o mesmo em todos os ambientes. Muda só a forma de instalar:
+
+| Ambiente | Como instala | Atualiza sozinho? |
+|---|---|---|
+| [Claude Code](#claude-code) | Marketplace direto do GitHub | Opcional (ative o auto-update) |
+| [Claude Cowork](#claude-cowork) | Upload do ZIP da release | Não, suba o ZIP novo |
+| [Codex](#codex) | Marketplace direto do GitHub | Não, rode o upgrade |
+| [ChatGPT Work](#chatgpt-work) | Admin importa o repositório | Sim, sincroniza todo dia |
+
+**Requisito, em qualquer ambiente:** um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (`db_*`). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.
+
+### Downloads
+
+Cada versão gera uma [release](https://github.com/cd2tec/archeo-harness-plugins/releases/latest) com um ZIP por ambiente. Os links abaixo sempre apontam para a versão mais recente:
+
+- **[`archeo-claude.zip`](https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-claude.zip)**, para o Claude Cowork
+- **[`archeo-codex.zip`](https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-codex.zip)**, para o Codex e o ChatGPT Work, quando não der para instalar direto do GitHub
+
+Na página de cada release também ficam os mesmos arquivos com a versão no nome (por exemplo, `archeo-claude-0.3.0.zip`), para quem precisa guardar uma versão específica.
 
 ### Claude Code
+
+Dentro de uma sessão:
 
 ```
 /plugin marketplace add cd2tec/archeo-harness-plugins
 /plugin install archeo@archeo-harness
 ```
 
-### App do Claude (Cowork)
+**Atualizar:** rode `/plugin marketplace update archeo-harness` na sessão, ou `claude plugin update archeo@archeo-harness` no terminal. Para receber as versões novas sem pedir, abra `/plugin`, vá em **Marketplaces**, escolha `archeo-harness` e selecione **Enable auto-update**.
 
-A sincronização de marketplace pelo GitHub no app do Claude só aceita repositório privado, então aqui a instalação é por upload. Baixe o `archeo-claude-<versão>.zip` da [última release](https://github.com/cd2tec/archeo-harness-plugins/releases/latest) e:
+### Claude Cowork
 
-- **Para você:** **Customize > Plugins**, upload do ZIP.
-- **Para a organização** (Owner, planos Team e Enterprise): **Organization settings > Plugins & skills > Add > Upload a plugin**. Depois, em **Inventory > Default access**, escolha se fica disponível, instalado por padrão ou obrigatório.
+No app do Claude, a instalação é pelo ZIP. A sincronização de marketplace pelo GitHub existe, mas só aceita repositório privado, e este é público.
 
-Para atualizar, suba o ZIP da versão nova com o mesmo nome; ele substitui o anterior.
+1. Baixe o [`archeo-claude.zip`](https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-claude.zip).
+2. Escolha onde instalar:
+   - **Só para você:** em **Customize > Plugins**, faça o upload do ZIP. Dali você também pode compartilhar o plugin com colegas ou grupos.
+   - **Para a organização** (Owner ou Primary Owner, planos Team e Enterprise, com Cowork e Skills habilitados): em **Organization settings > Plugins & skills**, clique em **Add > Upload a plugin**. Na primeira vez, dê um nome ao marketplace (sugestão: `archeo-harness`) e suba o ZIP.
+3. Na organização, defina quem recebe o plugin: aba **Inventory**, menu da linha do `archeo`, **Default access**. As opções são **Available to install**, **Installed by default**, **Required** ou **Not available**.
+4. Os membros encontram o plugin em **Customize > Plugins**, na aba **Discover**. Plugins **Installed by default** e **Required** já aparecem instalados.
 
-### ChatGPT (workspace)
-
-O admin importa o marketplace em **Workspace settings > Plugins > Add > Import marketplace**, com Source `https://github.com/cd2tec/archeo-harness-plugins` e Path vazio. O ChatGPT lê o `.agents/plugins/marketplace.json` e sincroniza uma vez por dia. As skills precisam do conector Archeo disponível como app MCP no workspace.
+**Atualizar:** baixe o ZIP novo e repita o upload no mesmo lugar. Na organização, um plugin com o mesmo nome substitui a versão anterior, e os membros recebem a atualização na próxima sessão.
 
 ### Codex
 
 ```
 codex plugin marketplace add cd2tec/archeo-harness-plugins
+codex plugin add archeo@archeo-harness
 ```
 
-Depois, reinicie o app, abra o diretório de plugins, escolha o marketplace **Archeo (CD2 Retail Tech)** e instale o `archeo`.
+No app do Codex, depois de adicionar o marketplace, você também pode instalar pelo diretório de plugins: reinicie o app, escolha o marketplace **Archeo (CD2 Retail Tech)** e instale o `archeo`. Para conferir, use `codex plugin list`, que mostra `archeo@archeo-harness` com a versão instalada.
 
-> **Diferença entre harnesses:** no Claude, a `add-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual nos dois.
+**Atualizar:** `codex plugin marketplace upgrade archeo-harness`. Se o `codex plugin list` continuar mostrando a versão antiga, rode `codex plugin add archeo@archeo-harness` de novo.
+
+### ChatGPT Work
+
+No workspace do ChatGPT, quem instala é o admin, que importa o marketplace direto do GitHub:
+
+1. Em **Workspace settings > Plugins**, clique em **Add** e depois em **Import marketplace**.
+2. Preencha:
+   - **Source:** `https://github.com/cd2tec/archeo-harness-plugins`
+   - **Path:** deixe vazio
+   - **Branch, tag, or commit:** deixe vazio para acompanhar as atualizações
+3. Clique em **Import marketplace** e autorize o acesso ao GitHub.
+4. Em **Import results**, confira se o `archeo` veio de `plugins/codex/archeo`. Abra o plugin e defina a **Installation policy** (**Available** ou **Installed**) para cada papel.
+5. Os membros instalam em **Plugins**, na barra lateral, com **Install plugin**.
+
+**O conector é obrigatório:** as skills só encontram o banco se o conector do Archeo estiver disponível no workspace como app MCP (Model Context Protocol, protocolo de contexto de modelo). No Enterprise, a permissão **Create plugins with MCPs** vem desligada por padrão.
+
+**Atualizar:** é automático, o ChatGPT sincroniza o marketplace uma vez por dia. Para trazer uma versão nova na hora, vá em **Workspace settings > Plugins > Marketplaces**, escolha `archeo-harness` e clique em **Sync now**. Se você fixou uma tag no import, as versões novas só chegam quando você trocar a tag.
+
+> **Diferença entre ambientes:** no Claude (Code e Cowork), a `add-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex e no ChatGPT Work, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual em todos.
 
 Depois de instalar, é só pedir:
 
@@ -246,7 +289,7 @@ flowchart LR
 
 1. Edite as skills em `core/`, nunca nas cópias dentro de `plugins/<harness>/`.
 2. Rode `python3 scripts/sync_plugins.py` e depois `python3 scripts/sync_plugins.py --check`.
-3. Para lançar versão, suba a versão em `core/archeo/plugin.core.json`, nos manifestos de cada harness e no marketplace do Claude. Ao chegar na `main`, o workflow de release cria a tag `archeo-v<versão>` com um ZIP por harness.
+3. Para lançar versão, suba a versão em `core/archeo/plugin.core.json` e nos manifestos de cada harness. Ao chegar na `main`, o workflow de release cria a tag `archeo-v<versão>` com um ZIP por harness, e os links de download passam a entregar a versão nova.
 4. Abra o pull request. O CI repete o `--check` e falha se `core/` e as cópias divergirem, se algum manifesto tiver nome ou versão diferente do core ou se uma referência entre arquivos estiver quebrada.
 
 Para adicionar um harness, crie `plugins/<harness>/<plugin>/` com o manifesto, registre-o em `harnesses.json`, crie o marketplace correspondente e rode o sync. Os detalhes estão em [`AGENTS.md`](AGENTS.md).
