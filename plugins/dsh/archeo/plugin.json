@@ -1,0 +1,21 @@
+{
+  "name": "archeo",
+  "version": "0.5.0",
+  "description": "Skills do Archeo para o DeepSeek Harness (DSH): spec-mcp-tool gera a ficha de cadastro de ferramentas no MCP Creator; build-mcp-dashboard monta um painel executivo de varejo; as skills analyze-mcp-* geram relatórios de ERP de varejo (estoque, vendas, compras, preços, perdas, fiscal, contábil e financeiro) a partir do banco conectado, sempre reconciliados.",
+  "author": {
+    "name": "CD2 Retail Tech",
+    "url": "https://github.com/cd2tec"
+  },
+  "homepage": "https://cd2tec.github.io/archeo-harness-plugins/",
+  "repository": "https://github.com/cd2tec/archeo-harness-plugins",
+  "license": "Apache-2.0",
+  "keywords": ["archeo", "mcp", "mcp-creator", "sql", "cd2", "erp", "varejo", "relatorios", "deepseek", "dsh"],
+  "harness": "dsh",
+  "layout": "flat-skills",
+  "skillsDir": "skills",
+  "install": {
+    "script": "install.py",
+    "defaultTarget": "~/.agents/skills",
+    "note": "O DSH não lê este arquivo. Ele registra nome e versão do pacote (conferidos por scripts/sync_plugins.py) e descreve o layout para quem instala à mão."
+  }
+}

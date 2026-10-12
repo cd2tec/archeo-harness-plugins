@@ -54,7 +54,7 @@ De 3 a 6 itens curtos, do mais urgente ao menos, com nível `critico`, `atencao`
 
 Para republicar com dados novos, gere a página de novo e publique no mesmo caminho de arquivo, ou passe a `url` do artefato existente.
 
-**Harness sem Artifact tool (por exemplo, Codex).** Os passos 1 a 3 valem igual; pule os passos 4 a 6. Use só o modo snapshot: entregue o `painel.html` como arquivo, que abre em qualquer navegador, sem dependências externas. Avise o usuário em uma linha que os modos ao vivo e agendado dependem de recursos do Claude e não estão disponíveis neste harness. Se `preview_dashboard.py` não rodar por falta de Chromium ou Playwright, diga que a renderização não foi conferida em vez de omitir o passo.
+**Harness sem Artifact tool (por exemplo, Codex ou DeepSeek Harness).** Os passos 1 a 3 valem igual; pule os passos 4 a 6. Use só o modo snapshot: entregue o `painel.html` como arquivo, que abre em qualquer navegador, sem dependências externas. Avise o usuário em uma linha que os modos ao vivo e agendado dependem de recursos do Claude e não estão disponíveis neste harness. Se `preview_dashboard.py` não rodar por falta de Chromium ou Playwright, diga que a renderização não foi conferida em vez de omitir o passo.
 
 ### 7. Responda
 

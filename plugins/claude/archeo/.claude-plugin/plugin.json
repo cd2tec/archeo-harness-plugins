@@ -1,6 +1,6 @@
 {
   "name": "archeo",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Skills para trabalhar com o Archeo: spec-mcp-tool gera a ficha de cadastro de ferramentas no MCP Creator; build-mcp-dashboard monta um painel executivo de varejo; as skills analyze-mcp-* geram relatórios de ERP de varejo (estoque, vendas, compras, preços, perdas, fiscal, contábil e financeiro) a partir do banco conectado, sempre reconciliados.",
   "author": {
     "name": "CD2 Retail Tech",
