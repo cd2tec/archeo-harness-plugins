@@ -1,15 +1,16 @@
 <div align="center">
 
-# Archeo Claude Plugins
+# Archeo Harness Plugins
 
 **Do banco legado ao painel executivo e às ferramentas de IA, com cada número conferido no seu banco.**
 
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
-[![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#instalação)
-[![Site](https://img.shields.io/badge/site-cd2tec.github.io-0000ff.svg)](https://cd2tec.github.io/archeo-claude-plugins/)
+[![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#claude-code)
+[![Codex plugin](https://img.shields.io/badge/Codex-plugin-10a37f.svg)](#codex)
+[![Site](https://img.shields.io/badge/site-cd2tec.github.io-0000ff.svg)](https://cd2tec.github.io/archeo-harness-plugins/)
 [![Bancos](https://img.shields.io/badge/bancos-SQL%20Server%20%7C%20PostgreSQL%20%7C%20Oracle%20%7C%20MySQL-555.svg)](#bancos-suportados)
 
-**[Conheça o site do plugin →](https://cd2tec.github.io/archeo-claude-plugins/)**
+**[Conheça o site do plugin →](https://cd2tec.github.io/archeo-harness-plugins/)**
 
 </div>
 
@@ -17,7 +18,7 @@
 
 O [Archeo](https://github.com/cd2tec) conecta bancos de dados legados a assistentes de IA. Com o **Archeo MCP Creator**, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.
 
-Este repositório reúne plugins para o Claude que tiram o trabalho braçal desse processo:
+Este repositório reúne plugins que tiram o trabalho braçal desse processo, com **as mesmas skills empacotadas para mais de um harness de agente**: hoje [Claude Code](#claude-code) e [Codex](#codex).
 
 - **`add-mcp-tool`** transforma uma pergunta de negócio em ferramenta pronta para cadastrar no MCP Creator.
 - **`add-mcp-dashboard`** monta um painel executivo de varejo direto do ERP conectado, em snapshot, ao vivo ou com atualização agendada.
@@ -55,7 +56,7 @@ Claude: [identifica o banco conectado, procura colunas de venda, data e loja,
         SQL, parâmetros com tipos, limites e resultado esperado do teste ...
 ```
 
-Veja uma ficha completa em [`exemplo-ficha.md`](plugins/archeo/skills/add-mcp-tool/references/exemplo-ficha.md).
+Veja uma ficha completa em [`exemplo-ficha.md`](core/archeo/skills/add-mcp-tool/references/exemplo-ficha.md).
 
 ## Como funciona
 
@@ -162,14 +163,24 @@ Em qualquer engine, a palavra final é do teste no banco conectado: se algo não
 
 ## Instalação
 
-No Claude Code:
+**Requisito, em qualquer harness:** um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (`db_*`). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.
+
+### Claude Code
 
 ```
-/plugin marketplace add cd2tec/archeo-claude-plugins
-/plugin install archeo@archeo-plugins
+/plugin marketplace add cd2tec/archeo-harness-plugins
+/plugin install archeo@archeo-harness
 ```
 
-**Requisito:** um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (`db_*`). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.
+### Codex
+
+```
+codex plugin marketplace add cd2tec/archeo-harness-plugins
+```
+
+Depois, reinicie o app, abra o diretório de plugins, escolha o marketplace **Archeo (CD2 Retail Tech)** e instale o `archeo`.
+
+> **Diferença entre harnesses:** no Claude, a `add-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual nos dois.
 
 Depois de instalar, é só pedir:
 
@@ -190,13 +201,42 @@ Depois de instalar, é só pedir:
 
 ## Plugins
 
-| Plugin | Skills | Para quê |
-|---|---|---|
-| [`archeo`](plugins/archeo) | `add-mcp-tool`, `add-mcp-dashboard`, `analyze-mcp-estoque`, `-vendas`, `-compras`, `-precos`, `-perdas`, `-fiscal`, `-contabil`, `-financeiro` | Criar ferramentas no Archeo MCP Creator, painéis de varejo e relatórios de ERP a partir do banco conectado |
+| Plugin | Skills | Harnesses | Para quê |
+|---|---|---|---|
+| `archeo` | `add-mcp-tool`, `add-mcp-dashboard`, `analyze-mcp-estoque`, `-vendas`, `-compras`, `-precos`, `-perdas`, `-fiscal`, `-contabil`, `-financeiro` | [Claude Code](plugins/claude/archeo), [Codex](plugins/codex/archeo) | Criar ferramentas no Archeo MCP Creator, painéis de varejo e relatórios de ERP a partir do banco conectado |
+
+## Estrutura do repositório
+
+As skills são escritas **uma vez**, em `core/`, e copiadas para o pacote de cada harness por um script. Assim o conteúdo não diverge entre Claude e Codex, e cada harness mantém só o que é dele: manifesto, marketplace e README.
+
+```
+core/archeo/                    fonte única: skills/, references/, plugin.core.json
+plugins/claude/archeo/          pacote do Claude Code (.claude-plugin/plugin.json + cópias geradas)
+plugins/codex/archeo/           pacote do Codex (plugin.json + cópias geradas)
+.claude-plugin/marketplace.json marketplace do Claude Code
+.agents/plugins/marketplace.json marketplace do Codex
+harnesses.json                  quais harnesses recebem cada plugin
+scripts/sync_plugins.py         copia core/ para os harnesses e confere a sincronia
+docs/                           site (GitHub Pages)
+```
+
+```mermaid
+flowchart LR
+    C[core/archeo<br/>skills e references] -->|sync_plugins.py| CL[plugins/claude/archeo]
+    C -->|sync_plugins.py| CX[plugins/codex/archeo]
+    CL --> MC[.claude-plugin/marketplace.json]
+    CX --> MX[.agents/plugins/marketplace.json]
+```
 
 ## Contribuindo
 
-Encontrou uma engine com comportamento diferente, ou um caso que a skill não cobre? Abra uma issue com a engine, a versão e a consulta. Pull requests são bem-vindos.
+1. Edite as skills em `core/`, nunca nas cópias dentro de `plugins/<harness>/`.
+2. Rode `python3 scripts/sync_plugins.py` e depois `python3 scripts/sync_plugins.py --check`.
+3. Abra o pull request. O CI repete o `--check` e falha se `core/` e as cópias divergirem, se algum manifesto tiver nome ou versão diferente do core ou se uma referência entre arquivos estiver quebrada.
+
+Para adicionar um harness, crie `plugins/<harness>/<plugin>/` com o manifesto, registre-o em `harnesses.json`, crie o marketplace correspondente e rode o sync. Os detalhes estão em [`AGENTS.md`](AGENTS.md).
+
+Encontrou uma engine com comportamento diferente, ou um caso que a skill não cobre? Abra uma issue com a engine, a versão e a consulta.
 
 ## Licença
 

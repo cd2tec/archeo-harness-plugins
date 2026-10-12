@@ -1,6 +1,15 @@
-# Plugin archeo
+# Plugin archeo para Claude Code
 
-Skills para trabalhar com o [Archeo](https://github.com/cd2tec/archeo-claude-plugins).
+Skills para trabalhar com o [Archeo](https://github.com/cd2tec/archeo-harness-plugins).
+
+> As pastas `skills/` e `references/` deste pacote são **cópias geradas** de [`core/archeo`](../../../core/archeo). Edite lá e rode `python3 scripts/sync_plugins.py` na raiz do repositório.
+
+Instalação:
+
+```
+/plugin marketplace add cd2tec/archeo-harness-plugins
+/plugin install archeo@archeo-harness
+```
 
 ## add-mcp-tool
 

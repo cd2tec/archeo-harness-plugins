@@ -1,0 +1,20 @@
+{
+  "name": "archeo-harness",
+  "interface": {
+    "displayName": "Archeo (CD2 Retail Tech)"
+  },
+  "plugins": [
+    {
+      "name": "archeo",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex/archeo"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Cópias geradas a partir de core/ por scripts/sync_plugins.py.
+# Marcadas como geradas para não poluir diffs de PR; edite core/.
+plugins/*/*/skills/** linguist-generated=true
+plugins/*/*/references/** linguist-generated=true

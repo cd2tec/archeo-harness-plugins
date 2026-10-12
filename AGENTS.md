@@ -1,0 +1,35 @@
+# Instruções para agentes neste repositório
+
+Este repositório publica os mesmos plugins para mais de um harness (hoje Claude Code e Codex).
+
+## Regra principal
+
+**Edite só `core/`.** As pastas `plugins/<harness>/<plugin>/skills/` e `plugins/<harness>/<plugin>/references/` são cópias geradas. Depois de qualquer mudança em `core/`, rode:
+
+```
+python3 scripts/sync_plugins.py
+python3 scripts/sync_plugins.py --check
+```
+
+O CI roda o `--check` e falha se as cópias divergirem de `core/`.
+
+## Onde fica cada coisa
+
+| Caminho | O que é | Edita à mão? |
+|---|---|---|
+| `core/<plugin>/skills/` | Fonte única das skills | Sim |
+| `core/<plugin>/references/` | Referências compartilhadas entre skills | Sim |
+| `core/<plugin>/plugin.core.json` | Nome e versão de referência do plugin | Sim |
+| `harnesses.json` | Quais harnesses recebem cada plugin e onde fica o manifesto | Sim |
+| `plugins/<harness>/<plugin>/` (manifesto e README) | Empacotamento específico do harness | Sim |
+| `plugins/<harness>/<plugin>/skills/` e `references/` | Cópias geradas | **Não** |
+| `.claude-plugin/marketplace.json` | Marketplace do Claude Code | Sim |
+| `.agents/plugins/marketplace.json` | Marketplace do Codex | Sim |
+
+## Convenções
+
+- Skills seguem o formato `skills/<nome>/SKILL.md` com frontmatter `name` (igual ao nome da pasta) e `description`. O formato é o mesmo nos dois harnesses.
+- Referências entre skills usam caminho relativo (`../outra-skill/references/x.md`); por isso cada harness recebe o conjunto completo.
+- Escreva as skills de forma neutra quanto ao harness. Quando um passo depender de um recurso exclusivo (por exemplo, publicar artefato no Claude), diga isso explicitamente na skill e ofereça a alternativa para os demais harnesses.
+- Ao mudar a versão, atualize `core/<plugin>/plugin.core.json`, os manifestos de cada harness e a entrada do marketplace do Claude. O `--check` confere nome e versão dos manifestos.
+- Para adicionar um harness: crie `plugins/<harness>/<plugin>/` com o manifesto, registre em `harnesses.json`, crie o marketplace correspondente e rode o sync.

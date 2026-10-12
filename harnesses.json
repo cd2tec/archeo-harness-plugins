@@ -1,0 +1,18 @@
+{
+  "plugins": {
+    "archeo": {
+      "core": "core/archeo",
+      "synced_dirs": ["skills", "references"],
+      "harnesses": {
+        "claude": {
+          "path": "plugins/claude/archeo",
+          "manifest": ".claude-plugin/plugin.json"
+        },
+        "codex": {
+          "path": "plugins/codex/archeo",
+          "manifest": "plugin.json"
+        }
+      }
+    }
+  }
+}

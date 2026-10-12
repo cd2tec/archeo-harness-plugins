@@ -301,7 +301,7 @@
         <a class="hide-sm" href="#como-funciona">Como funciona</a>
         <a class="hide-sm" href="#bancos">Bancos</a>
         <a href="#instalacao">Instalação</a>
-        <a class="hide-xs" href="https://github.com/cd2tec/archeo-claude-plugins">GitHub</a>
+        <a class="hide-xs" href="https://github.com/cd2tec/archeo-harness-plugins">GitHub</a>
       </nav>
     </div>
   </header>
@@ -314,7 +314,7 @@
       <p class="lead">O Archeo conecta bancos de dados legados a assistentes de IA. Este plugin dá ao Claude as skills para criar ferramentas no Archeo MCP Creator, montar painéis de varejo e gerar relatórios de ERP, sempre validando o SQL no banco real antes de entregar.</p>
       <div class="cta">
         <a class="btn btn--primary" href="#instalacao">Instalar o plugin <span class="btn__arrow" aria-hidden="true">→</span></a>
-        <a class="btn btn--secondary" href="https://github.com/cd2tec/archeo-claude-plugins">Ver no GitHub</a>
+        <a class="btn btn--secondary" href="https://github.com/cd2tec/archeo-harness-plugins">Ver no GitHub</a>
       </div>
       <div class="chips">
         <span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença MIT</span><span class="chip">v0.3.0</span>
@@ -540,13 +540,17 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Instalação</span>
-        <div class="stack"><h2>Dois comandos <em>no Claude Code.</em></h2></div>
+        <div class="stack"><h2>No Claude Code <em>ou no Codex.</em></h2></div>
       </div>
       <div class="install">
         <div>
           <div class="term">
-            <div class="term-line"><code>/plugin marketplace add cd2tec/archeo-claude-plugins</code><button class="copy" type="button">Copiar</button></div>
-            <div class="term-line"><code>/plugin install archeo@archeo-plugins</code><button class="copy" type="button">Copiar</button></div>
+            <div class="term-line"><code>/plugin marketplace add cd2tec/archeo-harness-plugins</code><button class="copy" type="button">Copiar</button></div>
+            <div class="term-line"><code>/plugin install archeo@archeo-harness</code><button class="copy" type="button">Copiar</button></div>
+          </div>
+          <p class="note"><strong>Codex:</strong> rode o comando abaixo, reinicie o app, abra o diretório de plugins, escolha o marketplace <strong>Archeo (CD2 Retail Tech)</strong> e instale o <code>archeo</code>. No Codex, o painel sai como arquivo HTML, no modo snapshot.</p>
+          <div class="term">
+            <div class="term-line"><code>codex plugin marketplace add cd2tec/archeo-harness-plugins</code><button class="copy" type="button">Copiar</button></div>
           </div>
           <p class="note"><strong>Requisito:</strong> um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (<code>db_*</code>). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.</p>
         </div>
@@ -573,9 +577,9 @@
       <p class="tagline">Para operações que não podem parar.</p>
     </div>
     <nav aria-label="Links">
-      <a href="https://github.com/cd2tec/archeo-claude-plugins">GitHub</a>
-      <a href="https://github.com/cd2tec/archeo-claude-plugins/issues">Issues</a>
-      <a href="https://github.com/cd2tec/archeo-claude-plugins/blob/main/LICENSE">Licença MIT</a>
+      <a href="https://github.com/cd2tec/archeo-harness-plugins">GitHub</a>
+      <a href="https://github.com/cd2tec/archeo-harness-plugins/issues">Issues</a>
+      <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/LICENSE">Licença MIT</a>
       <a href="https://cd2.com.br">cd2.com.br</a>
     </nav>
     <span class="caption">CD2 Tech · Archeo para Claude</span>

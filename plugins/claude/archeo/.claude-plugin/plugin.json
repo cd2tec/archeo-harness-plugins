@@ -16,7 +16,7 @@
     "varejo",
     "relatorios"
   ],
-  "homepage": "https://github.com/cd2tec/archeo-claude-plugins",
-  "repository": "https://github.com/cd2tec/archeo-claude-plugins",
+  "homepage": "https://cd2tec.github.io/archeo-harness-plugins/",
+  "repository": "https://github.com/cd2tec/archeo-harness-plugins",
   "license": "MIT"
 }
