@@ -2,7 +2,7 @@
 
 # Archeo para agentes de IA
 
-**Do banco legado ao painel executivo e às ferramentas de IA, com cada número conferido no seu banco.**
+**Do banco legado ao agente de IA, sem número inventado.**
 
 [![Licença Apache 2.0](https://img.shields.io/badge/licen%C3%A7a-Apache%202.0-blue.svg)](LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](#claude-code)
