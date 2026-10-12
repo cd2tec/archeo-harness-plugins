@@ -14,7 +14,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-  /* Tokens do design system CD2 Tech (tema claro, White_HUMAN). */
+  /* Tokens do design system CD2 Tech ("CD2 Identidade Visual"), tema claro White_HUMAN.
+     Layout: hero e "Como funciona" em tema azul, corpo em tema claro, blocos de conexão
+     com canto reto alternado para indicar sequência. */
   :root {
     --surface-100: #f2f2f2;
     --surface-raised: #ffffff;
@@ -35,10 +37,18 @@
     --logo-ink-tech: #210e9e;
     --shadow-card: 0 4px 16px rgba(13, 18, 51, 0.08);
 
+    --blue-retail: #0000ff;
     --blue-experience: #011e80;
     --blue-sky: #019eff;
+    --purple-shift: #210e9e;
     --gray-solution: #a1a6ae;
+    --status-concluido: #019eff;
+    --status-melhoria: #dbff2a;
+    --status-backlog: #a1a6ae;
     --status-ink-escuro: #0d1233;
+    --term-ink: #ffffff;
+    --term-rule: rgba(255, 255, 255, 0.14);
+    --hero-line: rgba(255, 255, 255, 0.35);
 
     --font-sans: "Manrope", "Segoe UI", Arial, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -49,7 +59,7 @@
     --max: 1152px;
     color-scheme: light;
   }
-  /* Tema azul (Blue_RETAIL): hero, seções de destaque e rodapé. */
+  /* Tema azul (Blue_RETAIL): hero, seção de destaque e rodapé. */
   .theme-blue {
     --surface-100: #0000ff;
     --surface-raised: #011e80;
@@ -60,6 +70,7 @@
     --brand: #dbff2a;
     --brand-hover: #eaff6b;
     --on-primary: #011e80;
+    --border: rgba(255, 255, 255, 0.4);
     --border-strong: #ffffff;
     --focus: #dbff2a;
     --logo-ink: #ffffff;
@@ -70,7 +81,7 @@
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   body {
     margin: 0;
     background: var(--surface-100);
@@ -78,6 +89,7 @@
     font: 400 15px/24px var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
+  h1, h2, h3 { text-wrap: balance; }
   a { color: var(--ink-brand); }
   code, pre { font-family: var(--font-mono); }
   :not(pre) > code {
@@ -86,10 +98,12 @@
     padding: 1px 6px;
     border-radius: var(--radius-sm);
     font-size: 13px;
+    overflow-wrap: anywhere;
   }
   .theme-blue :not(pre) > code { background: var(--surface-raised); border-color: transparent; }
-  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--space-4); }
-  @media (min-width: 720px) { .wrap { padding: 0 var(--space-12); } }
+  .block--brand :not(pre) > code, .block--accent :not(pre) > code { background: transparent; border-color: currentColor; color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--space-4); }
+  @media (min-width: 720px) { .wrap { padding-inline: var(--space-12); } }
   :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
   /* Logo inline: só logo-ink e logo-ink-tech. */
@@ -97,18 +111,18 @@
   .lg-tech { fill: var(--logo-ink-tech); }
 
   /* Barra superior */
-  header.top { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.18); }
+  header.top { position: sticky; top: 0; z-index: 10; background: var(--surface-100); border-bottom: 1px solid var(--border); }
   .top .wrap { display: flex; align-items: center; gap: var(--space-4); height: 72px; }
-  .brand { display: flex; align-items: center; gap: var(--space-4); color: var(--ink); text-decoration: none; }
+  .brand { display: flex; align-items: center; gap: var(--space-4); color: var(--ink); text-decoration: none; flex: none; }
   .brand .logo { height: 24px; width: auto; display: block; }
-  .brand .sep { width: 1px; height: 24px; background: rgba(255,255,255,.4); }
+  .brand .sep { width: 1px; height: 24px; background: var(--border); }
   .brand .product { font: 700 17px/22px var(--font-sans); }
   .brand .product span { font-weight: 500; opacity: .85; }
   .top nav { margin-left: auto; display: flex; gap: var(--space-1); align-items: center; }
   .top nav a { color: var(--ink); text-decoration: none; font: 500 13px/16px var(--font-sans); padding: var(--space-2) var(--space-3); border-radius: var(--radius-pill); transition: background-color .15s; }
   .top nav a:hover { background: var(--surface-raised); }
   .top nav .hide-sm { display: none; }
-  @media (min-width: 860px) { .top nav .hide-sm { display: inline-block; } }
+  @media (min-width: 960px) { .top nav .hide-sm { display: inline-block; } }
   @media (max-width: 480px) { .brand .sep, .brand .product span, .top nav .hide-xs { display: none; } .brand { gap: var(--space-3); } }
 
   /* Botões (componente Button) */
@@ -136,42 +150,43 @@
   .section-head .stack p { margin: 0; color: var(--ink-muted); max-width: 52ch; }
   .section-head .stack { display: flex; flex-direction: column; gap: var(--space-4); }
 
-  section { padding: var(--space-16) 0; }
-  @media (min-width: 720px) { section { padding: 96px 0; } }
+  section { padding-block: var(--space-16); }
+  @media (min-width: 720px) { section { padding-block: 96px; } }
+  section.flush { padding-top: 0; }
 
   /* Hero */
-  .hero { position: relative; overflow: hidden; padding: var(--space-16) 0 var(--space-16); }
+  .hero { position: relative; overflow: hidden; padding-block: var(--space-12) var(--space-16); }
   .hero .wrap { position: relative; z-index: 1; }
-  .hero-art {
-    position: absolute; right: -180px; top: -40px; width: 720px; height: auto; pointer-events: none; opacity: .9;
-  }
-  .hero-art path { fill: none; stroke: #ffffff; stroke-width: 2; vector-effect: non-scaling-stroke; opacity: .35; }
+  .hero-art { position: absolute; right: -180px; top: -40px; width: 720px; height: auto; pointer-events: none; }
+  .hero-art path { fill: none; stroke: var(--hero-line); stroke-width: 2; vector-effect: non-scaling-stroke; }
   @media (max-width: 720px) { .hero-art { width: 460px; right: -220px; top: 0; } }
   .hero h1 {
-    margin: var(--space-8) 0 var(--space-6); max-width: 15ch;
+    margin: var(--space-8) 0 var(--space-6); max-width: 16ch;
     font: 700 clamp(38px, 6.4vw, 64px)/1.06 var(--font-sans); letter-spacing: -1.5px;
   }
-  .hero .lead { font: 400 18px/28px var(--font-sans); color: var(--ink-muted); max-width: 58ch; margin: 0 0 var(--space-8); }
+  .hero .lead { font: 400 18px/28px var(--font-sans); color: var(--ink-muted); max-width: 60ch; margin: 0 0 var(--space-4); }
+  .hero .lead + .lead { margin-bottom: var(--space-8); }
   .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
   .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-8); }
-  .chip { font: 500 12px/16px var(--font-sans); color: var(--ink); border: 1px solid rgba(255,255,255,.5); border-radius: var(--radius-pill); padding: 6px 12px; }
+  .chip { font: 500 12px/16px var(--font-sans); color: var(--ink); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 6px 12px; }
 
-  /* Exemplo de conversa (bloco de conexão em blue-experience) */
+  /* Exemplo de conversa */
   .demo {
-    margin-top: var(--space-12); background: var(--surface-raised); color: var(--ink);
-    border-radius: var(--radius-lg); border-top-right-radius: 0; overflow: hidden; box-shadow: var(--shadow-card);
+    margin-top: var(--space-12); background: var(--blue-experience); color: var(--term-ink);
+    border-radius: var(--radius-lg); border-top-right-radius: 0; overflow: hidden;
   }
-  .demo-bar { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-bottom: 1px solid rgba(255,255,255,.14); font: 500 12px/16px var(--font-sans); letter-spacing: 2.4px; text-transform: uppercase; color: var(--ink-muted); }
+  .demo-bar { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--term-rule); font: 500 12px/16px var(--font-sans); letter-spacing: 2.4px; text-transform: uppercase; opacity: .85; }
   .demo pre { margin: 0; padding: var(--space-6); overflow-x: auto; font-size: 13px; line-height: 1.7; }
-  .demo .u { color: var(--ink-brand); font-weight: 700; }
-  .demo .c { color: #ffffff; font-weight: 700; }
+  .demo .u { color: var(--accent); font-weight: 700; }
+  .demo .c { color: var(--term-ink); font-weight: 700; }
   .demo .d { color: var(--gray-solution); }
   .demo .k { color: var(--blue-sky); }
+  .panel .demo { margin-top: var(--space-6); }
 
-  /* Cartões e blocos de conexão */
+  /* Cartões e blocos de conexão (componente ConnectionBlock) */
   .grid { display: grid; gap: var(--space-6); }
   .grid > * { min-width: 0; }
-  @media (min-width: 720px) { .g2 { grid-template-columns: repeat(2, 1fr); } .g3 { grid-template-columns: repeat(2, 1fr); } .g4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 720px) { .g2, .g3, .g4 { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } }
 
   .card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-6); }
@@ -193,15 +208,17 @@
   .block__title { margin: 0; font: 700 22px/28px var(--font-sans); }
   .block__text { margin: 0; opacity: .9; }
   .block__numeral { position: absolute; top: var(--space-4); right: var(--space-6); font: 800 56px/1 var(--font-sans); letter-spacing: -2px; opacity: .9; }
+  .block .tag { margin-bottom: auto; }
   .theme-blue .block--raised { border-color: transparent; }
 
   /* O problema */
   .problem { display: grid; gap: var(--space-12); align-items: start; }
+  .problem > * { min-width: 0; }
   @media (min-width: 1000px) { .problem { grid-template-columns: 1fr 1fr; } .problem .section-head { margin-bottom: 0; } }
   .problem-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
   .problem-list li { display: flex; gap: var(--space-4); align-items: baseline; background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-4) var(--space-6); }
   .problem-list b { font: 800 22px/28px var(--font-sans); color: var(--ink-brand); min-width: 1.4em; }
-  .problem .block { margin-top: var(--space-8); min-height: 0; }
+  .problem .block { min-height: 0; }
 
   /* Abas */
   .tabs { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-8); }
@@ -212,7 +229,6 @@
   }
   .tab:hover { background: var(--surface-raised); }
   .tab[aria-selected="true"] { background: var(--brand); border-color: var(--brand); color: var(--on-primary); }
-  .panel[hidden] { display: none; }
   .panel-grid { display: grid; gap: var(--space-8); }
   .panel-grid > * { min-width: 0; }
   @media (min-width: 1000px) { .panel-grid { grid-template-columns: 1fr 1.15fr; align-items: start; } }
@@ -230,7 +246,7 @@
   .tbl { background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
   .tbl-scroll { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font: 400 13px/20px var(--font-sans); }
-  th { background: var(--surface-brand); color: var(--on-brand); text-align: left; font: 600 15px/22px var(--font-sans); padding: var(--space-3) var(--space-4); }
+  th { background: var(--surface-brand); color: var(--on-brand); text-align: left; font: 600 17px/22px var(--font-sans); padding: var(--space-3) var(--space-4); }
   td { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--border); vertical-align: top; }
   td:first-child { font-weight: 700; white-space: nowrap; }
   td.q { color: var(--ink-muted); }
@@ -240,48 +256,71 @@
   .steps > * { min-width: 0; }
   @media (min-width: 720px) { .steps { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .steps { grid-template-columns: repeat(4, 1fr); } }
-  .steps .block { min-height: 220px; }
-  .loop-note { margin-top: var(--space-6); color: var(--ink-muted); display: flex; gap: var(--space-2); align-items: center; }
+  .steps .block { min-height: 220px; padding-top: 96px; }
+  .block--accent .block__numeral { color: var(--blue-retail); opacity: 1; }
+  .loop-note { margin: var(--space-6) 0 0; color: var(--ink-muted); display: flex; gap: var(--space-2); align-items: center; }
   .loop-note svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
   /* Tags (componente StatusTag) */
   .tag { display: inline-flex; align-items: center; gap: var(--space-1); height: 24px; padding: 0 var(--space-3); border-radius: var(--radius-sm); font: 700 13px/16px var(--font-sans); white-space: nowrap; align-self: flex-start; }
   .tag__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
-  .tag--concluido { background: var(--blue-sky); color: var(--status-ink-escuro); }
-  .tag--backlog { background: var(--gray-solution); color: var(--status-ink-escuro); }
+  .tag--concluido { background: var(--status-concluido); color: var(--status-ink-escuro); }
+  .tag--backlog { background: var(--status-backlog); color: var(--status-ink-escuro); }
   .db { display: flex; flex-direction: column; gap: var(--space-3); }
   .db b { font: 700 17px/22px var(--font-sans); }
-  .note { margin-top: var(--space-6); color: var(--ink-muted); font-size: 13px; line-height: 20px; }
+  .note { margin: var(--space-6) 0 0; color: var(--ink-muted); font-size: 13px; line-height: 20px; }
+
+  /* Harnesses */
+  .flow { display: grid; gap: var(--space-6); align-items: stretch; }
+  .flow > * { min-width: 0; }
+  @media (min-width: 1000px) { .flow { grid-template-columns: 1fr 1fr 1fr; } }
+  .flow .block { min-height: 200px; }
+  .flow code { font-size: 12px; }
+  .path { font: 700 13px/20px var(--font-mono); overflow-wrap: anywhere; }
+  .harness-tbl { margin-top: var(--space-8); }
+  .harness-tbl td:first-child { white-space: normal; min-width: 140px; }
 
   /* Instalação */
-  .install { display: grid; gap: var(--space-8); }
+  .install { display: grid; gap: var(--space-6); }
   .install > * { min-width: 0; }
-  @media (min-width: 1000px) { .install { grid-template-columns: 1.1fr 1fr; } }
-  .term { background: var(--blue-experience); color: #ffffff; border-radius: var(--radius-lg); border-bottom-left-radius: 0; overflow: hidden; }
-  .term-line { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-bottom: 1px solid rgba(255,255,255,.14); }
+  @media (min-width: 1000px) { .install { grid-template-columns: 1fr 1fr; } }
+  .install-card { display: flex; flex-direction: column; gap: var(--space-4); }
+  .install-card h3 { margin: 0; font: 700 22px/28px var(--font-sans); }
+  .install-card p { margin: 0; color: var(--ink-muted); }
+  .term { background: var(--blue-experience); color: var(--term-ink); border-radius: var(--radius-lg); border-bottom-left-radius: 0; overflow: hidden; }
+  .term-line { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--term-rule); }
   .term-line:last-child { border-bottom: 0; }
-  .term-line code { background: none; border: 0; padding: 0; color: #ffffff; flex: 1; min-width: 0; font-size: 13px; overflow-x: auto; white-space: nowrap; }
+  .term-line code { background: none; border: 0; padding: 0; color: var(--term-ink); flex: 1; min-width: 0; font-size: 13px; line-height: 20px; white-space: pre-wrap; overflow-wrap: anywhere; }
   .term-line code::before { content: "› "; color: var(--accent); }
   .copy {
     flex: none; height: 32px; padding: 0 var(--space-4); border-radius: var(--radius-pill); cursor: pointer;
-    border: 2px solid rgba(255,255,255,.6); background: transparent; color: #ffffff; font: 700 12px/16px var(--font-sans);
+    border: 2px solid rgba(255, 255, 255, 0.6); background: transparent; color: var(--term-ink); font: 700 12px/16px var(--font-sans);
     transition: background-color .15s;
   }
-  .copy:hover { background: rgba(255,255,255,.12); }
+  .copy:hover { background: rgba(255, 255, 255, 0.12); }
   .copy:focus-visible { outline-color: var(--accent); }
+  .req { margin-bottom: var(--space-6); }
+  .req p { margin: 0; }
+  .prompts-wrap { margin-top: var(--space-12); }
+  .prompts-title { margin: 0 0 var(--space-4); font: 600 17px/22px var(--font-sans); }
   .prompts { display: grid; gap: var(--space-2); }
+  @media (min-width: 720px) { .prompts { grid-template-columns: repeat(2, 1fr); } }
   .prompt { background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
-  .prompts-title { margin: 0 0 var(--space-3); font: 600 17px/22px var(--font-sans); }
+
+  /* Contribuindo */
+  .contrib { margin-top: var(--space-12); }
+  .contrib h3 { margin: 0 0 var(--space-6); font: 700 22px/28px var(--font-sans); }
+  .contrib .block { min-height: 160px; }
 
   /* Rodapé */
-  footer { padding: var(--space-12) 0; }
+  footer { padding-block: var(--space-12); }
   footer .wrap { display: grid; gap: var(--space-8); }
   @media (min-width: 860px) { footer .wrap { grid-template-columns: 1fr auto; align-items: end; } }
   footer .logo { height: 32px; width: auto; display: block; margin-bottom: var(--space-4); }
   footer .tagline { margin: 0; font: 700 22px/28px var(--font-sans); }
   footer nav { display: flex; gap: var(--space-6); flex-wrap: wrap; }
   footer nav a { color: var(--ink); font: 500 13px/16px var(--font-sans); }
-  footer .caption { grid-column: 1 / -1; font: 500 11px/16px var(--font-sans); letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); border-top: 1px solid rgba(255,255,255,.3); padding-top: var(--space-6); }
+  footer .caption { grid-column: 1 / -1; font: 500 11px/16px var(--font-sans); letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); border-top: 1px solid var(--border); padding-top: var(--space-6); }
 
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 </style>
@@ -300,6 +339,7 @@
         <a class="hide-sm" href="#skills">Skills</a>
         <a class="hide-sm" href="#como-funciona">Como funciona</a>
         <a class="hide-sm" href="#bancos">Bancos</a>
+        <a class="hide-sm" href="#harnesses">Harnesses</a>
         <a href="#instalacao">Instalação</a>
         <a class="hide-xs" href="https://github.com/cd2tec/archeo-harness-plugins">GitHub</a>
       </nav>
@@ -311,20 +351,21 @@
     <div class="wrap">
       <span class="eyebrow">Plugin para Claude Code e Codex</span>
       <h1>Do banco legado ao painel executivo, com cada número <em>conferido.</em></h1>
-      <p class="lead">O Archeo conecta bancos de dados legados a assistentes de IA. Este plugin dá ao seu agente de IA as skills para criar ferramentas no Archeo MCP Creator, montar painéis de varejo e gerar relatórios de ERP, sempre validando o SQL no banco real antes de entregar.</p>
+      <p class="lead">O Archeo conecta bancos de dados legados a assistentes de IA. Com o Archeo MCP Creator, cada consulta vira uma ferramenta que o modelo pode chamar: um SELECT fixo, com parâmetros, que o servidor valida antes de aceitar.</p>
+      <p class="lead">Este plugin tira o trabalho braçal desse processo. As mesmas skills, empacotadas para Claude Code e Codex, criam ferramentas no MCP Creator, montam painéis de varejo e geram relatórios de ERP, sempre validando o SQL no seu banco antes de entregar.</p>
       <div class="cta">
         <a class="btn btn--primary" href="#instalacao">Instalar o plugin <span class="btn__arrow" aria-hidden="true">→</span></a>
         <a class="btn btn--secondary" href="https://github.com/cd2tec/archeo-harness-plugins">Ver no GitHub</a>
       </div>
       <div class="chips">
-        <span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença MIT</span><span class="chip">v0.3.0</span>
+        <span class="chip">Claude Code</span><span class="chip">Codex</span><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">MySQL / MariaDB</span><span class="chip">Somente leitura</span><span class="chip">Licença MIT</span><span class="chip">v0.3.0</span>
       </div>
 
       <div class="demo" role="img" aria-label="Exemplo de conversa: o usuário pede uma ferramenta de vendas por loja e mês e o agente devolve a ficha pronta">
-        <div class="demo-bar">Exemplo no Claude Code</div>
+        <div class="demo-bar">Exemplo de conversa · add-mcp-tool</div>
 <pre><span class="u">Você:</span> crie uma ferramenta no Archeo para vendas por loja e mês, com filtro de período e loja
 
-<span class="c">Claude:</span> <span class="d">[identifica o banco conectado, procura colunas de venda, data e loja,
+<span class="c">Agente:</span> <span class="d">[identifica o banco conectado, procura colunas de venda, data e loja,
          confere cancelamentos e nulos, escreve o SQL, roda com valores de teste]</span>
 
         Banco: loja_demo (SQL Server 16.0)
@@ -365,7 +406,7 @@
     </div>
   </section>
 
-  <section id="skills" style="padding-top:0">
+  <section id="skills" class="flush">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Skills</span>
@@ -385,13 +426,13 @@
         <div class="panel-grid">
           <div class="panel-intro">
             <h3>Pergunta de negócio vira ferramenta pronta.</h3>
-            <p>O agente explora o banco conectado ao Archeo, escreve o SQL, roda no banco real e devolve a ficha pronta para copiar e colar na tela <strong>Nova ferramenta</strong> do MCP Creator.</p>
+            <p>Você descreve o que quer em português. O agente explora o banco conectado ao Archeo, escreve o SQL, roda no banco real e devolve a ficha pronta para copiar e colar na tela <strong>Nova ferramenta</strong> do MCP Creator. Veja uma <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/core/archeo/skills/add-mcp-tool/references/exemplo-ficha.md">ficha completa</a>.</p>
             <ul class="ticks">
               <li><span><strong>Datas com fim exclusivo</strong> (<code>&gt;= início AND &lt; fim</code>), sem perder o último dia nem matar o índice.</span></li>
-              <li><span><strong>"Todos" sem armadilha</strong>: filtro opcional com sentinela (<code>0 = todas as lojas</code>).</span></li>
-              <li><span><strong>Somas à prova de nulo</strong> com <code>COALESCE</code> dentro de expressões compostas.</span></li>
-              <li><span><strong>Tipos como contrato</strong>: o tipo do parâmetro valida a entrada antes do banco.</span></li>
-              <li><span><strong>Validação obrigatória</strong> em pelo menos dois cenários. Sem validação, a ficha avisa com destaque.</span></li>
+              <li><span><strong>"Todos" sem armadilha</strong>: o filtro opcional usa um valor sentinela (<code>0 = todas as lojas</code>) e não devolve zero linhas quando o parâmetro chega vazio.</span></li>
+              <li><span><strong>Somas à prova de nulo</strong>: <code>COALESCE</code> dentro de expressões compostas, para um campo vazio não zerar o total.</span></li>
+              <li><span><strong>Tipos como contrato</strong>: o tipo do parâmetro na tela valida a entrada antes de chegar no banco.</span></li>
+              <li><span><strong>Validação obrigatória</strong> no banco conectado, em pelo menos dois cenários. Quando não dá para validar, a ficha avisa com destaque.</span></li>
             </ul>
           </div>
           <div class="tbl"><div class="tbl-scroll">
@@ -400,13 +441,13 @@
               <tbody>
                 <tr><td>Nome técnico</td><td><code>snake_case</code> com prefixo do sistema, sem colisão entre bancos</td></tr>
                 <tr><td>Nome de exibição</td><td>Rótulo curto em português</td></tr>
-                <tr><td>Descrição</td><td>Escrita para o modelo que vai chamar a ferramenta</td></tr>
+                <tr><td>Descrição</td><td>Escrita para o modelo que vai chamar a ferramenta: o que retorna, cada parâmetro, convenções</td></tr>
                 <tr><td>Schema</td><td>O schema certo para o dropdown</td></tr>
-                <tr><td>SQL</td><td>Um único SELECT no dialeto do seu banco, com <code>$1..$n</code></td></tr>
-                <tr><td>Parâmetros</td><td>Nome, tipo e obrigatoriedade de cada <code>$n</code></td></tr>
-                <tr><td>Limites</td><td>Linhas, bytes e timeout dimensionados</td></tr>
-                <tr><td>Teste</td><td>Valores de entrada e resultado esperado</td></tr>
-                <tr><td>Premissas</td><td>Regras de negócio assumidas e ajustes aplicados</td></tr>
+                <tr><td>SQL</td><td>Um único SELECT no dialeto do seu banco, com parâmetros posicionais</td></tr>
+                <tr><td>Parâmetros</td><td>Nome, tipo (<code>date</code>, <code>integer</code>, <code>string</code>...) e obrigatoriedade de cada <code>$n</code></td></tr>
+                <tr><td>Limites</td><td>Linhas, bytes e timeout dimensionados para a consulta</td></tr>
+                <tr><td>Teste</td><td>Valores de entrada e o resultado esperado, para conferir depois de salvar</td></tr>
+                <tr><td>Premissas</td><td>Regras de negócio assumidas e qualquer ajuste aplicado</td></tr>
               </tbody>
             </table>
           </div></div>
@@ -417,36 +458,48 @@
         <div class="panel-grid">
           <div class="panel-intro">
             <h3>Painel executivo de varejo, direto do ERP.</h3>
-            <p>Peça um painel e receba um artefato pronto para abrir, com os números do ERP ou PDV conectado. O painel não esconde dado ruim: seção sem dado confiável sai do painel e aparece no rodapé com o motivo.</p>
+            <p>Peça um painel e receba uma página pronta para abrir, com os números do ERP ou PDV conectado ao Archeo. O painel não esconde dado ruim: seção sem dado confiável sai do painel e aparece no rodapé com o motivo.</p>
             <ul class="ticks">
               <li><span>Reconcilia cada ranking com a venda total.</span></li>
               <li><span>Detecta custo estimado (margem idêntica em todos os departamentos).</span></li>
               <li><span>Aponta campo nunca preenchido e período anterior sem base de comparação.</span></li>
             </ul>
+            <div class="demo" role="img" aria-label="Exemplo de conversa: o usuário pede um dashboard dos últimos 30 dias">
+              <div class="demo-bar">Exemplo de conversa</div>
+<pre><span class="u">Você:</span> monta um dashboard da operação dos últimos 30 dias
+
+<span class="c">Agente:</span> <span class="d">[mapeia venda, itens, cadastros, pagamento, custo
+         e estoque no banco conectado, calcula e reconcilia
+         cada seção, escreve a leitura, publica o painel]</span></pre>
+            </div>
           </div>
           <div class="tbl"><div class="tbl-scroll">
             <table>
               <thead><tr><th>Bloco</th><th>O que mostra</th></tr></thead>
               <tbody>
-                <tr><td>Totalizadores</td><td>Venda líquida, cupons, ticket médio, desconto, cancelamentos e margem, com variação contra o período anterior</td></tr>
-                <tr><td>Índice de saúde</td><td>0 a 100, decomposto em crescimento, ticket, desconto, cancelamento, margem e identificação</td></tr>
-                <tr><td>Linha do tempo</td><td>Venda por dia, atual contra anterior alinhado</td></tr>
-                <tr><td>Mapa de calor</td><td>Dia da semana por hora, para escala e abastecimento</td></tr>
-                <tr><td>Rankings</td><td>Departamentos, produtos, pagamentos, lojas e operadores</td></tr>
+                <tr><td>Totalizadores</td><td>Venda líquida, cupons, ticket médio, itens por cupom, desconto, cancelamentos, margem e clientes identificados, com variação contra o período anterior</td></tr>
+                <tr><td>Índice de saúde</td><td>De 0 a 100, decomposto em crescimento, ticket, desconto, cancelamento, margem e identificação de clientes</td></tr>
+                <tr><td>Linha do tempo</td><td>Venda por dia, período atual contra o anterior alinhado</td></tr>
+                <tr><td>Mapa de calor</td><td>Venda por dia da semana e hora, para escala de equipe e abastecimento</td></tr>
+                <tr><td>Rankings</td><td>Departamentos, produtos, meios de pagamento, lojas e operadores (descontos e cancelamentos)</td></tr>
                 <tr><td>Curva ABC</td><td>Quantos SKUs fazem 80% da venda</td></tr>
-                <tr><td>Leitura</td><td>3 a 6 alertas em linguagem de negócio</td></tr>
+                <tr><td>Leitura</td><td>De 3 a 6 alertas em linguagem de negócio, do mais urgente ao menos</td></tr>
               </tbody>
             </table>
           </div></div>
         </div>
         <div class="grid g3 after">
-          <div class="block block--raised block--notch-tr"><span class="block__kicker">Snapshot</span><h3 class="block__title">Período fechado.</h3><p class="block__text">Para qualquer pessoa com o link. Atualiza republicando.</p></div>
-          <div class="block block--raised block--notch-bl"><span class="block__kicker">Ao vivo</span><h3 class="block__title">Consulta ao abrir.</h3><p class="block__text">Para quem usa o Claude com o conector Archeo. Atualiza a cada 5 minutos.</p></div>
-          <div class="block block--raised block--notch-tr"><span class="block__kicker">Agendado</span><h3 class="block__title">Republica sozinho.</h3><p class="block__text">Para a diretoria sem conector. Por exemplo, todo dia às 6h.</p></div>
+          <div class="block block--raised block--notch-tr"><span class="tag tag--concluido"><span class="tag__dot" aria-hidden="true"></span>Claude e Codex</span><span class="block__kicker">Snapshot</span><h3 class="block__title">Período fechado.</h3><p class="block__text">Para qualquer pessoa com o link. Atualiza republicando. No Codex, sai como arquivo HTML.</p></div>
+          <div class="block block--raised block--notch-bl"><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Só no Claude</span><span class="block__kicker">Ao vivo</span><h3 class="block__title">Consulta ao abrir.</h3><p class="block__text">Para quem usa o Claude com o conector Archeo. A página consulta o banco ao abrir e a cada 5 minutos.</p></div>
+          <div class="block block--raised block--notch-tr"><span class="tag tag--backlog"><span class="tag__dot" aria-hidden="true"></span>Só no Claude</span><span class="block__kicker">Agendado</span><h3 class="block__title">Republica sozinho.</h3><p class="block__text">Para a diretoria sem conector. Uma tarefa agendada roda a skill e republica, por exemplo todo dia às 6h.</p></div>
         </div>
       </div>
 
       <div class="panel" role="tabpanel" id="p-erp" aria-labelledby="t-erp" hidden>
+        <div class="panel-intro">
+          <h3>O relatório que você já usa no ERP, com prova.</h3>
+          <p>Peça o relatório pelo nome. A skill do módulo localiza os dados no banco conectado, mede a qualidade, calcula e prova o resultado antes de entregar.</p>
+        </div>
         <div class="tbl"><div class="tbl-scroll">
           <table>
             <thead><tr><th>Skill</th><th>Você pede</th><th>Ela entrega</th></tr></thead>
@@ -463,8 +516,8 @@
           </table>
         </div></div>
         <div class="grid g3 after">
-          <div class="block block--brand block--notch-tr"><span class="block__numeral" aria-hidden="true">1</span><h3 class="block__title">Relatório sem prova não sai.</h3><p class="block__text">Kardex fecha com o saldo, balancete fecha débito com crédito, ABC soma a venda total.</p></div>
-          <div class="block block--brand block--notch-bl"><span class="block__numeral" aria-hidden="true">2</span><h3 class="block__title">Dado ruim aparece.</h3><p class="block__text">Custo estimado, campo nunca preenchido e posição desatualizada são achados, não rodapé.</p></div>
+          <div class="block block--brand block--notch-tr"><span class="block__numeral" aria-hidden="true">1</span><h3 class="block__title">Relatório sem prova não sai.</h3><p class="block__text">Kardex fecha com o saldo, balancete fecha débito com crédito, ABC soma a venda total. O que não fecha vira o primeiro item da entrega.</p></div>
+          <div class="block block--brand block--notch-bl"><span class="block__numeral" aria-hidden="true">2</span><h3 class="block__title">Dado ruim aparece.</h3><p class="block__text">Custo estimado, campo nunca preenchido, módulo sem uso e posição desatualizada são achados, não rodapé.</p></div>
           <div class="block block--brand block--notch-tr"><span class="block__numeral" aria-hidden="true">3</span><h3 class="block__title">Conferência gerencial.</h3><p class="block__text">Fiscal e contábil não substituem escrituração, livros oficiais nem apuração.</p></div>
         </div>
         <p class="note">O relatório que você vai pedir de novo vira ferramenta: cada skill indica os parâmetros e passa para <code>add-mcp-tool</code> o SQL já validado.</p>
@@ -485,11 +538,11 @@
         <div class="block block--raised block--notch-tr"><span class="block__numeral" aria-hidden="true">01</span><h3 class="block__title">Identifica o banco.</h3><p class="block__text">Qual banco está conectado ao Archeo, a engine e a versão.</p></div>
         <div class="block block--raised block--notch-bl"><span class="block__numeral" aria-hidden="true">02</span><h3 class="block__title">Explora o schema.</h3><p class="block__text">Tabelas, colunas e amostras que respondem à pergunta.</p></div>
         <div class="block block--raised block--notch-tr"><span class="block__numeral" aria-hidden="true">03</span><h3 class="block__title">Mede os dados.</h3><p class="block__text">Volume, período coberto, nulos e flags de cancelamento ou expurgo.</p></div>
-        <div class="block block--accent block--notch-bl"><span class="block__numeral" aria-hidden="true">04</span><h3 class="block__title">Escreve e valida.</h3><p class="block__text">SQL com parâmetros, rodado com valores de teste em mais de um cenário.</p></div>
+        <div class="block block--accent block--notch-bl"><span class="block__numeral" aria-hidden="true">04</span><h3 class="block__title">Escreve e valida.</h3><p class="block__text">SQL com <code>$1..$n</code>, rodado no banco com valores de teste em mais de um cenário.</p></div>
       </div>
       <p class="loop-note">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg>
-        Falhou? Diagnostica, ajusta e roda de novo até o resultado conferir.
+        Falhou? Diagnostica, ajusta e roda de novo até o resultado conferir. Só então a ficha sai pronta para copiar e colar.
       </p>
     </div>
   </section>
@@ -517,7 +570,7 @@
     </div>
   </section>
 
-  <section id="bancos" style="padding-top:0">
+  <section id="bancos" class="flush">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Bancos suportados</span>
@@ -536,35 +589,82 @@
     </div>
   </section>
 
-  <section id="instalacao" style="padding-top:0">
+  <section id="harnesses" class="flush">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Harnesses</span>
+        <div class="stack">
+          <h2>Escrito uma vez, <em>em cada agente.</em></h2>
+          <p>As skills ficam em <code>core/</code> e um script copia o mesmo conteúdo para o pacote de cada harness. O conteúdo não diverge entre Claude e Codex; cada harness mantém só o que é dele: manifesto, marketplace e README.</p>
+        </div>
+      </div>
+      <div class="flow">
+        <div class="block block--brand block--notch-tr"><span class="block__kicker">Fonte única</span><h3 class="block__title">core/archeo</h3><p class="block__text">Skills, references e <code>plugin.core.json</code> com o nome e a versão de referência.</p></div>
+        <div class="block block--raised block--notch-bl"><span class="block__kicker">Claude Code</span><p class="path">plugins/claude/archeo</p><p class="block__text">Manifesto em <code>.claude-plugin/plugin.json</code> e marketplace em <code>.claude-plugin/marketplace.json</code>.</p></div>
+        <div class="block block--raised block--notch-tr"><span class="block__kicker">Codex</span><p class="path">plugins/codex/archeo</p><p class="block__text">Manifesto em <code>plugin.json</code> e marketplace em <code>.agents/plugins/marketplace.json</code>.</p></div>
+      </div>
+      <div class="tbl harness-tbl"><div class="tbl-scroll">
+        <table>
+          <thead><tr><th>O que muda</th><th>Claude Code</th><th>Codex</th></tr></thead>
+          <tbody>
+            <tr><td>Painel <code>add-mcp-dashboard</code></td><td>Publicado como artefato, nos modos snapshot, ao vivo e agendado</td><td>Entregue como arquivo HTML, só no modo snapshot</td></tr>
+            <tr><td>Demais skills</td><td>Iguais</td><td>Iguais</td></tr>
+            <tr><td>Requisito</td><td colspan="2">Conector do Archeo ativo na sessão, com as ferramentas somente leitura <code>db_*</code></td></tr>
+          </tbody>
+        </table>
+      </div></div>
+      <p class="note">Os modos ao vivo e agendado dependem de recursos do Claude (artefatos e tarefas agendadas). Para adicionar outro harness, veja o <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/AGENTS.md"><code>AGENTS.md</code></a>.</p>
+    </div>
+  </section>
+
+  <section id="instalacao" class="flush">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Instalação</span>
-        <div class="stack"><h2>No Claude Code <em>ou no Codex.</em></h2></div>
+        <div class="stack">
+          <h2>No Claude Code <em>ou no Codex.</em></h2>
+          <p><strong>Requisito, em qualquer harness:</strong> um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (<code>db_*</code>). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.</p>
+        </div>
       </div>
       <div class="install">
-        <div>
+        <div class="card install-card">
+          <h3>Claude Code</h3>
+          <p>Adicione o marketplace e instale o plugin.</p>
           <div class="term">
             <div class="term-line"><code>/plugin marketplace add cd2tec/archeo-harness-plugins</code><button class="copy" type="button">Copiar</button></div>
             <div class="term-line"><code>/plugin install archeo@archeo-harness</code><button class="copy" type="button">Copiar</button></div>
           </div>
-          <p class="note"><strong>Codex:</strong> rode o comando abaixo, reinicie o app, abra o diretório de plugins, escolha o marketplace <strong>Archeo (CD2 Retail Tech)</strong> e instale o <code>archeo</code>. No Codex, o painel sai como arquivo HTML, no modo snapshot.</p>
+        </div>
+        <div class="card install-card">
+          <h3>Codex</h3>
+          <p>Adicione o marketplace, reinicie o app, abra o diretório de plugins, escolha <strong>Archeo (CD2 Retail Tech)</strong> e instale o <code>archeo</code>.</p>
           <div class="term">
             <div class="term-line"><code>codex plugin marketplace add cd2tec/archeo-harness-plugins</code><button class="copy" type="button">Copiar</button></div>
           </div>
-          <p class="note"><strong>Requisito:</strong> um conector do Archeo ativo na sessão, com as ferramentas de consulta somente leitura (<code>db_*</code>). Sem ele, a skill avisa e só monta a ficha se você fornecer a estrutura das tabelas, marcada como não validada.</p>
         </div>
-        <div>
-          <p class="prompts-title">Depois, é só pedir:</p>
-          <div class="prompts">
-            <div class="prompt">"crie uma ferramenta no Archeo para títulos vencidos por cliente"</div>
-            <div class="prompt">"monta um dashboard da rede dos últimos 30 dias"</div>
-            <div class="prompt">"quero um painel ao vivo da loja 3 para acompanhar a semana"</div>
-            <div class="prompt">"me dá o Kardex do produto 1234 no último mês"</div>
-            <div class="prompt">"balancete de julho no nível 3"</div>
-            <div class="prompt">"o que comprar do fornecedor X para a loja 2?"</div>
-          </div>
+      </div>
+      <div class="prompts-wrap">
+        <p class="prompts-title">Depois de instalar, é só pedir:</p>
+        <div class="prompts">
+          <div class="prompt">"crie uma ferramenta no Archeo para títulos vencidos por cliente"</div>
+          <div class="prompt">"transforma essa query em ferramenta do MCP Creator"</div>
+          <div class="prompt">"quais tipos uso nos parâmetros dessa ferramenta?"</div>
+          <div class="prompt">"monta um dashboard da rede dos últimos 30 dias"</div>
+          <div class="prompt">"quero um painel ao vivo da loja 3 para acompanhar a semana"</div>
+          <div class="prompt">"me dá o Kardex do produto 1234 no último mês"</div>
+          <div class="prompt">"balancete de julho no nível 3"</div>
+          <div class="prompt">"o que comprar do fornecedor X para a loja 2?"</div>
         </div>
+      </div>
+
+      <div class="contrib">
+        <h3>Para contribuir.</h3>
+        <div class="grid g3">
+          <div class="block block--raised block--notch-tr"><span class="block__numeral" aria-hidden="true">1</span><h3 class="block__title">Edite em core/.</h3><p class="block__text">Nunca nas cópias dentro de <code>plugins/&lt;harness&gt;/</code>.</p></div>
+          <div class="block block--raised block--notch-bl"><span class="block__numeral" aria-hidden="true">2</span><h3 class="block__title">Rode o sync.</h3><p class="block__text"><code>python3 scripts/sync_plugins.py</code> e depois o mesmo com <code>--check</code>.</p></div>
+          <div class="block block--raised block--notch-tr"><span class="block__numeral" aria-hidden="true">3</span><h3 class="block__title">Abra o pull request.</h3><p class="block__text">O CI repete o <code>--check</code> e confere manifestos, versões e referências.</p></div>
+        </div>
+        <p class="note">Encontrou uma engine com comportamento diferente, ou um caso que a skill não cobre? <a href="https://github.com/cd2tec/archeo-harness-plugins/issues">Abra uma issue</a> com a engine, a versão e a consulta.</p>
       </div>
     </div>
   </section>
@@ -609,12 +709,17 @@
     });
   })();
 
-  // Botões de copiar.
+  // Botões de copiar, com seleção do texto quando a área de transferência recusa.
   document.querySelectorAll(".copy").forEach(function (b) {
     b.addEventListener("click", function () {
-      var txt = b.previousElementSibling.textContent;
+      var code = b.previousElementSibling;
       var done = function () { b.textContent = "Copiado"; setTimeout(function () { b.textContent = "Copiar"; }, 1500); };
-      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () {});
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(code);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      };
+      if (navigator.clipboard) navigator.clipboard.writeText(code.textContent).then(done, fallback);
+      else fallback();
     });
   });
 </script>

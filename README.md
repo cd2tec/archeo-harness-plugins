@@ -217,7 +217,8 @@ plugins/codex/archeo/           pacote do Codex (plugin.json + cópias geradas)
 .agents/plugins/marketplace.json marketplace do Codex
 harnesses.json                  quais harnesses recebem cada plugin
 scripts/sync_plugins.py         copia core/ para os harnesses e confere a sincronia
-docs/                           site (GitHub Pages)
+docs/                           site (GitHub Pages, publicado por .github/workflows/pages.yml)
+index.html                      redireciona para docs/ se o Pages publicar a partir da raiz do branch
 ```
 
 ```mermaid
