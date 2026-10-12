@@ -328,6 +328,9 @@
   .term-line:last-child { border-bottom: 0; }
   .term-line code { background: none; border: 0; padding: 0; color: var(--term-ink); flex: 1; min-width: 0; font-size: 13px; line-height: 20px; white-space: pre-wrap; overflow-wrap: anywhere; }
   .term-line code::before { content: "› "; color: var(--accent); }
+  .term-line--file { align-items: flex-start; }
+  .term-line--file code::before { content: none; }
+  .term-line--file code { white-space: pre-wrap; }
   .copy {
     flex: none; height: 32px; padding: 0 var(--space-4); border-radius: var(--radius-pill); cursor: pointer;
     border: 2px solid rgba(255, 255, 255, 0.6); background: transparent; color: var(--term-ink); font: 700 12px/16px var(--font-sans);
@@ -773,12 +776,26 @@
         <div class="card install-card">
           <span class="install-kicker">DeepSeek · App e Web UI</span>
           <h3>DeepSeek Harness</h3>
-          <p>O DSH lê skills de <code>~/.agents/skills</code>. Baixe o ZIP, descompacte e rode o script, que copia as skills para lá.</p>
+          <p>O DSH lê skills de diretórios planos, como <code>~/.agents/skills</code>. Não há marketplace: baixe o ZIP da última release e siga os três passos, no app desktop ou na Web UI (<code>npx @deepseek-ai/dsh web</code>).</p>
           <div class="install-actions"><a class="btn btn--primary" href="https://github.com/cd2tec/archeo-harness-plugins/releases/latest/download/archeo-dsh.zip">Baixar archeo-dsh.zip <span class="btn__arrow" aria-hidden="true">↓</span></a></div>
+          <ol class="install-steps">
+            <li><strong>Instale as skills:</strong> descompacte o ZIP e, dentro da pasta, rode o primeiro comando abaixo. Ele copia as dez skills para <code>~/.agents/skills</code>, sem tocar nas outras que estiverem lá. Para só um projeto, use <code>python3 install.py --project</code>.</li>
+            <li><strong>Ligue o Archeo como servidor MCP:</strong> acrescente a entrada abaixo em <code>~/.dsh/cordis.patch.yml</code> (ou no <code>cordis.patch.yml</code> do perfil, em <code>~/.dsh/profiles/web/</code>), com a URL do seu servidor Archeo e o token numa variável de ambiente. Se o arquivo já existir, só acrescente a entrada.</li>
+            <li><strong>Confira:</strong> abra uma sessão nova com o workspace escolhido e peça, por exemplo, <em>"me dá o Kardex do produto 1234 no último mês"</em>. As ferramentas do Archeo aparecem como <code>mcp__archeo__db_...</code>; a descoberta é assíncrona, então espere um instante antes do primeiro pedido.</li>
+          </ol>
           <div class="term">
             <div class="term-line"><code>python3 install.py</code><button class="copy" type="button">Copiar</button></div>
+            <div class="term-line term-line--file"><code>- insert:
+    - id: mcp-archeo
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: archeo
+        transport: streamable-http
+        url: &lt;URL do servidor MCP do seu Archeo&gt;
+        headers:
+          Authorization: !!js '`Bearer ${process.env.ARCHEO_MCP_TOKEN}`'</code><button class="copy" type="button">Copiar</button></div>
           </div>
-          <p class="install-foot">Ligue o conector do Archeo como servidor MCP no DSH (plugin <code>@deepseek-ai/dsh-mcp-client</code>). O <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/plugins/dsh/archeo/README.md">README do pacote</a> traz o exemplo. O DSH está em developer preview.</p>
+          <p class="install-foot">Para atualizar, baixe o ZIP novo e rode <code>python3 install.py</code> de novo; para remover, <code>python3 install.py --remove</code>. Os diretórios que o DSH lê, a ordem de prioridade entre eles e a variante <code>stdio</code> do conector estão no <a href="https://github.com/cd2tec/archeo-harness-plugins/blob/main/plugins/dsh/archeo/README.md">README do pacote</a>. O DSH está em developer preview e a DeepSeek avisa que haverá mudanças incompatíveis.</p>
         </div>
       </div>
 

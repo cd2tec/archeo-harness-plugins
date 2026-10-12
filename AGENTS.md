@@ -1,6 +1,6 @@
 # Instruções para agentes neste repositório
 
-Este repositório publica os mesmos plugins para mais de um harness (hoje Claude Code e Codex).
+Este repositório publica os mesmos plugins para mais de um harness (hoje Claude Code, Codex e DeepSeek Harness).
 
 ## Regra principal
 
@@ -28,7 +28,7 @@ O CI roda o `--check` e falha se as cópias divergirem de `core/`.
 
 ## Convenções
 
-- Skills seguem o formato `skills/<nome>/SKILL.md` com frontmatter `name` (igual ao nome da pasta) e `description`. O formato é o mesmo nos dois harnesses.
+- Skills seguem o formato `skills/<nome>/SKILL.md` com frontmatter `name` (igual ao nome da pasta) e `description`. O formato é o mesmo em todos os harnesses.
 - Referências entre skills usam caminho relativo (`../outra-skill/references/x.md`); por isso cada harness recebe o conjunto completo.
 - Escreva as skills de forma neutra quanto ao harness. Quando um passo depender de um recurso exclusivo (por exemplo, publicar artefato no Claude), diga isso explicitamente na skill e ofereça a alternativa para os demais harnesses.
 - Ao mudar a versão, atualize `core/<plugin>/plugin.core.json` e os manifestos de cada harness. Não declare `version` na entrada do marketplace do Claude: o Claude Code usa a do `plugin.json` e a duplicação só abre espaço para divergência. O `--check` confere nome e versão dos manifestos. A mudança em `plugin.core.json` na `main` dispara `.github/workflows/release.yml`, que cria a release `<plugin>-v<versão>` com um ZIP por harness (gerado por `scripts/package_plugins.py`). Release de versão já existente não é recriada: suba a versão.
