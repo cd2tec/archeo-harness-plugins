@@ -18,6 +18,8 @@ jobs:
           python-version: "3.12"
       - name: core/ e plugins/<harness>/ estão iguais
         run: python3 scripts/sync_plugins.py --check
+      - name: Testes do renderizador, do kit de marca e do sync
+        run: python3 -m unittest discover -s tests -v
       - name: JSON dos manifestos e marketplaces é válido
         run: |
           for f in harnesses.json .claude-plugin/marketplace.json .agents/plugins/marketplace.json plugins/*/*/plugin.json plugins/*/*/.claude-plugin/plugin.json core/*/plugin.core.json; do

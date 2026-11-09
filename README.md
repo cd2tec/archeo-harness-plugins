@@ -25,7 +25,7 @@ Este repositório reúne plugins que tiram o trabalho braçal desse processo, co
 
 - **`spec-mcp-tool`** transforma uma pergunta de negócio em ferramenta pronta para cadastrar no MCP Creator.
 - **`build-mcp-dashboard`** monta um painel executivo de varejo direto do ERP conectado, em snapshot, ao vivo ou com atualização agendada.
-- **`analyze-mcp-*`** gera os relatórios de um ERP de varejo (estoque, vendas, compras, preços, perdas, fiscal, contábil e financeiro), cada um com sua prova de reconciliação.
+- **`analyze-mcp-*`** gera os relatórios de um ERP de varejo (estoque, vendas, compras, preços, perdas, fiscal, contábil e financeiro), cada um com sua prova de reconciliação, entregue como página no padrão visual da CD2.
 
 ## O problema
 
@@ -132,7 +132,7 @@ Três modos de atualização:
 
 ## Relatórios de ERP: `analyze-mcp-*`
 
-Peça o relatório pelo nome que você já usa no ERP. A skill do módulo localiza os dados no banco conectado, mede a qualidade, calcula e **prova** o resultado antes de entregar.
+Peça o relatório pelo nome que você já usa no ERP. A skill do módulo localiza os dados no banco conectado, mede a qualidade, calcula e **prova** o resultado antes de entregar. A entrega é uma página: abre com o achado principal e traz resumo, leitura, gráficos, tabelas, prova e premissas. Também sai em planilha, Markdown ou resumo para WhatsApp.
 
 | Skill | Você pede | Ela entrega |
 |---|---|---|
@@ -250,7 +250,7 @@ O DSH lê skills de diretórios planos (`~/.agents/skills/<skill>/SKILL.md`, ent
 
 O DSH está em developer preview e a DeepSeek avisa que haverá mudanças incompatíveis; se um caminho mudar, abra uma issue com a versão do `dsh`.
 
-> **Diferença entre ambientes:** no Claude (Code e Cowork), a `build-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex, no ChatGPT Work e no DeepSeek Harness, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. As demais skills funcionam igual em todos.
+> **Diferença entre ambientes:** no Claude (Code e Cowork), a `build-mcp-dashboard` publica o painel como artefato, nos modos snapshot, ao vivo e agendado. No Codex, no ChatGPT Work e no DeepSeek Harness, ela entrega o mesmo painel como arquivo HTML, só no modo snapshot, porque os modos ao vivo e agendado dependem de recursos do Claude. Os relatórios `analyze-mcp-*` saem como artefato no Claude e como arquivo HTML nos demais. A `spec-mcp-tool` funciona igual em todos.
 
 Depois de instalar, é só pedir:
 
@@ -281,6 +281,8 @@ As skills são escritas **uma vez**, em `core/`, e copiadas para o pacote de cad
 
 ```
 core/archeo/                    fonte única: skills/, references/, plugin.core.json
+core/archeo/shared/             kit que entra em cada skill (marca, renderizador dos relatórios)
+tests/                          testes do renderizador, do kit e do sync
 plugins/claude/archeo/          pacote do Claude Code (.claude-plugin/plugin.json + cópias geradas)
 plugins/codex/archeo/           pacote do Codex (plugin.json + cópias geradas)
 plugins/dsh/archeo/             pacote do DeepSeek Harness (plugin.json + install.py + skills/ geradas no layout plano)

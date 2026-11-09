@@ -56,4 +56,6 @@ Kardex que não fecha com o saldo atual é um achado importante (movimento fora 
 
 Use o formato do método comum. No resumo de qualquer relatório de posição, inclua: itens com saldo, valor a custo, valor a venda quando houver preço, itens negativos, itens zerados e cobertura de custo.
 
+**Na página:** Kardex em `cascata` (saldo inicial, entradas, saídas, saldo final), com `tolerancia_pct` 0; posição por departamento em `barras`; itens em `tabela`.
+
 Relatórios que valem virar ferramenta (`spec-mcp-tool`): Kardex (`$1` produto, `$2` loja, `$3` data inicial, `$4` data final), estoque geral por departamento (`$1` loja, `$2` departamento) e ruptura (`$1` loja, `$2` dias de venda recente).

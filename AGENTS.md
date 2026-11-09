@@ -9,9 +9,10 @@ Este repositório publica os mesmos plugins para mais de um harness (hoje Claude
 ```
 python3 scripts/sync_plugins.py
 python3 scripts/sync_plugins.py --check
+python3 -m unittest discover -s tests -v
 ```
 
-O CI roda o `--check` e falha se as cópias divergirem de `core/`.
+O CI roda o `--check` e os testes, e falha se as cópias divergirem de `core/`. Os testes importam os scripts da árvore gerada em `plugins/claude/`, por isso rode o sync antes.
 
 ## Onde fica cada coisa
 
@@ -19,6 +20,7 @@ O CI roda o `--check` e falha se as cópias divergirem de `core/`.
 |---|---|---|
 | `core/<plugin>/skills/` | Fonte única das skills | Sim |
 | `core/<plugin>/references/` | Referências compartilhadas entre skills | Sim |
+| `core/<plugin>/shared/` | Kit que entra em cada skill: `scripts/brand.py`, `scripts/render_relatorio.py`, `references/` e `assets/` (logos, Manrope, template do relatório) | Sim |
 | `core/<plugin>/plugin.core.json` | Nome e versão de referência do plugin | Sim |
 | `harnesses.json` | Quais harnesses recebem cada plugin e onde fica o manifesto | Sim |
 | `plugins/<harness>/<plugin>/` (manifesto, README e, no DSH, `install.py`) | Empacotamento específico do harness | Sim |
@@ -32,6 +34,8 @@ O CI roda o `--check` e falha se as cópias divergirem de `core/`.
 - Referências entre skills usam caminho relativo (`../outra-skill/references/x.md`); por isso cada harness recebe o conjunto completo.
 - Escreva as skills de forma neutra quanto ao harness. Quando um passo depender de um recurso exclusivo (por exemplo, publicar artefato no Claude), diga isso explicitamente na skill e ofereça a alternativa para os demais harnesses.
 - Ao mudar a versão, atualize `core/<plugin>/plugin.core.json` e os manifestos de cada harness. Não declare `version` na entrada do marketplace do Claude: o Claude Code usa a do `plugin.json` e a duplicação só abre espaço para divergência. O `--check` confere nome e versão dos manifestos. A mudança em `plugin.core.json` na `main` dispara `.github/workflows/release.yml`, que cria a release `<plugin>-v<versão>` com um ZIP por harness (gerado por `scripts/package_plugins.py`). Release de versão já existente não é recriada: suba a versão.
+- Kit compartilhado, no campo `shared` do plugin em `harnesses.json`: o sync soma `core/<plugin>/shared/` a cada skill, no mesmo caminho relativo, menos nas de `skip`. Arquivo do kit com o mesmo caminho de um arquivo da skill é erro.
+- Entregas visuais seguem o Design System CD2 Tech. Cores e rodapé vêm de `shared/scripts/brand.py`: fonte Manrope, raios de 6, 12, 24 e 999px, marca plana (sem sombra em card), sem degradê decorativo. Não escreva página à mão nas skills de análise: amplie o `render_relatorio.py`.
 - Layouts de harness, no campo `layout` de cada entrada em `harnesses.json`:
   - `plugin` (padrão; Claude e Codex): o harness instala o pacote inteiro, então `skills/` e `references/` são copiados como estão.
   - `flat-skills` (DSH): o harness lê cada skill de um diretório plano (`~/.agents/skills/<nome>/`), sem raiz de plugin. O sync copia só `skills/` e, para cada skill que cita um arquivo de `core/<plugin>/references/`, copia esse arquivo para `references/` da skill e reescreve o caminho. Consequência: não crie em `core/<plugin>/references/` um arquivo com o mesmo nome de um `references/` de skill, e não escreva caminhos para `references/` do plugin fora de crases (o sync só reescreve o que está entre crases).

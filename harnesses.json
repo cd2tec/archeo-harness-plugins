@@ -6,6 +6,12 @@
         "skills",
         "references"
       ],
+      "shared": {
+        "dir": "shared",
+        "skip": [
+          "spec-mcp-tool"
+        ]
+      },
       "harnesses": {
         "claude": {
           "path": "plugins/claude/archeo",

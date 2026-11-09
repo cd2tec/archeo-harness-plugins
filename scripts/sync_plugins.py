@@ -20,6 +20,11 @@ Layouts de harness (campo "layout" em harnesses.json, padrão "plugin"):
   compartilhadas que uma skill cita são copiadas para dentro de references/
   dessa skill e os caminhos são reescritos para o novo lugar.
 
+Kit compartilhado (campo "shared" do plugin em harnesses.json): o conteúdo de
+core/<plugin>/shared/ entra em cada skill no mesmo caminho relativo, menos nas
+skills de "skip". Cada skill fica autocontida. Arquivo do kit com o mesmo caminho
+de um arquivo da skill é erro: o compartilhado nunca sobrescreve o da skill.
+
 Além da cópia, o script confere:
 - se cada manifesto de harness existe e tem o mesmo nome e versão do core;
 - se todo SKILL.md tem frontmatter com name igual ao nome da pasta e description;
@@ -142,6 +147,34 @@ def rewrite_ref(text: str, old: str, new: str) -> str:
     return text.replace(f"`{old}`", f"`{new}`")
 
 
+def effective_core(core: Path, spec: dict, work: Path) -> tuple[Path, list[str]]:
+    """Devolve o core com o kit compartilhado já somado a cada skill.
+
+    Sem o campo "shared", devolve o próprio core. É esta árvore que os layouts
+    copiam e que a checagem de referências lê.
+    """
+    shared = spec.get("shared")
+    if not shared:
+        return core, []
+    problems: list[str] = []
+    origem = core / shared["dir"]
+    dest = (work / "core").resolve()
+    shutil.copytree(core, dest, ignore=shutil.ignore_patterns(shared["dir"], "__pycache__", "*.pyc", ".DS_Store"))
+    arquivos = [p for p in sorted(origem.rglob("*")) if p.is_file() and p.name != ".DS_Store" and "__pycache__" not in p.parts]
+    for skill_md in sorted(dest.glob("skills/*/SKILL.md")):
+        skill = skill_md.parent
+        if skill.name in shared.get("skip", []):
+            continue
+        for arquivo in arquivos:
+            alvo = skill / arquivo.relative_to(origem)
+            if alvo.exists():
+                problems.append(f"skills/{skill.name}/{arquivo.relative_to(origem)} já existe na skill e colide com o kit {shared['dir']}/")
+                continue
+            alvo.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(arquivo, alvo)
+    return dest, problems
+
+
 def build_flat_skills(core: Path, work: Path) -> list[str]:
     """Monta em `work/skills` a versão plana das skills de `core`.
 
@@ -182,7 +215,7 @@ def build_flat_skills(core: Path, work: Path) -> list[str]:
                     if not filecmp.cmp(target, new_target, shallow=False):
                         problems.append(
                             f"skills/{skill}/references/{target.relative_to(core_shared)} já existe na "
-                            f"skill e difere de {target.relative_to(ROOT)}; renomeie um dos dois"
+                            f"skill e difere do arquivo de references/ do plugin; renomeie um dos dois"
                         )
                         continue
                 else:
@@ -226,7 +259,10 @@ def main() -> int:
         core = ROOT / spec["core"]
         core_meta = read_manifest(core / "plugin.core.json")
         problems += check_frontmatter(core)
-        problems += check_refs(core, core.relative_to(ROOT))
+        base = tempfile.TemporaryDirectory(prefix=f"sync-{plugin}-core-")
+        efetivo, kit_problems = effective_core(core, spec, Path(base.name))
+        problems += kit_problems
+        problems += check_refs(efetivo, core.relative_to(ROOT))
 
         for harness, target in spec["harnesses"].items():
             dst = ROOT / target["path"]
@@ -243,8 +279,8 @@ def main() -> int:
                         )
 
             with tempfile.TemporaryDirectory(prefix=f"sync-{plugin}-{harness}-") as tmp:
-                work = Path(tmp)
-                build_problems, subs = build_tree(core, spec, target, work)
+                work = Path(tmp).resolve()  # macOS: /tmp é link; sem isto a comparação de caminhos muda
+                build_problems, subs = build_tree(efetivo, spec, target, work)
                 problems += [f"[{harness}] {p}" for p in build_problems]
                 problems += [f"[{harness}] {p}" for p in check_refs(work, dst.relative_to(ROOT))]
                 stale = [s for s in ("skills", "references") if s not in subs and (dst / s).exists()]
@@ -259,6 +295,7 @@ def main() -> int:
                             shutil.rmtree(dst_dir)
                         shutil.copytree(src_dir, dst_dir)
                         print(f"[{harness}] {plugin}: {sub}/ sincronizado em {dst_dir.relative_to(ROOT)}")
+        base.cleanup()
 
     if problems:
         print("\nProblemas encontrados:", file=sys.stderr)
