@@ -11,6 +11,9 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import brand  # noqa: E402  (kit de marca, vem de core/<plugin>/shared/scripts)
+
 TEMPLATE = Path(__file__).resolve().parent.parent / "assets" / "dashboard-template.html"
 TIPOS = {"kpis", "score", "linha", "barras", "heatmap", "tabela"}
 FORMATOS = {None, "moeda", "inteiro", "decimal", "pct", "dias"}
@@ -26,6 +29,11 @@ def validar(cfg):
         erro(msgs, "modo deve ser 'snapshot' ou 'live'")
     if not cfg.get("titulo"):
         erro(msgs, "titulo e obrigatorio")
+    if cfg.get("veredito") is not None:
+        if not (cfg["veredito"] or {}).get("titulo"):
+            erro(msgs, "veredito precisa de titulo")
+        if cfg.get("modo") == "live":
+            erro(msgs, "veredito e texto fixo: no modo ao vivo ele ficaria defasado, retire do config")
     if cfg.get("modo") == "live":
         live = cfg.get("live") or {}
         for k in ("server", "tool"):
@@ -88,7 +96,11 @@ def main():
             sys.exit(1)
         html = html[:ini] + html[fim + len("/*LIVE-END*/"):]
     payload = json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/")
-    html = html.replace("__DASH_TITLE__", titulo, 1).replace("__DASH_CONFIG__", payload, 1)
+    data = None if cfg["modo"] == "live" else str(cfg.get("geradoEm") or "")[:10] or None
+    for marca, valor in (("__FONT_FACE__", brand.font_face()), ("__TOKENS_CSS__", brand.tokens_css()),
+                         ("__LOGO__", brand.logo_html()), ("__FOOTER__", brand.footer_html(data)),
+                         ("__DASH_TITLE__", titulo), ("__DASH_CONFIG__", payload)):
+        html = html.replace(marca, valor, 1)
     Path(sys.argv[2]).write_text(html, encoding="utf-8")
     n = len(cfg.get("secoes") or [])
     print(f"OK: {sys.argv[2]} ({n} secoes, modo {cfg['modo']}, {len(html)//1024} KB)")

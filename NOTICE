@@ -6,4 +6,7 @@ Este produto inclui software desenvolvido pela CD2 Retail Tech
 
 "Archeo" e "CD2" são nomes da CD2 Retail Tech. A licença Apache 2.0 não
 concede direito de uso desses nomes e marcas, exceto para descrever a origem
-do software (seção 6 da licença).
+do software (seção 6 da licença). Isso inclui os logos em assets/brand/.
+
+A fonte Manrope, em assets/fonts/, é distribuída sob a SIL Open Font License 1.1.
+O texto da licença acompanha a fonte (OFL.txt).

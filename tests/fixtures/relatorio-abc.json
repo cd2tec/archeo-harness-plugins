@@ -1,0 +1,56 @@
+{
+  "area": "Análise de vendas",
+  "titulo": "ABC de venda",
+  "cliente": "Rede Exemplo, 3 lojas",
+  "gerado_em": "2026-11-08",
+  "fonte": { "banco": "erp_varejo", "engine": "SQL Server 16", "conector": "Archeo Manager" },
+  "recorte": { "unidade": "Todas as 3 lojas", "periodo": "90 dias até a última venda", "filtros": "Sem filtro", "nivel": "Sintético e os 20 maiores" },
+  "veredito": {
+    "titulo": "386 produtos fazem 80% da sua venda",
+    "texto": "E 41 deles vendem com margem abaixo de 3%. É por eles que a revisão de preço começa.",
+    "numeros": [
+      { "valor": 4812640.0, "formato": "moeda", "legenda": "venda líquida em 90 dias" },
+      { "valor": "5.130 itens", "legenda": "com venda no período, nas 3 lojas" }
+    ]
+  },
+  "resumo": [
+    { "rotulo": "Classe A", "valor": 79.8, "formato": "pct", "legenda": "da venda vem de 7,5% dos itens" },
+    { "rotulo": "10 maiores produtos", "valor": 25.7, "formato": "pct", "legenda": "da venda" },
+    { "rotulo": "Classe A com margem abaixo de 3%", "valor": 612480.0, "formato": "moeda", "legenda": "em 41 itens, 12,7% da venda" },
+    { "rotulo": "Cauda da classe C", "valor": 78.0, "formato": "pct", "legenda": "dos itens trazem 5,2% da venda" }
+  ],
+  "leitura": [
+    { "nivel": "critico", "texto": "41 itens da classe A têm margem abaixo de 3% e somam R$ 612.480,00. Revise preço e custo deles primeiro." },
+    { "nivel": "atencao", "texto": "Os 10 maiores produtos fazem 25,7% da venda. Cruze esta lista com a posição de estoque." },
+    { "nivel": "dado", "texto": "312 produtos estão com custo zerado, 4,3% da venda." }
+  ],
+  "blocos": [
+    { "tipo": "pareto", "titulo": "Curva ABC", "nota": "Cortes em 80% e 95% da venda acumulada.", "rotulo_itens": "itens", "formato": "moeda",
+      "classes": [ { "classe": "A", "itens": 386, "valor": 3838214.4 }, { "classe": "B", "itens": 742, "valor": 723118.9 }, { "classe": "C", "itens": 4002, "valor": 251306.7 } ],
+      "pontos": [ [0.9, 21], [2.6, 45], [5, 66], [12, 87.4], [45, 98.5] ] },
+    { "tipo": "barras", "titulo": "Sintético por departamento", "formato": "moeda",
+      "linhas": [ { "rotulo": "Mercearia", "valor": 2500000.0, "var_pct": 6.1 }, { "rotulo": "Açougue", "valor": 1500000.0, "var_pct": -1.2 }, { "rotulo": "Bebidas", "valor": 812640.0 } ] },
+    { "tipo": "linha", "titulo": "Venda por semana", "formato": "moeda", "series": { "atual": "Atual", "anterior": "Anterior" },
+      "pontos": [ { "x": "2026-10-01", "atual": 52000.0, "anterior": 49800.0 }, { "x": "2026-10-08", "atual": 61000.0, "anterior": 50200.0 }, { "x": "2026-10-15", "atual": 58000.0, "anterior": 55100.0 } ] },
+    { "tipo": "cascata", "titulo": "Do saldo inicial ao final", "formato": "moeda",
+      "etapas": [ { "rotulo": "Saldo inicial", "valor": 100000.0, "tipo": "inicial" }, { "rotulo": "Entradas", "valor": 40000.0, "tipo": "delta" }, { "rotulo": "Saídas", "valor": -55000.0, "tipo": "delta" }, { "rotulo": "Saldo final", "valor": 85000.0, "tipo": "final" } ] },
+    { "tipo": "tabela", "titulo": "Maiores produtos",
+      "colunas": [ { "campo": "descricao", "rotulo": "Produto" }, { "campo": "valor", "rotulo": "Venda líquida", "formato": "moeda" }, { "campo": "margem", "rotulo": "Margem", "formato": "pct", "alerta_abaixo": 3 }, { "campo": "classe", "rotulo": "Classe", "formato": "classe" } ],
+      "linhas": [ { "descricao": "7891 Arroz tipo 1 5 kg", "valor": 184734.0, "margem": 6.2, "classe": "A" }, { "descricao": "7713 Óleo de soja 900 ml", "valor": 148650.0, "margem": 1.8, "classe": "A" } ],
+      "total": { "descricao": "Total", "valor": 333384.0 } }
+  ],
+  "prova": {
+    "tolerancia_pct": 2,
+    "conferencias": [
+      { "nome": "Soma das classes = venda total", "esperado": 4812640.0, "obtido": 4812640.0, "formato": "moeda" },
+      { "nome": "Amostra de 5 itens conferida na origem", "fechou": true, "detalhe": "5 de 5 itens iguais" }
+    ]
+  },
+  "premissas": {
+    "filtros": [ "Fora da conta: 1.204 cupons cancelados e os registros indevidos." ],
+    "qualidade": [ "312 produtos com custo zerado, 4,3% da venda." ],
+    "indisponiveis": [ { "item": "Margem por loja", "motivo": "o custo tem uma linha por produto, não por loja" } ],
+    "consulta": "SELECT y.codigo FROM (SELECT x.* FROM <itens_venda> x) y"
+  },
+  "proximos": [ { "tag": "Virar ferramenta", "titulo": "ABC sob demanda", "texto": "Parâmetros: data inicial, data final, loja e departamento." }, { "tag": "Virar painel", "titulo": "Acompanhar todo dia", "texto": "Os indicadores recorrentes cabem no painel executivo." } ]
+}

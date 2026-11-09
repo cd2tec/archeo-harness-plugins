@@ -43,6 +43,8 @@ Calcule o índice de saúde com `references/score.md`.
 
 De 3 a 6 itens curtos, do mais urgente ao menos, com nível `critico`, `atencao`, `bom` ou `info`. Cada item cita o número que o sustenta e diz o que olhar. Inclua sempre um item sobre a qualidade do dado quando algo da etapa 4 apareceu (custo estimado, base sem comparação, concentração anormal). Leitura de negócio, não descrição do gráfico.
 
+Em snapshot e agendado, escreva também o `veredito`: uma frase com o achado principal, que abre o painel (por exemplo, "Vendeu mais, com margem menor"), e uma frase com os números. No modo ao vivo, deixe de fora: texto fixo ficaria defasado, e o painel abre com o título.
+
 ### 6. Monte e publique o artefato
 
 1. Escreva o config JSON no formato de `references/config.md`.

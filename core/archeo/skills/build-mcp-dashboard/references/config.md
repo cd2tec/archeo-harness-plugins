@@ -10,6 +10,7 @@
   "geradoEm": "2026-10-11T09:30:00-03:00",
   "modo": "snapshot",
   "live?": { "server": "Archeo Manager", "tool": "db_..._db_read_only_query", "schema": "dbo", "refetchMs": 300000 },
+  "veredito?": { "titulo": "Vendeu mais, com margem menor", "texto": "A venda subiu 4,8%, mas o desconto avançou 0,4 p.p." },
   "metaSecao": "kpis",
   "secoes": [ ... ],
   "leitura?": [ { "nivel": "atencao", "titulo": "...", "texto": "..." } ],
@@ -18,6 +19,7 @@
 }
 ```
 
+- `veredito`: abre o painel no bloco azul, com o índice de saúde ao lado. Sem ele, o bloco mostra `titulo`. O modo ao vivo recusa `veredito`, porque o texto não acompanha os dados.
 - `metaSecao`: id da seção cuja primeira linha traz `periodo_ini`, `periodo_fim`, `anterior_ini`, `anterior_fim` (texto `AAAA-MM-DD`). Alternativa: `"meta": { "sql?": "...", "dados?": [ {...} ] }`.
 - `modo`: `snapshot` exige `dados` em toda seção; `live` exige `sql` em toda seção e proíbe `dados`.
 - Todas as seções aceitam `id`, `tipo`, `titulo`, `nota?` (texto curto no canto), `vazio?` (texto quando não há linhas), `sql?`, `dados?`, `formato?` (`moeda`, `inteiro`, `decimal`, `pct`, `dias`).

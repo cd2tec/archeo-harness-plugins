@@ -55,4 +55,6 @@ Pedido genérico ("análise de vendas") recebe a **ABC de venda por produto** co
 
 Formato do método comum. Toda ABC traz o quadro de classes (itens, % dos itens, valor, % do valor) antes da lista.
 
+**Na página:** ABC em bloco `pareto`, que já traz o quadro de classes; sintético por departamento em `barras`; lista em `tabela` com a coluna `classe`. Comparativo em `linha` ou em `barras` com `var_pct`.
+
 Relatórios que valem virar ferramenta (`spec-mcp-tool`): ABC de venda (`$1` data inicial, `$2` data final, `$3` loja, `$4` departamento), venda por cliente (`$1`, `$2` período, `$3` segmento) e clientes inativos (`$1` dias sem compra).

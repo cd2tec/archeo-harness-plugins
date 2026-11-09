@@ -80,6 +80,24 @@ As consultas-modelo das skills estão em SQL Server. Marcação: **[validado]** 
 
 ## 4. Formato da entrega
 
+Todo relatório sai como página, pelo renderizador comum. Você não escreve o HTML à mão e não declara se a prova fechou: o script decide, a partir dos números.
+
+1. Grave `relatorio.json` na pasta de trabalho do usuário, no formato de `references/formato-relatorio.md`. O título do veredito é o achado principal, com o número. A leitura é a do passo 2.6.
+2. Gere a página, rodando a partir da pasta de trabalho e chamando o script pelo caminho completo, para a entrega não cair dentro da pasta do plugin:
+
+   ```bash
+   python3 <pasta da skill>/scripts/render_relatorio.py --input relatorio.json --format html --output relatorio.html
+   ```
+
+3. Se o script sair com código 2, ele devolve `{"errors": [...]}`. Corrija o JSON e rode de novo. Relatório sem prova não gera página.
+4. Entregue conforme o harness:
+   - **Claude com Artifact tool:** carregue `artifact-design`, como o tool exige, e publique o `relatorio.html` com ícone `chart` e título com o relatório e a rede. O artefato é privado por padrão e traz dado do cliente: não sugira compartilhar sem o usuário pedir.
+   - **Outros harnesses que rodam código (por exemplo, Codex ou DeepSeek Harness):** deixe o `relatorio.html` na pasta de trabalho e diga o caminho completo.
+   - **Sem execução de código:** avise em uma linha e escreva a entrega no formato de texto abaixo.
+5. Na conversa, sempre: o achado principal, se a prova fechou, o recorte e o link ou caminho da página.
+
+Se o usuário pedir outro formato, rode com `--format markdown`, `whatsapp` ou `csv`. O formato de texto é este:
+
 ```
 **<Nome do relatório>**
 Banco: <banco> (<engine e versão>), via <conector>
@@ -105,7 +123,7 @@ Números em formato brasileiro (`1.234,56`), moeda com `R$`, percentual com uma 
 
 ## 5. Volume e exportação
 
-- **Sintético na conversa, analítico em arquivo.** Acima de 30 linhas, entregue planilha (`.xlsx` ou `.csv`) com uma aba de dados, uma de resumo e uma de premissas. Use a skill de planilha da sessão, se houver.
+- **Sintético na conversa e na página, analítico em arquivo.** A página mostra até 30 linhas por tabela. Acima disso, entregue planilha (`.xlsx` ou `.csv`) com uma aba de dados, uma de resumo e uma de premissas. Use a skill de planilha da sessão, se houver.
 - **Analítico grande não se pagina pela conversa.** Um Kardex de todos os produtos ou um razão de todas as contas tem centenas de milhares de linhas. Entregue o sintético, o analítico dos maiores e ofereça a ferramenta parametrizada (seção 7) para o usuário consultar item a item.
 - O conector limita linhas por chamada. Para exportar algo entre o limite e ~20 mil linhas, pagine por faixa de chave (`WHERE chave > <última>` com `TOP`), nunca por `OFFSET` crescente, e confira a contagem final contra `COUNT(*)`.
 
@@ -129,6 +147,7 @@ Ofereça em uma linha no fim da entrega, sem insistir.
 ## 8. Checklist
 
 - [ ] Banco, engine, conector e recorte declarados.
+- [ ] Página gerada por `scripts/render_relatorio.py`, com a prova avaliada por ele.
 - [ ] Tabelas medidas (volume, período, flags) antes do cálculo.
 - [ ] Filtros fixos de cancelamento, estorno e exclusão lógica aplicados e listados.
 - [ ] Prova do relatório executada, com a diferença informada.

@@ -64,4 +64,6 @@ Diga se venda e custo estão com ou sem impostos. Venda com imposto contra custo
 
 Formato do método comum, com o teste do custo no bloco de premissas. A skill não altera preço: sugestões de remarcação saem como lista para decisão.
 
+**Na página:** margem por departamento em `barras`, itens em `tabela` com `alerta_abaixo` na margem. O teste do custo vai em `premissas.qualidade`; cobertura abaixo de 90% vai também em `avisos`.
+
 Relatórios que valem virar ferramenta (`spec-mcp-tool`): margem por departamento (`$1`, `$2` período, `$3` loja), itens com margem negativa (`$1`, `$2` período, `$3` loja) e custo sem repasse (`$1` dias, `$2` variação mínima %).

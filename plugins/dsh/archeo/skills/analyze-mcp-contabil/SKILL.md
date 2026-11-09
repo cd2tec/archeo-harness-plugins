@@ -63,4 +63,6 @@ Balancete que não fecha não é entregue como balancete: entregue a diferença,
 
 Formato do método comum, com o aviso de conferência no cabeçalho. Valores em colunas de débito, crédito e saldo com indicador D ou C.
 
+**Na página:** use `"conferencia": true` e `tolerancia_pct` 0 nas provas de débito = crédito. Balancete em `tabela`, resultado em `cascata`. Balancete que não fecha abre a página com a diferença.
+
 Relatórios que valem virar ferramenta (`spec-mcp-tool`): balancete (`$1` empresa, `$2` data inicial, `$3` data final, `$4` nível) e razão (`$1` empresa, `$2` conta, `$3`, `$4` período).

@@ -54,4 +54,6 @@ Pedido genérico ("como está o financeiro") recebe **a pagar e a receber por fa
 
 Formato do método comum. Em toda projeção, separe **realizado**, **previsto por título** e **não incluído**, e nunca apresente projeção como saldo.
 
+**Na página:** faixas de vencimento em `barras`, fluxo realizado em `cascata`, projeção em `linha`. Nos nomes das séries, deixe claro o que é realizado e o que é previsto.
+
 Relatórios que valem virar ferramenta (`spec-mcp-tool`): a pagar por vencimento (`$1` data de referência, `$2` empresa, `$3` fornecedor), títulos vencidos por cliente (`$1` data de referência, `$2` dias mínimos de atraso) e fluxo previsto por dia (`$1`, `$2` período, `$3` empresa).

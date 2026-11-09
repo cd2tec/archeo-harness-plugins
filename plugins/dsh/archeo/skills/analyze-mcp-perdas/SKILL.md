@@ -57,4 +57,6 @@ Pedido genérico ("como estão as perdas") recebe a **perda total** (3.2) com a 
 
 Formato do método comum. Sempre diga quais departamentos tiveram inventário no período e quais não tiveram.
 
+**Na página:** perda por motivo e por departamento em `barras`, evolução em `linha`, exceções em `tabela`. Departamentos sem inventário no período vão em `premissas.qualidade`.
+
 Relatórios que valem virar ferramenta (`spec-mcp-tool`): quebra por motivo (`$1`, `$2` período, `$3` loja, `$4` departamento) e exceções por operador (`$1`, `$2` período, `$3` loja).
